@@ -19,7 +19,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.permapaysage.com"),
-  title: "Permapaysage — Eco-paysagiste a Vallet | Conception, amenagement et entretien",
+  title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
   description:
     "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet et dans le Vignoble Nantais.",
   alternates: {
@@ -33,21 +33,21 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://www.permapaysage.com",
     siteName: "Permapaysage",
-    title: "Permapaysage — Eco-paysagiste a Vallet",
-    description: "Conception, amenagement et entretien de jardins durables a Vallet.",
+    title: "Permapaysage — Éco-paysagiste à Vallet",
+    description: "Conception, aménagement et entretien de jardins durables à Vallet.",
     images: [
       {
         url: "/images/og-garden.svg",
         width: 1200,
         height: 630,
-        alt: "Permapaysage, eco-paysagiste a Vallet",
+        alt: "Permapaysage, éco-paysagiste à Vallet",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Permapaysage — Eco-paysagiste a Vallet",
-    description: "Conception, amenagement et entretien de jardins durables a Vallet.",
+    title: "Permapaysage — Éco-paysagiste à Vallet",
+    description: "Conception, aménagement et entretien de jardins durables à Vallet.",
     images: ["/images/og-garden.svg"],
   },
 };

@@ -31,7 +31,7 @@ export default function BlogPage() {
                 alt={`Illustration de l'article ${post.title}`}
                 width={900}
                 height={600}
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-4/3 w-full object-cover"
               />
               <div className="space-y-3 p-5">
                 <div className="text-muted-foreground flex items-center gap-2 text-xs">

@@ -33,7 +33,7 @@ export function Header() {
             className="h-9 w-auto transition-opacity group-hover:opacity-90"
             priority
           />
-          <span className="hidden text-xs tracking-[0.18em] uppercase text-muted-foreground lg:inline">Eco-paysagiste a Vallet</span>
+          <span className="hidden text-xs tracking-[0.18em] uppercase text-muted-foreground lg:inline">Éco-paysagiste à Vallet</span>
         </Link>
 
         <nav aria-label="Navigation principale" className="hidden items-center gap-1 md:flex">

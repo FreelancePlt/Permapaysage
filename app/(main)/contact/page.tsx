@@ -36,13 +36,13 @@ export default function ContactPage() {
               <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Contact</p>
               <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Parlons de votre projet paysager</h1>
               <p className="text-muted-foreground max-w-xl text-base leading-relaxed md:text-lg">
-                Cette maquette inclut un formulaire structure pour preparer l&apos;integration Web3Forms. Reponse cible sous 48 h.
+                Cette maquette inclut un formulaire structuré pour préparer l&apos;intégration Web3Forms. Réponse cible sous 48 h.
               </p>
 
               <div className="bg-card border-border rounded-lg border p-6">
                 <dl className="space-y-3 text-sm">
                   <div>
-                    <dt className="text-muted-foreground">Telephone</dt>
+                    <dt className="text-muted-foreground">Téléphone</dt>
                     <dd className="mt-1 font-medium">{company.phone}</dd>
                   </div>
                   <div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                   />
                 </label>
                 <label className="space-y-2 text-sm font-medium sm:col-span-1">
-                  Telephone
+                  Téléphone
                   <input
                     type="tel"
                     name="phone"
@@ -100,10 +100,10 @@ export default function ContactPage() {
                     defaultValue=""
                   >
                     <option value="" disabled>
-                      Selectionnez une option
+                      Sélectionnez une option
                     </option>
                     <option value="conception">Conception</option>
-                    <option value="amenagement">Amenagement</option>
+                    <option value="amenagement">Aménagement</option>
                     <option value="entretien">Entretien</option>
                     <option value="global">Projet complet</option>
                   </select>
@@ -114,7 +114,7 @@ export default function ContactPage() {
                     name="message"
                     rows={5}
                     required
-                    placeholder="Decrivez votre projet"
+                    placeholder="Décrivez votre projet"
                     className="border-input bg-background w-full rounded-sm border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
                   />
                 </label>
@@ -126,7 +126,7 @@ export default function ContactPage() {
               >
                 Envoyer la demande
               </button>
-              {/* <p className="text-muted-foreground mt-3 text-xs">Integration Web3Forms a brancher ensuite avec les variables d&apos;environnement.</p> */}
+              {/* <p className="text-muted-foreground mt-3 text-xs">Intégration Web3Forms à brancher ensuite avec les variables d&apos;environnement.</p> */}
             </form>
           </div>
         </Container>
@@ -136,10 +136,10 @@ export default function ContactPage() {
         <Container>
           <h2 className="text-3xl leading-tight tracking-tight">Zone d&apos;intervention autour de Vallet</h2>
           <p className="text-muted-foreground mt-3 max-w-2xl text-sm md:text-base">
-            Maquette carte: integration Leaflet prevue. Couverture actuelle: 25 km autour de Vallet.
+            Maquette carte: intégration Leaflet prévue. Couverture actuelle: 25 km autour de Vallet.
           </p>
           <div className="border-border bg-background mt-6 rounded-lg border p-4">
-            <div className="from-primary/25 to-secondary/20 h-72 w-full rounded-md bg-gradient-to-br" aria-label={"Carte de la zone d'intervention"} />
+            <div className="from-primary/25 to-secondary/20 h-72 w-full rounded-md bg-linear-to-br" aria-label={"Carte de la zone d'intervention"} />
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {interventionCities.map((city) => (
@@ -149,13 +149,13 @@ export default function ContactPage() {
             ))}
           </div>
           <p className="mt-6 text-sm">
-            Besoin d&apos;une verification rapide de zone ? Appelez directement le <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-primary font-semibold">{company.phone}</a>.
+            Besoin d&apos;une vérification rapide de zone ? Appelez directement le <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-primary font-semibold">{company.phone}</a>.
           </p>
           <p className="text-muted-foreground mt-2 text-xs">
-            Le volet RGPD (cookies/consentement) sera raccorde sur la version finale avec tracking analytics.
+            Le volet RGPD (cookies/consentement) sera raccordé sur la version finale avec tracking analytics.
           </p>
           <Link href="/mentions-legales" className="text-primary mt-4 inline-flex text-sm font-semibold hover:underline">
-            Consulter les mentions legales
+            Consulter les mentions légales
           </Link>
         </Container>
       </section>

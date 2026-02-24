@@ -102,4 +102,9 @@
   a {
     @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none;
   }
+
+}
+
+button {
+  cursor: pointer;
 }

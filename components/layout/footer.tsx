@@ -11,7 +11,7 @@ export function Footer() {
           <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Permapaysage</p>
           <h2 className="font-serif text-2xl tracking-tight">Des jardins qui prennent racine dans le temps.</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Conception, amenagement et entretien de jardins ecologiques a Vallet et dans tout le Vignoble Nantais.
+            Conception, aménagement et entretien de jardins écologiques à Vallet et dans tout le Vignoble Nantais.
           </p>
           <div className="text-muted-foreground space-y-2 text-sm">
             <p className="inline-flex items-start gap-2">
@@ -75,7 +75,7 @@ export function Footer() {
       </div>
 
       <div className="border-border/80 text-muted-foreground border-t px-4 py-4 text-center text-xs md:px-6">
-        <p>© {new Date().getFullYear()} Permapaysage. Tous droits reserves.</p>
+        <p>© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
       </div>
     </footer>
   );

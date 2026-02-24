@@ -250,6 +250,53 @@ export const entretienFaq = [
     answer:
       "Non. L'approche privilégie des pratiques écologiques: désherbage manuel, mulching et entretien raisonné.",
   },
+  {
+    question: "Quels sont vos tarifs et fréquences de passage ?",
+    answer:
+      "Les tarifs varient selon la surface et les besoins. Les passages peuvent être ponctuels (taille de haies, grand nettoyage) ou réguliers (contrat annuel d'entretien).",
+  },
+  {
+    question: "Acceptez-vous le CESU ?",
+    answer:
+      "Oui, dans le cadre du service à la personne (réalisé via Le Jardinier du Vignoble), le règlement par Chèque Emploi Service Universel (CESU) préfinancé est accepté.",
+  },
+];
+
+export const conceptionSteps = [
+  {
+    title: "Rencontre & Écoute",
+    description: "Un premier échange sur place pour comprendre vos besoins, le budget et s'imprégner des lieux.",
+  },
+  {
+    title: "Relevé & Étude",
+    description: "Prises de cotes, analyse de l'ensoleillement et de la qualité du sol pour un projet viable.",
+  },
+  {
+    title: "Esquisses & Plans",
+    description: "Propositions d'aménagement avec croquis, choix des matériaux et palette végétale.",
+  },
+  {
+    title: "Dossier final",
+    description: "Remise du plan détaillé avec le devis de réalisation si vous souhaitez nous confier les travaux.",
+  },
+];
+
+export const amenagementTypes = [
+  {
+    title: "Terrasses bois",
+    description: "Des espaces à vivre chaleureux et durables, posés dans les règles de l'art.",
+    image: "/images/project-01.svg",
+  },
+  {
+    title: "Clôtures et limites",
+    description: "Palissades bois ou naturelles pour structurer l'espace et s'isoler avec élégance.",
+    image: "/images/project-02.svg",
+  },
+  {
+    title: "Massifs et végétalisation",
+    description: "Des palettes végétales adaptées au sol et au climat, vivantes toute l'année.",
+    image: "/images/project-03.svg",
+  },
 ];
 
 export const interventionCities = [

@@ -8,7 +8,7 @@ import { buildPageMetadata } from "@/lib/seo";
 import { company, metrics, processSteps, projects, services, testimonials, blogPosts } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
-  title: "Permapaysage — Eco-paysagiste a Vallet | Conception, amenagement et entretien",
+  title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
   description:
     "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet, Clisson, Vertou et dans tout le Vignoble Nantais.",
   path: "/",
@@ -65,9 +65,9 @@ export default function HomePage() {
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
-              <p className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase">Eco-paysagiste a Vallet</p>
+              <p className="text-secondary text-xs font-semibold tracking-[0.2em] uppercase">Éco-paysagiste à Vallet</p>
               <h1 className="text-4xl leading-[1.08] tracking-tight md:text-6xl">
-                Des jardins vivants, structures pour durer et faciles a aimer.
+                Des jardins vivants, structurés pour durer et faciles à aimer.
               </h1>
               <p className="text-muted-foreground max-w-xl text-base leading-relaxed md:text-lg">
                 Permapaysage conçoit, aménage et entretient des extérieurs sobres, chaleureux et écologiques dans un rayon de 25 km autour de Vallet.
@@ -83,7 +83,7 @@ export default function HomePage() {
                   href="/realisations"
                   className="border-primary text-primary hover:bg-primary/10 inline-flex h-11 items-center justify-center rounded-sm border px-6 text-sm font-semibold transition-colors"
                 >
-                  Voir les realisations
+                  Voir les réalisations
                 </Link>
               </div>
               <div className="text-muted-foreground flex flex-wrap gap-6 text-sm">
@@ -91,7 +91,7 @@ export default function HomePage() {
                   <span className="text-foreground font-semibold">{company.rating}</span> sur Google
                 </p>
                 <p>
-                  <span className="text-foreground font-semibold">{company.reviewCount} avis</span> verifies
+                  <span className="text-foreground font-semibold">{company.reviewCount} avis</span> vérifiés
                 </p>
                 <p>
                   <span className="text-foreground font-semibold">{company.radius}</span>
@@ -103,7 +103,7 @@ export default function HomePage() {
               <div className="bg-card border-border rounded-lg border p-4 shadow-lg">
                 <Image
                   src="/images/hero-garden.svg"
-                  alt="Perspective maquette d'un jardin paysager ecologique"
+                  alt="Perspective maquette d'un jardin paysager écologique"
                   width={1024}
                   height={768}
                   priority
@@ -111,8 +111,8 @@ export default function HomePage() {
                 />
                 <div className="mt-4 grid gap-2 text-sm md:grid-cols-3">
                   <p className="bg-background border-border rounded-sm border px-3 py-2">Conception sur mesure</p>
-                  <p className="bg-background border-border rounded-sm border px-3 py-2">Materiaux durables</p>
-                  <p className="bg-background border-border rounded-sm border px-3 py-2">Entretien ecologique</p>
+                  <p className="bg-background border-border rounded-sm border px-3 py-2">Matériaux durables</p>
+                  <p className="bg-background border-border rounded-sm border px-3 py-2">Entretien écologique</p>
                 </div>
               </div>
             </div>
@@ -124,8 +124,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Services"
-            title="Trois expertises pour un jardin coherent"
-            description="De la premiere idee jusqu'au suivi dans le temps, chaque intervention est pensee pour la durabilite et le confort d'usage."
+            title="Trois expertises pour un jardin cohérent"
+            description="De la première idée jusqu'au suivi dans le temps, chaque intervention est pensée pour la durabilité et le confort d'usage."
           />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {services.map((service) => (
@@ -144,7 +144,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <Link href={`/${service.slug}`} className="text-primary mt-6 inline-flex text-sm font-semibold hover:underline">
-                  Decouvrir le service
+                  Découvrir le service
                 </Link>
               </article>
             ))}
@@ -156,13 +156,13 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Processus"
-            title="Une methode claire en 5 etapes"
+            title="Une méthode claire en 5 étapes"
             description="Un cadre simple pour avancer sereinement, avec une vision long terme du jardin."
           />
           <ol className="mt-10 grid gap-4 md:grid-cols-5">
             {processSteps.map((step, index) => (
               <li key={step.title} className="bg-background border-border rounded-md border p-5">
-                <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">Etape {index + 1}</p>
+                <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">Étape {index + 1}</p>
                 <h3 className="mt-3 text-xl leading-snug">{step.title}</h3>
                 <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{step.description}</p>
               </li>
@@ -175,8 +175,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Chiffres"
-            title="Des resultats concrets sur le terrain"
-            description="Une expertise construite au fil des saisons et des projets accompagnes dans le Vignoble Nantais."
+            title="Des résultats concrets sur le terrain"
+            description="Une expertise construite au fil des saisons et des projets accompagnés dans le Vignoble Nantais."
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {metrics.map((metric) => (
@@ -194,10 +194,10 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Avis clients"
             title="Un niveau de confiance élevée"
-            description="Les retours clients confirment la qualite d'execution, l'ecoute et la regularite du suivi."
+            description="Les retours clients confirment la qualité d'exécution, l'écoute et la régularité du suivi."
             action={
               <Link href="/contact" className="text-primary text-sm font-semibold hover:underline">
-                Demarrer votre projet
+                Démarrer votre projet
               </Link>
             }
           />
@@ -215,9 +215,9 @@ export default function HomePage() {
       <section className="py-14 md:py-20">
         <Container>
           <SectionHeading
-            eyebrow="Realisations"
-            title="Des projets differents, une même exigence"
-            description="Chaque jardin est pense pour son contexte: terrain, usages et relation a la maison."
+            eyebrow="Réalisations"
+            title="Des projets différents, une même exigence"
+            description="Chaque jardin est pensé pour son contexte: terrain, usages et relation à la maison."
             action={
               <Link href="/realisations" className="text-primary text-sm font-semibold hover:underline">
                 Toutes les réalisations
@@ -229,7 +229,7 @@ export default function HomePage() {
               <article key={project.slug} className="bg-card border-border overflow-hidden rounded-lg border">
                 <Image
                   src={project.image}
-                  alt={`Projet ${project.title} a ${project.city}`}
+                  alt={`Projet ${project.title} à ${project.city}`}
                   width={900}
                   height={600}
                   className="aspect-[4/3] w-full object-cover"
@@ -253,7 +253,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Blog"
             title="Conseils jardinage, conception et entretien"
-            description="Des contenus pratiques pour entretenir un jardin esthetique, ecologique et resilient."
+            description="Des contenus pratiques pour entretenir un jardin esthétique, écologique et résilient."
             action={
               <Link href="/blog" className="text-primary text-sm font-semibold hover:underline">
                 Tous les articles
@@ -291,7 +291,7 @@ export default function HomePage() {
               <p className="text-xs font-semibold tracking-[0.18em] uppercase">Lancer votre projet</p>
               <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">Parlons de votre jardin et de votre vision.</h2>
               <p className="text-primary-foreground/90 text-sm md:text-base">
-                Un premier echange permet de cadrer rapidement la faisabilite, les priorites et les etapes.
+                Un premier échange permet de cadrer rapidement la faisabilité, les priorités et les étapes.
               </p>
             </div>
             <div className="mt-6 md:mt-0">
