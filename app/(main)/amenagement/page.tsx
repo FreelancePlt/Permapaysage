@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ServicePageSection } from "@/components/sections/service-page";
+import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
 import { buildPageMetadata } from "@/lib/seo";
@@ -114,6 +115,8 @@ export default function AmenagementPage() {
           </div>
         </Container>
       </section>
+
+      <CtaSection />
     </>
   );
 }

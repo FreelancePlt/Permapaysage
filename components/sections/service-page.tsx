@@ -85,8 +85,11 @@ export function ServicePageSection({
                   </li>
                 ))}
               </ul>
-              <Link href="/contact" className="text-primary mt-8 inline-flex text-sm font-semibold hover:underline">
-                Parler de votre besoin
+              <Link
+                href="/contact"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
+              >
+                Parler de votre projet
               </Link>
             </article>
           </div>

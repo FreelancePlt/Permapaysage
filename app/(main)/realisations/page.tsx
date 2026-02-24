@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { buildPageMetadata } from "@/lib/seo";
@@ -15,8 +16,9 @@ export const metadata = buildPageMetadata({
 
 export default function RealisationsPage() {
   return (
-    <section className="py-16 md:py-24">
-      <Container>
+    <>
+      <section className="py-16 md:py-24">
+        <Container>
         <SectionHeading
           eyebrow="Réalisations"
           title="Projets de jardins réalisés"
@@ -46,5 +48,7 @@ export default function RealisationsPage() {
         </div>
       </Container>
     </section>
+      <CtaSection />
+    </>
   );
 }
