@@ -126,7 +126,7 @@ export default function ContactPage() {
               >
                 Envoyer la demande
               </button>
-              <p className="text-muted-foreground mt-3 text-xs">Integration Web3Forms a brancher ensuite avec les variables d&apos;environnement.</p>
+              {/* <p className="text-muted-foreground mt-3 text-xs">Integration Web3Forms a brancher ensuite avec les variables d&apos;environnement.</p> */}
             </form>
           </div>
         </Container>

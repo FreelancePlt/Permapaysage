@@ -193,7 +193,7 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Avis clients"
-            title="Un niveau de confiance eleve"
+            title="Un niveau de confiance élevée"
             description="Les retours clients confirment la qualite d'execution, l'ecoute et la regularite du suivi."
             action={
               <Link href="/contact" className="text-primary text-sm font-semibold hover:underline">
@@ -216,11 +216,11 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Realisations"
-            title="Des projets differents, une meme exigence"
+            title="Des projets differents, une même exigence"
             description="Chaque jardin est pense pour son contexte: terrain, usages et relation a la maison."
             action={
               <Link href="/realisations" className="text-primary text-sm font-semibold hover:underline">
-                Toutes les realisations
+                Toutes les réalisations
               </Link>
             }
           />
