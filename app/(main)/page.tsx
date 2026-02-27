@@ -5,8 +5,8 @@ import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { StructuredData } from "@/components/shared/structured-data";
-import { buildPageMetadata } from "@/lib/seo";
-import { company, metrics, processSteps, projects, services, testimonials, blogPosts } from "@/lib/site-data";
+import { BASE_URL, buildPageMetadata } from "@/lib/seo";
+import { blogPosts, company, metrics, processSteps, projects, services, testimonials } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
@@ -19,7 +19,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: company.name,
-  image: "https://www.permapaysage.com/images/hero-garden.svg",
+  image: `${BASE_URL}/images/hero-garden.svg`,
   telephone: company.phone,
   email: company.email,
   address: {

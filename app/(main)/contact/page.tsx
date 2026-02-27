@@ -1,14 +1,16 @@
 import Link from "next/link";
 
+import { ContactForm } from "@/components/shared/contact-form";
 import { Container } from "@/components/shared/container";
+import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { StructuredData } from "@/components/shared/structured-data";
-import { buildPageMetadata } from "@/lib/seo";
+import { BASE_URL, buildPageMetadata } from "@/lib/seo";
 import { company, interventionCities } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Contactez Permapaysage — Devis gratuit paysagiste Vallet",
   description:
-    "Contactez Permapaysage pour un devis gratuit: conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
+    "Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
   path: "/contact",
 });
 
@@ -17,7 +19,7 @@ export default function ContactPage() {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Contact Permapaysage",
-    url: "https://www.permapaysage.com/contact",
+    url: `${BASE_URL}/contact`,
     about: {
       "@type": "LocalBusiness",
       name: company.name,
@@ -36,7 +38,7 @@ export default function ContactPage() {
               <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Contact</p>
               <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Parlons de votre projet paysager</h1>
               <p className="text-muted-foreground max-w-xl text-base leading-relaxed md:text-lg">
-                Cette maquette inclut un formulaire structuré pour préparer l&apos;intégration Web3Forms. Réponse cible sous 48 h.
+                Remplissez le formulaire ci-dessous ou contactez-nous directement. Nous vous répondons sous 48 heures.
               </p>
 
               <div className="bg-card border-border rounded-lg border p-6">
@@ -61,73 +63,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <form className="bg-card border-border rounded-lg border p-6 md:p-8" action="#" method="post">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="space-y-2 text-sm font-medium sm:col-span-1">
-                  Nom
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Votre nom"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-1">
-                  Téléphone
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="06 00 00 00 00"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="vous@email.fr"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Type de besoin
-                  <select
-                    name="projectType"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Sélectionnez une option
-                    </option>
-                    <option value="conception">Conception</option>
-                    <option value="amenagement">Aménagement</option>
-                    <option value="entretien">Entretien</option>
-                    <option value="global">Projet complet</option>
-                  </select>
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Message
-                  <textarea
-                    name="message"
-                    rows={5}
-                    required
-                    placeholder="Décrivez votre projet"
-                    className="border-input bg-background w-full rounded-sm border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-6 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
-              >
-                Envoyer la demande
-              </button>
-              {/* <p className="text-muted-foreground mt-3 text-xs">Intégration Web3Forms à brancher ensuite avec les variables d&apos;environnement.</p> */}
-            </form>
+            <ContactForm />
           </div>
         </Container>
       </section>
@@ -136,10 +72,10 @@ export default function ContactPage() {
         <Container>
           <h2 className="text-3xl leading-tight tracking-tight">Zone d&apos;intervention autour de Vallet</h2>
           <p className="text-muted-foreground mt-3 max-w-2xl text-sm md:text-base">
-            Maquette carte: intégration Leaflet prévue. Couverture actuelle: 25 km autour de Vallet.
+            Nous intervenons dans un rayon de 25 km autour de Vallet, au c&#339;ur du Vignoble Nantais.
           </p>
-          <div className="border-border bg-background mt-6 rounded-lg border p-4">
-            <div className="from-primary/25 to-secondary/20 h-72 w-full rounded-md bg-linear-to-br" aria-label={"Carte de la zone d'intervention"} />
+          <div className="border-border bg-background mt-6 overflow-hidden rounded-lg border">
+            <InterventionMapLazy />
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {interventionCities.map((city) => (
@@ -149,10 +85,11 @@ export default function ContactPage() {
             ))}
           </div>
           <p className="mt-6 text-sm">
-            Besoin d&apos;une vérification rapide de zone ? Appelez directement le <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-primary font-semibold">{company.phone}</a>.
-          </p>
-          <p className="text-muted-foreground mt-2 text-xs">
-            Le volet RGPD (cookies/consentement) sera raccordé sur la version finale avec tracking analytics.
+            Besoin d&apos;une vérification rapide de zone ? Appelez directement le{" "}
+            <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-primary font-semibold">
+              {company.phone}
+            </a>
+            .
           </p>
           <Link href="/mentions-legales" className="text-primary mt-4 inline-flex text-sm font-semibold hover:underline">
             Consulter les mentions légales

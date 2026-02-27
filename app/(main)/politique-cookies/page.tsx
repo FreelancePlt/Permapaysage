@@ -14,18 +14,18 @@ export default function CookiesPage() {
         <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Politique de cookies</h1>
         <section className="space-y-3 text-sm leading-relaxed">
           <h2 className="text-2xl">Pourquoi des cookies ?</h2>
-          <p>Les cookies servent a mesurer l&apos;audience et a ameliorer l&apos;experience utilisateur. Aucun cookie non essentiel n&apos;est depose sans consentement.</p>
+          <p>Les cookies servent à mesurer l&apos;audience et à améliorer l&apos;expérience utilisateur. Aucun cookie non essentiel n&apos;est déposé sans consentement.</p>
         </section>
         <section className="space-y-3 text-sm leading-relaxed">
           <h2 className="text-2xl">Types de cookies</h2>
-          <p>Cookies strictement necessaires, cookies de mesure d&apos;audience et cookies eventuels de personnalisation.</p>
+          <p>Cookies strictement nécessaires, cookies de mesure d&apos;audience et cookies éventuels de personnalisation.</p>
         </section>
         <section className="space-y-3 text-sm leading-relaxed">
           <h2 className="text-2xl">Gestion du consentement</h2>
-          <p>Un bandeau de consentement RGPD sera active en version finale pour permettre l&apos;acceptation ou le refus des cookies optionnels.</p>
+          <p>Vous pouvez accepter ou refuser les cookies optionnels via les paramètres de votre navigateur.</p>
         </section>
         <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-2xl">Droit d&apos;acces</h2>
+          <h2 className="text-2xl">Droit d&apos;accès</h2>
           <p>Pour toute question, contactez permapaysage.jl@gmail.com.</p>
         </section>
       </Container>

@@ -75,14 +75,12 @@ export default function ConceptionPage() {
           <div className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
             <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">Plans & Croquis</h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
-              À venir : quelques exemples de nos propositions d&apos;aménagement et palettes végétales.
+              Quelques exemples de nos propositions d&apos;aménagement et palettes végétales.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-muted flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border">
-                <span className="text-muted-foreground text-sm">visuel {item} à venir</span>
-              </div>
+              <div key={item} className="bg-muted flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border" />
             ))}
           </div>
         </Container>

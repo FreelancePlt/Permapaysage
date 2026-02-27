@@ -50,16 +50,16 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">{project.title}</h1>
             <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed md:text-lg">{project.summary}</p>
             <div className="mt-7 grid gap-3 text-sm sm:grid-cols-2">
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Localisation: {project.city}</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Approche: durabilite et biodiversite</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Materiaux: nobles et robustes</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Suivi: entretien saisonnier possible</p>
+              <p className="bg-card border-border rounded-sm border px-3 py-2">Localisation : {project.city}</p>
+              <p className="bg-card border-border rounded-sm border px-3 py-2">Approche : durabilité et biodiversité</p>
+              <p className="bg-card border-border rounded-sm border px-3 py-2">Matériaux : nobles et robustes</p>
+              <p className="bg-card border-border rounded-sm border px-3 py-2">Suivi : entretien saisonnier possible</p>
             </div>
             <Link
               href="/contact"
               className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
             >
-              Demarrer un projet similaire
+              Démarrer un projet similaire
             </Link>
           </div>
 
@@ -74,14 +74,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             <div className="grid grid-cols-2 gap-4">
               <Image
                 src="/images/project-detail-01.svg"
-                alt={`Perspective detaillee du projet ${project.title}`}
+                alt={`Perspective détaillée du projet ${project.title}`}
                 width={700}
                 height={700}
                 className="border-border aspect-square w-full rounded-md border object-cover"
               />
               <Image
                 src="/images/project-detail-02.svg"
-                alt={`Amenagement secondaire du projet ${project.title}`}
+                alt={`Aménagement secondaire du projet ${project.title}`}
                 width={700}
                 height={700}
                 className="border-border aspect-square w-full rounded-md border object-cover"

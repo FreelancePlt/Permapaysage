@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { BASE_URL } from "@/lib/seo";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
@@ -8,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://www.permapaysage.com/sitemap.xml",
-    host: "https://www.permapaysage.com",
+    sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL,
   };
 }

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 
-const baseUrl = "https://www.permapaysage.com";
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.permapaysage.com";
 const defaultOgImage = "/images/og-garden.svg";
 
 export function getAbsoluteUrl(path: string): string {
   if (!path || path === "/") {
-    return baseUrl;
+    return BASE_URL;
   }
 
-  return `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
+  return `${BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 type PageMetadataInput = {
@@ -37,10 +38,10 @@ export function buildPageMetadata({ title, description, path }: PageMetadataInpu
       type: "website",
       images: [
         {
-          url: defaultOgImage,
+          url: `${BASE_URL}${defaultOgImage}`,
           width: 1200,
           height: 630,
-          alt: "Permapaysage - eco-paysagiste a Vallet",
+          alt: "Permapaysage — Éco-paysagiste à Vallet",
         },
       ],
     },
@@ -48,7 +49,7 @@ export function buildPageMetadata({ title, description, path }: PageMetadataInpu
       card: "summary_large_image",
       title,
       description,
-      images: [defaultOgImage],
+      images: [`${BASE_URL}${defaultOgImage}`],
     },
   };
 }

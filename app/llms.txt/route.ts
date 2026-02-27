@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 
+import { BASE_URL } from "@/lib/seo";
+
 export function GET() {
   const content = [
     "# llms.txt for permapaysage.com",
     "Site: Permapaysage",
     "Language: fr",
-    "Domain: https://www.permapaysage.com",
-    "Description: Eco-paysagiste a Vallet, conception, amenagement et entretien de jardins durables.",
+    `Domain: ${BASE_URL}`,
+    "Description: Éco-paysagiste à Vallet, conception, aménagement et entretien de jardins durables.",
     "Primary pages:",
     "- /",
     "- /conception",

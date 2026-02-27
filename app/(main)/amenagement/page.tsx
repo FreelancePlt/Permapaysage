@@ -25,7 +25,7 @@ export default function AmenagementPage() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Amenagement paysager",
+    serviceType: "Aménagement paysager",
     provider: {
       "@type": "LocalBusiness",
       name: "Permapaysage",
@@ -93,21 +93,16 @@ export default function AmenagementPage() {
                   <div className="bg-background/90 text-foreground absolute left-3 top-3 z-10 rounded-full px-3 py-1 font-semibold text-xs backdrop-blur-sm shadow-sm">
                     Avant
                   </div>
-                  <div className="border-border bg-secondary text-secondary-foreground flex h-full w-1/2 items-center justify-center border-r text-sm">
-                    Visuel {item} Avant
-                  </div>
-
+                  <div className="border-border bg-secondary/20 flex h-full w-1/2 items-center justify-center border-r" />
                   <div className="bg-primary text-primary-foreground absolute right-3 top-3 z-10 rounded-full px-3 py-1 font-semibold text-xs shadow-sm">
                     Après
                   </div>
-                  <div className="flex h-full w-1/2 items-center justify-center text-muted-foreground text-sm">
-                    Visuel {item} Après
-                  </div>
+                  <div className="flex h-full w-1/2 items-center justify-center" />
                 </div>
                 <div className="text-center">
-                  <h3 className="font-medium text-lg">Chantier exemple {item}</h3>
+                  <h3 className="font-medium text-lg">Transformation {item}</h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Transformation d&apos;espace extérieur (à venir)
+                    Photos de chantier prochainement disponibles
                   </p>
                 </div>
               </div>

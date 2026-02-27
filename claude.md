@@ -48,7 +48,7 @@ src/
 │   │   ├── realisations/
 │   │   ├── contact/
 │   │   └── [ville]/        # Pages SEO villes
-│   ├── studio/             # Sanity Studio (si embarqué)
+│   ├── studio/             # Sanity Studio
 │   ├── mentions-legales/
 │   ├── cgv/
 │   ├── politique-cookies/
