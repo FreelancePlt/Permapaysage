@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircleIcon } from "@phosphor-icons/react";
 import { useState, type FormEvent } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
@@ -21,7 +22,7 @@ const initialFormData: FormData = {
 };
 
 const inputClassName =
-  "border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none";
+  "border-border bg-background h-12 w-full rounded-lg border px-4 text-sm transition-all focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none";
 
 export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
@@ -65,16 +66,18 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="bg-card border-border rounded-lg border p-6 text-center space-y-4 md:p-8">
-        <div className="text-primary text-4xl">&#10003;</div>
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-10 text-center space-y-4 md:p-12">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+          <CheckCircleIcon size={32} weight="fill" className="text-primary" />
+        </div>
         <h3 className="text-xl font-medium">Message envoyé</h3>
-        <p className="text-muted-foreground text-sm">
-          Merci pour votre message. Nous vous répondons sous 48 heures.
+        <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
+          Merci pour votre message. Nous vous répondons sous 48 heures pour organiser un premier échange.
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="text-primary text-sm font-semibold hover:underline"
+          className="text-sm font-semibold text-primary hover:underline"
         >
           Envoyer un autre message
         </button>
@@ -83,7 +86,10 @@ export function ContactForm() {
   }
 
   return (
-    <form className="bg-card border-border rounded-lg border p-6 md:p-8" onSubmit={handleSubmit}>
+    <form className="rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8" onSubmit={handleSubmit}>
+      <h3 className="text-lg font-medium">Demande de devis gratuit</h3>
+      <p className="text-muted-foreground mt-1 text-sm">Tous les champs marqués sont obligatoires.</p>
+
       <input
         type="checkbox"
         name="botcheck"
@@ -92,9 +98,9 @@ export function ContactForm() {
         autoComplete="off"
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="space-y-2 text-sm font-medium sm:col-span-1">
-          Nom
+          Nom *
           <input
             type="text"
             name="name"
@@ -117,7 +123,7 @@ export function ContactForm() {
           />
         </label>
         <label className="space-y-2 text-sm font-medium sm:col-span-2">
-          Email
+          Email *
           <input
             type="email"
             name="email"
@@ -139,28 +145,28 @@ export function ContactForm() {
             <option value="" disabled>
               Sélectionnez une option
             </option>
-            <option value="conception">Conception</option>
-            <option value="amenagement">Aménagement</option>
-            <option value="entretien">Entretien</option>
+            <option value="conception">Conception de jardin</option>
+            <option value="amenagement">Aménagement des extérieurs</option>
+            <option value="entretien">Entretien des espaces verts</option>
             <option value="global">Projet complet</option>
           </select>
         </label>
         <label className="space-y-2 text-sm font-medium sm:col-span-2">
-          Message
+          Message *
           <textarea
             name="message"
             rows={5}
             required
-            placeholder="Décrivez votre projet"
+            placeholder="Décrivez votre projet, vos envies et vos contraintes..."
             value={formData.message}
             onChange={handleChange}
-            className="border-input bg-background w-full rounded-sm border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            className="border-border bg-background w-full rounded-lg border px-4 py-3 text-sm transition-all focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
           />
         </label>
       </div>
 
       {status === "error" && (
-        <p className="text-destructive mt-4 text-sm">
+        <p className="mt-4 text-sm text-destructive">
           Une erreur est survenue. Veuillez réessayer ou nous contacter directement par téléphone.
         </p>
       )}
@@ -168,7 +174,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 mt-6 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
+        className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg disabled:opacity-50 sm:w-auto sm:px-8"
       >
         {status === "loading" ? "Envoi en cours..." : "Envoyer la demande"}
       </button>

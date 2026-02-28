@@ -32,47 +32,47 @@
 }
 
 :root {
-  --background: 60 11% 97%;
-  --foreground: 60 5% 10%;
-  --card: 43 14% 94%;
-  --card-foreground: 60 5% 10%;
-  --popover: 60 11% 97%;
-  --popover-foreground: 60 5% 10%;
-  --primary: 108 22% 33%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 43 73% 31%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 40 10% 90%;
-  --muted-foreground: 60 3% 41%;
-  --accent: 40 10% 90%;
-  --accent-foreground: 60 5% 10%;
-  --destructive: 0 70% 48%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 40 7% 87%;
-  --input: 40 7% 87%;
-  --ring: 108 22% 33%;
+  --background: hsl(60 11% 97%);
+  --foreground: hsl(60 5% 10%);
+  --card: hsl(43 14% 94%);
+  --card-foreground: hsl(60 5% 10%);
+  --popover: hsl(60 11% 97%);
+  --popover-foreground: hsl(60 5% 10%);
+  --primary: hsl(108 22% 33%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(43 73% 31%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(40 10% 90%);
+  --muted-foreground: hsl(60 3% 41%);
+  --accent: hsl(40 10% 90%);
+  --accent-foreground: hsl(60 5% 10%);
+  --destructive: hsl(0 70% 48%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(40 7% 87%);
+  --input: hsl(40 7% 87%);
+  --ring: hsl(108 22% 33%);
 }
 
 .dark {
-  --background: 60 4% 8%;
-  --foreground: 40 12% 93%;
-  --card: 60 4% 12%;
-  --card-foreground: 40 12% 93%;
-  --popover: 60 4% 12%;
-  --popover-foreground: 40 12% 93%;
-  --primary: 108 25% 48%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 43 73% 31%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 60 4% 16%;
-  --muted-foreground: 50 3% 64%;
-  --accent: 60 4% 16%;
-  --accent-foreground: 40 12% 93%;
-  --destructive: 0 70% 48%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 60 3% 20%;
-  --input: 60 3% 20%;
-  --ring: 108 25% 48%;
+  --background: hsl(60 4% 8%);
+  --foreground: hsl(40 12% 93%);
+  --card: hsl(60 4% 12%);
+  --card-foreground: hsl(40 12% 93%);
+  --popover: hsl(60 4% 12%);
+  --popover-foreground: hsl(40 12% 93%);
+  --primary: hsl(108 25% 48%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(43 73% 31%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(60 4% 16%);
+  --muted-foreground: hsl(50 3% 64%);
+  --accent: hsl(60 4% 16%);
+  --accent-foreground: hsl(40 12% 93%);
+  --destructive: hsl(0 70% 48%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(60 3% 20%);
+  --input: hsl(60 3% 20%);
+  --ring: hsl(108 25% 48%);
 }
 
 @layer base {
@@ -86,9 +86,6 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background-image:
-      radial-gradient(circle at 20% -20%, hsl(var(--primary) / 0.12), transparent 42%),
-      radial-gradient(circle at 85% 0%, hsl(var(--secondary) / 0.12), transparent 36%);
   }
 
   h1,
@@ -101,9 +98,85 @@
   a {
     @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none;
   }
-
 }
 
 button {
   cursor: pointer;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 4s ease-in-out infinite;
+}
+
+.intervention-map .leaflet-tooltip {
+  background: #fff;
+  border: 1px solid #e2ddd6;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+  color: #3b3b32;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+}
+
+.intervention-map .leaflet-tooltip-top::before {
+  border-top-color: #e2ddd6;
+}
+
+.intervention-map .leaflet-control-zoom {
+  border: 1px solid #e2ddd6 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.08) !important;
+}
+
+.intervention-map .leaflet-control-zoom a {
+  color: #3b3b32 !important;
+  background: #fff !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 16px !important;
+}
+
+.intervention-map .leaflet-control-zoom a:hover {
+  background: #f5f2ed !important;
 }

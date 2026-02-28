@@ -10,7 +10,7 @@ export const InterventionMapLazy = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="bg-muted h-72 w-full animate-pulse rounded-md" />
+      <div className="bg-muted h-105 w-full animate-pulse rounded-2xl" />
     ),
   },
 );

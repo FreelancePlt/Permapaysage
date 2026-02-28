@@ -12,9 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/realisations",
     "/contact",
-    "/mentions-legales",
-    "/cgv",
-    "/politique-cookies",
   ];
 
   const now = new Date();
@@ -22,29 +19,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries = staticPages.map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: path === "" ? 1 : 0.8,
+    changeFrequency:
+      path === "" || path === "/blog" || path === "/realisations"
+        ? ("weekly" as const)
+        : ("monthly" as const),
+    priority:
+      path === ""
+        ? 1
+        : path === "/contact"
+          ? 0.9
+          : path === "/blog" || path === "/realisations"
+            ? 0.85
+            : 0.8,
   }));
 
   const articleEntries = blogPosts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
+    changeFrequency: "yearly" as const,
+    priority: 0.72,
   }));
 
   const projectEntries = projects.map((project) => ({
     url: `${BASE_URL}/realisations/${project.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.75,
+    priority: 0.78,
   }));
 
   const cityEntries = cityPages.map((cityPage) => ({
     url: `${BASE_URL}/${cityPage.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: 0.74,
   }));
 
   return [...staticEntries, ...articleEntries, ...projectEntries, ...cityEntries];

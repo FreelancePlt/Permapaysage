@@ -1,63 +1,112 @@
 "use client";
 
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { Circle, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useEffect } from "react";
+import {
+  Circle,
+  CircleMarker,
+  MapContainer,
+  TileLayer,
+  Tooltip,
+  ZoomControl,
+  useMap,
+} from "react-leaflet";
 
-const VALLET_CENTER: [number, number] = [47.1614, -1.2658];
-const RADIUS_KM = 25;
+const VALLET: [number, number] = [47.1611, -1.2644];
+const RADIUS_M = 25_000;
 
-const cityCoordinates: { name: string; coords: [number, number] }[] = [
-  { name: "Vallet", coords: [47.1614, -1.2658] },
-  { name: "Clisson", coords: [47.0872, -1.2818] },
-  { name: "Le Loroux-Bottereau", coords: [47.2389, -1.3472] },
-  { name: "Haute-Goulaine", coords: [47.2058, -1.4283] },
-  { name: "Saint-Julien-de-Concelles", coords: [47.2514, -1.3917] },
-  { name: "Vertou", coords: [47.1687, -1.4694] },
-  { name: "Gorges", coords: [47.1017, -1.2972] },
-  { name: "Le Pallet", coords: [47.1389, -1.3333] },
-  { name: "Mouzillon", coords: [47.1417, -1.2833] },
-  { name: "La Chapelle-Heulin", coords: [47.1611, -1.3306] },
-];
+function MapConfig() {
+  const map = useMap();
 
-const markerIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
+  useEffect(() => {
+    map.dragging.disable();
+    map.keyboard.disable();
+
+    const el = map.getContainer();
+    const enableDrag = () => map.dragging.enable();
+    const disableDrag = () => map.dragging.disable();
+
+    el.addEventListener("mouseenter", enableDrag);
+    el.addEventListener("mouseleave", disableDrag);
+
+    return () => {
+      el.removeEventListener("mouseenter", enableDrag);
+      el.removeEventListener("mouseleave", disableDrag);
+    };
+  }, [map]);
+
+  return null;
+}
 
 export function InterventionMap() {
   return (
     <MapContainer
-      center={VALLET_CENTER}
+      center={VALLET}
       zoom={10}
       scrollWheelZoom={false}
-      className="z-0 h-72 w-full rounded-md"
+      zoomControl={false}
+      minZoom={9}
+      maxZoom={13}
+      attributionControl={false}
+      className="intervention-map h-105 w-full"
+      style={{ background: "#F7F3ED" }}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <MapConfig />
+      <ZoomControl position="bottomright" />
+
+      <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+
       <Circle
-        center={VALLET_CENTER}
-        radius={RADIUS_KM * 1000}
+        center={VALLET}
+        radius={RADIUS_M + 1500}
         pathOptions={{
-          color: "hsl(108, 22%, 33%)",
-          fillColor: "hsl(108, 22%, 33%)",
-          fillOpacity: 0.1,
-          weight: 2,
+          color: "transparent",
+          fillColor: "#8BA87E",
+          fillOpacity: 0.06,
         }}
       />
-      {cityCoordinates.map((city) => (
-        <Marker key={city.name} position={city.coords} icon={markerIcon}>
-          <Popup>{city.name}</Popup>
-        </Marker>
-      ))}
+
+      <Circle
+        center={VALLET}
+        radius={RADIUS_M}
+        pathOptions={{
+          color: "#4A7C59",
+          fillColor: "#8BA87E",
+          fillOpacity: 0.12,
+          weight: 2,
+          opacity: 0.7,
+          dashArray: "8 6",
+        }}
+      />
+
+      <Circle
+        center={VALLET}
+        radius={RADIUS_M}
+        pathOptions={{
+          color: "#4A7C59",
+          fillColor: "transparent",
+          fillOpacity: 0,
+          weight: 1,
+          opacity: 0.25,
+          dashArray: "2 4",
+          dashOffset: "4",
+        }}
+      />
+
+      <CircleMarker
+        center={VALLET}
+        radius={6}
+        pathOptions={{
+          color: "#FEFDFB",
+          fillColor: "#4A7C59",
+          fillOpacity: 1,
+          weight: 2.5,
+        }}
+      >
+        <Tooltip permanent direction="top" offset={[0, -10]}>
+          Vallet
+        </Tooltip>
+      </CircleMarker>
     </MapContainer>
   );
 }

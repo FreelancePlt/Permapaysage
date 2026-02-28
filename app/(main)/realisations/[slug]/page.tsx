@@ -3,12 +3,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Container } from "@/components/shared/container";
-import { buildPageMetadata } from "@/lib/seo";
+import { StructuredData } from "@/components/shared/structured-data";
+import {
+  buildBreadcrumbSchema,
+  buildPageMetadata,
+  buildProjectSchema,
+  buildWebPageSchema,
+} from "@/lib/seo";
 import { projects } from "@/lib/site-data";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -23,6 +31,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
       title: "Projet — Permapaysage",
       description: "Projet introuvable.",
       path: `/realisations/${slug}`,
+      noIndex: true,
     });
   }
 
@@ -30,6 +39,14 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     title: `${project.title} — Permapaysage`,
     description: project.summary,
     path: `/realisations/${project.slug}`,
+    image: project.image,
+    category: project.category,
+    keywords: [
+      "realisations paysagiste",
+      project.city,
+      project.category,
+      project.title,
+    ],
   });
 }
 
@@ -42,54 +59,71 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <section className="py-16 md:py-24">
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">{project.category}</p>
-            <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">{project.title}</h1>
-            <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed md:text-lg">{project.summary}</p>
-            <div className="mt-7 grid gap-3 text-sm sm:grid-cols-2">
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Localisation : {project.city}</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Approche : durabilité et biodiversité</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Matériaux : nobles et robustes</p>
-              <p className="bg-card border-border rounded-sm border px-3 py-2">Suivi : entretien saisonnier possible</p>
+    <>
+      <StructuredData
+        data={[
+          buildWebPageSchema({
+            title: `${project.title} — Permapaysage`,
+            description: project.summary,
+            path: `/realisations/${project.slug}`,
+          }),
+          buildProjectSchema(project),
+          buildBreadcrumbSchema([
+            { name: "Accueil", path: "/" },
+            { name: "Réalisations", path: "/realisations" },
+            { name: project.title, path: `/realisations/${project.slug}` },
+          ]),
+        ]}
+      />
+      <section className="py-16 md:py-24">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">{project.category}</p>
+              <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">{project.title}</h1>
+              <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed md:text-lg">{project.summary}</p>
+              <div className="mt-7 grid gap-3 text-sm sm:grid-cols-2">
+                <p className="bg-card border-border rounded-sm border px-3 py-2">Localisation : {project.city}</p>
+                <p className="bg-card border-border rounded-sm border px-3 py-2">Approche : durabilité et biodiversité</p>
+                <p className="bg-card border-border rounded-sm border px-3 py-2">Matériaux : nobles et robustes</p>
+                <p className="bg-card border-border rounded-sm border px-3 py-2">Suivi : entretien saisonnier possible</p>
+              </div>
+              <Link
+                href="/contact"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
+              >
+                Démarrer un projet similaire
+              </Link>
             </div>
-            <Link
-              href="/contact"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
-            >
-              Démarrer un projet similaire
-            </Link>
-          </div>
 
-          <div className="space-y-4">
-            <Image
-              src={project.image}
-              alt={`Vue principale du projet ${project.title}`}
-              width={1200}
-              height={900}
-              className="border-border aspect-[4/3] w-full rounded-lg border object-cover"
-            />
-            <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-4">
               <Image
-                src="/images/project-detail-01.svg"
-                alt={`Perspective détaillée du projet ${project.title}`}
-                width={700}
-                height={700}
-                className="border-border aspect-square w-full rounded-md border object-cover"
+                src={project.image}
+                alt={`Vue principale du projet ${project.title}`}
+                width={1200}
+                height={900}
+                className="border-border aspect-[4/3] w-full rounded-lg border object-cover"
               />
-              <Image
-                src="/images/project-detail-02.svg"
-                alt={`Aménagement secondaire du projet ${project.title}`}
-                width={700}
-                height={700}
-                className="border-border aspect-square w-full rounded-md border object-cover"
-              />
+              <div className="grid grid-cols-2 gap-4">
+                <Image
+                  src="/images/project-detail-01.svg"
+                  alt={`Perspective détaillée du projet ${project.title}`}
+                  width={700}
+                  height={700}
+                  className="border-border aspect-square w-full rounded-md border object-cover"
+                />
+                <Image
+                  src="/images/project-detail-02.svg"
+                  alt={`Aménagement secondaire du projet ${project.title}`}
+                  width={700}
+                  height={700}
+                  className="border-border aspect-square w-full rounded-md border object-cover"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }

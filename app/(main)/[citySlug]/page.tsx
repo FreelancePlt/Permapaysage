@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
-import { BASE_URL, buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbSchema,
+  buildLocalBusinessSchema,
+  buildPageMetadata,
+  buildWebPageSchema,
+} from "@/lib/seo";
 import { cityPages, services } from "@/lib/site-data";
 
 type CityPageProps = {
@@ -25,6 +30,7 @@ export async function generateMetadata({ params }: CityPageProps) {
       title: "Paysagiste à Vallet — Permapaysage",
       description: "Permapaysage intervient autour de Vallet.",
       path: `/${citySlug}`,
+      noIndex: true,
     });
   }
 
@@ -32,6 +38,12 @@ export async function generateMetadata({ params }: CityPageProps) {
     title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
     description: `${cityPage.intro} Services : conception, aménagement et entretien des extérieurs.`,
     path: `/${cityPage.slug}`,
+    keywords: [
+      `paysagiste ${cityPage.city}`,
+      `amenagement jardin ${cityPage.city}`,
+      `entretien jardin ${cityPage.city}`,
+      `conception jardin ${cityPage.city}`,
+    ],
   });
 }
 
@@ -43,23 +55,22 @@ export default async function CitySeoPage({ params }: CityPageProps) {
     notFound();
   }
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Permapaysage",
-    areaServed: cityPage.city,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Vallet",
-      postalCode: "44330",
-      addressCountry: "FR",
-    },
-    url: `${BASE_URL}/${cityPage.slug}`,
-  };
+  const schemas = [
+    buildWebPageSchema({
+      title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
+      description: `${cityPage.intro} Services : conception, aménagement et entretien des extérieurs.`,
+      path: `/${cityPage.slug}`,
+    }),
+    buildLocalBusinessSchema(`/${cityPage.slug}`, cityPage.city),
+    buildBreadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: cityPage.city, path: `/${cityPage.slug}` },
+    ]),
+  ];
 
   return (
     <>
-      <StructuredData data={schema} />
+      <StructuredData data={schemas} />
       <section className="py-16 md:py-24">
         <Container>
           <div className="max-w-3xl space-y-5">

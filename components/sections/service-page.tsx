@@ -1,8 +1,9 @@
+import { ArrowRightIcon, CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/shared/container";
-import { Service } from "@/lib/site-data";
+import type { Service } from "@/lib/site-data";
 
 type ServicePageProps = {
   service: Service;
@@ -23,73 +24,86 @@ export function ServicePageSection({
 }: ServicePageProps) {
   return (
     <>
-      <section className="py-16 md:py-24">
+      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute right-0 top-0 h-[500px] w-[500px] translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-72 w-72 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
+        </div>
+
         <Container>
-          <div className="grid items-start gap-10 lg:grid-cols-[1fr_0.95fr]">
-            <div className="space-y-6">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">{eyebrow}</p>
-              <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">{service.title}</h1>
-              <p className="text-muted-foreground max-w-xl text-base leading-relaxed md:text-lg">{subtitle}</p>
+          <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+                {eyebrow}
+              </div>
+              <h1 className="text-4xl leading-tight tracking-tight text-white md:text-5xl">{service.title}</h1>
+              <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">{subtitle}</p>
               <div className="flex flex-wrap gap-3">
                 <Link
                   href="/contact"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-7 text-sm font-semibold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
                 >
                   Obtenir un devis
+                  <ArrowRightIcon size={16} weight="bold" />
                 </Link>
                 <Link
                   href="/realisations"
-                  className="border-primary text-primary hover:bg-primary/10 inline-flex h-11 items-center justify-center rounded-sm border px-6 text-sm font-semibold transition-colors"
+                  className="inline-flex h-12 items-center justify-center rounded-lg border border-white/30 px-7 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
                 >
                   Voir les projets
                 </Link>
               </div>
             </div>
-            <div className="bg-card border-border rounded-lg border p-4 shadow-md">
-              <Image
-                src={image}
-                alt={`Maquette visuelle du service ${service.title}`}
-                width={1024}
-                height={768}
-                className="aspect-[16/11] w-full rounded-md object-cover"
-                priority
-              />
+            <div className="animate-in fade-in zoom-in-95 duration-700 delay-200">
+              <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+                <Image
+                  src={image}
+                  alt={`Illustration du service ${service.title}`}
+                  width={1024}
+                  height={768}
+                  className="aspect-4/3 w-full rounded-xl object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="bg-card/55 py-14 md:py-20">
+      <section className="py-20 md:py-28">
         <Container>
           <div className="grid gap-8 lg:grid-cols-2">
-            <article className="bg-background border-border rounded-lg border p-6 md:p-8">
-              <h2 className="text-3xl leading-tight tracking-tight">Approche</h2>
+            <article className="rounded-2xl border border-border bg-card p-8 md:p-10">
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Notre approche</p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight">Approche</h2>
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed md:text-base">{service.longDescription}</p>
               <ul className="mt-6 space-y-3">
                 {service.points.map((point) => (
-                  <li key={point} className="text-muted-foreground flex items-start gap-2 text-sm md:text-base">
-                    <span className="bg-primary mt-2 inline-block h-1.5 w-1.5 rounded-full" aria-hidden />
+                  <li key={point} className="flex items-start gap-3 text-sm md:text-base">
+                    <CheckCircleIcon size={20} weight="fill" className="mt-0.5 shrink-0 text-primary" />
                     <span>{point}</span>
                   </li>
                 ))}
               </ul>
             </article>
 
-            <article className="bg-background border-border rounded-lg border p-6 md:p-8">
-              <h2 className="text-3xl leading-tight tracking-tight">{extraSectionTitle}</h2>
+            <article className="rounded-2xl border border-border bg-card p-8 md:p-10">
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Résultats</p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight">{extraSectionTitle}</h2>
               <ul className="mt-6 space-y-3">
                 {extraPoints.map((point) => (
-                  <li key={point} className="text-muted-foreground flex items-start gap-2 text-sm md:text-base">
-                    <span className="bg-secondary mt-2 inline-block h-1.5 w-1.5 rounded-full" aria-hidden />
+                  <li key={point} className="flex items-start gap-3 text-sm md:text-base">
+                    <CheckCircleIcon size={20} weight="fill" className="mt-0.5 shrink-0 text-secondary" />
                     <span>{point}</span>
                   </li>
                 ))}
               </ul>
               <Link
                 href="/contact"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
+                className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-7 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg"
               >
                 Parler de votre projet
+                <ArrowRightIcon size={16} weight="bold" />
               </Link>
             </article>
           </div>

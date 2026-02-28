@@ -8,6 +8,23 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        disallow: [
+          "/mentions-legales",
+          "/cgv",
+          "/politique-cookies",
+        ],
+      },
+      {
+        userAgent: [
+          "Googlebot",
+          "Bingbot",
+        ],
+        allow: "/",
+        disallow: [
+          "/mentions-legales",
+          "/cgv",
+          "/politique-cookies",
+        ],
       },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
