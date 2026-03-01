@@ -10,7 +10,7 @@ const labelMap = new Map(navigation.map((item) => [item.href.replace("/", "") ||
 function formatSegment(segment: string): string {
   if (segment.startsWith("paysagiste-")) {
     const cityName = segment.replace("paysagiste-", "").split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
-    return `Paysagiste a ${cityName}`;
+    return `Paysagiste à ${cityName}`;
   }
 
   const mapped = labelMap.get(segment);

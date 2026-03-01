@@ -3,12 +3,19 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
-import { buildPageMetadata } from "@/lib/seo";
-import { blogPosts } from "@/lib/site-data";
+import {
+  buildBlogPostingSchema,
+  buildBreadcrumbSchema,
+  buildPageMetadata,
+  buildWebPageSchema,
+} from "@/lib/seo";
+import { blogPosts, company } from "@/lib/site-data";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -23,6 +30,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps) {
       title: "Article — Permapaysage",
       description: "Article introuvable.",
       path: `/blog/${slug}`,
+      noIndex: true,
     });
   }
 
@@ -30,6 +38,17 @@ export async function generateMetadata({ params }: BlogArticlePageProps) {
     title: `${article.title} — Permapaysage`,
     description: article.excerpt,
     path: `/blog/${article.slug}`,
+    image: article.image,
+    type: "article",
+    category: article.category,
+    publishedTime: article.publishedAt,
+    modifiedTime: article.publishedAt,
+    keywords: [
+      `blog ${article.category.toLowerCase()}`,
+      `${article.category.toLowerCase()} Vallet`,
+      "conseils jardin durable",
+      article.title,
+    ],
   });
 }
 
@@ -41,25 +60,23 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     notFound();
   }
 
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.excerpt,
-    datePublished: article.publishedAt,
-    author: {
-      "@type": "Person",
-      name: "Jessy Laderriere",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Permapaysage",
-    },
-  };
+  const schemas = [
+    buildWebPageSchema({
+      title: `${article.title} — Permapaysage`,
+      description: article.excerpt,
+      path: `/blog/${article.slug}`,
+    }),
+    buildBlogPostingSchema(article),
+    buildBreadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: article.title, path: `/blog/${article.slug}` },
+    ]),
+  ];
 
   return (
     <>
-      <StructuredData data={articleSchema} />
+      <StructuredData data={schemas} />
       <article className="py-16 md:py-24">
         <Container className="max-w-3xl">
           <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">{article.category}</p>
@@ -82,6 +99,12 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 {paragraph}
               </p>
             ))}
+          </div>
+
+          <div className="mt-10 border-t border-border pt-6 text-sm text-muted-foreground">
+            <p>
+              Article rédigé par {company.founder} pour {company.name}.
+            </p>
           </div>
         </Container>
       </article>

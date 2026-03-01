@@ -1,162 +1,164 @@
-import Link from "next/link";
+import { ClockIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react/dist/ssr";
 
+import { ContactForm } from "@/components/shared/contact-form";
 import { Container } from "@/components/shared/container";
+import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
+import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
-import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbSchema,
+  buildItemListSchema,
+  buildLocalBusinessSchema,
+  buildPageMetadata,
+  buildWebPageSchema,
+} from "@/lib/seo";
 import { company, interventionCities } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Contactez Permapaysage — Devis gratuit paysagiste Vallet",
   description:
-    "Contactez Permapaysage pour un devis gratuit: conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
+    "Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
   path: "/contact",
+  keywords: [
+    "contact paysagiste Vallet",
+    "devis jardin Vallet",
+    "entreprise paysagiste Clisson",
+    "devis amenagement exterieur Vertou",
+  ],
 });
 
+const contactDetails = [
+  { icon: PhoneIcon, label: "Téléphone", value: company.phone, href: `tel:${company.phone.replace(/\s/g, "")}` },
+  { icon: EnvelopeIcon, label: "Email", value: company.email, href: `mailto:${company.email}` },
+  { icon: MapPinIcon, label: "Adresse", value: company.address },
+  { icon: ClockIcon, label: "Horaires", value: company.businessHours },
+];
+
 export default function ContactPage() {
-  const contactSchema = {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    name: "Contact Permapaysage",
-    url: "https://www.permapaysage.com/contact",
-    about: {
-      "@type": "LocalBusiness",
-      name: company.name,
-      telephone: company.phone,
-      email: company.email,
-    },
-  };
+  const schemas = [
+    buildWebPageSchema({
+      title: "Contactez Permapaysage — Devis gratuit paysagiste Vallet",
+      description:
+        "Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
+      path: "/contact",
+      type: "ContactPage",
+    }),
+    buildLocalBusinessSchema("/contact", interventionCities),
+    buildItemListSchema(
+      interventionCities.map((city) => ({
+        name: city,
+        path: "/contact",
+      })),
+      "https://schema.org/ItemListUnordered",
+    ),
+    buildBreadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: "Contact", path: "/contact" },
+    ]),
+  ];
 
   return (
     <>
-      <StructuredData data={contactSchema} />
-      <section className="py-16 md:py-24">
+      <StructuredData data={schemas} />
+
+      <section className="relative overflow-hidden bg-primary py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
+        </div>
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr]">
-            <div className="space-y-6">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Contact</p>
-              <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Parlons de votre projet paysager</h1>
-              <p className="text-muted-foreground max-w-xl text-base leading-relaxed md:text-lg">
-                Cette maquette inclut un formulaire structuré pour préparer l&apos;intégration Web3Forms. Réponse cible sous 48 h.
-              </p>
-
-              <div className="bg-card border-border rounded-lg border p-6">
-                <dl className="space-y-3 text-sm">
-                  <div>
-                    <dt className="text-muted-foreground">Téléphone</dt>
-                    <dd className="mt-1 font-medium">{company.phone}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Email</dt>
-                    <dd className="mt-1 font-medium">{company.email}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Adresse</dt>
-                    <dd className="mt-1 font-medium">{company.address}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Horaires</dt>
-                    <dd className="mt-1 font-medium">{company.businessHours}</dd>
-                  </div>
-                </dl>
-              </div>
+          <div className="relative mx-auto max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+              Contact
             </div>
-
-            <form className="bg-card border-border rounded-lg border p-6 md:p-8" action="#" method="post">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="space-y-2 text-sm font-medium sm:col-span-1">
-                  Nom
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Votre nom"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-1">
-                  Téléphone
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="06 00 00 00 00"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="vous@email.fr"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Type de besoin
-                  <select
-                    name="projectType"
-                    className="border-input bg-background h-11 w-full rounded-sm border px-3 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Sélectionnez une option
-                    </option>
-                    <option value="conception">Conception</option>
-                    <option value="amenagement">Aménagement</option>
-                    <option value="entretien">Entretien</option>
-                    <option value="global">Projet complet</option>
-                  </select>
-                </label>
-                <label className="space-y-2 text-sm font-medium sm:col-span-2">
-                  Message
-                  <textarea
-                    name="message"
-                    rows={5}
-                    required
-                    placeholder="Décrivez votre projet"
-                    className="border-input bg-background w-full rounded-sm border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  />
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-6 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
-              >
-                Envoyer la demande
-              </button>
-              {/* <p className="text-muted-foreground mt-3 text-xs">Intégration Web3Forms à brancher ensuite avec les variables d&apos;environnement.</p> */}
-            </form>
+            <h1 className="mt-4 text-4xl leading-tight tracking-tight text-white md:text-5xl">
+              Parlons de votre projet paysager
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-white/80 md:text-lg">
+              Remplissez le formulaire ci-dessous ou contactez-nous directement. Réponse sous 48 heures.
+            </p>
           </div>
         </Container>
       </section>
 
-      <section className="bg-card/50 py-14 md:py-20">
+      <section className="py-20 md:py-28">
         <Container>
-          <h2 className="text-3xl leading-tight tracking-tight">Zone d&apos;intervention autour de Vallet</h2>
-          <p className="text-muted-foreground mt-3 max-w-2xl text-sm md:text-base">
-            Maquette carte: intégration Leaflet prévue. Couverture actuelle: 25 km autour de Vallet.
-          </p>
-          <div className="border-border bg-background mt-6 rounded-lg border p-4">
-            <div className="from-primary/25 to-secondary/20 h-72 w-full rounded-md bg-linear-to-br" aria-label={"Carte de la zone d'intervention"} />
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+            <Reveal>
+              <div className="space-y-6">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {contactDetails.map((detail) => {
+                    const Icon = detail.icon;
+                    const content = (
+                      <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/20 hover:shadow-sm">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                          <Icon size={22} weight="duotone" />
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">{detail.label}</p>
+                          <p className="mt-1 text-sm font-medium">{detail.value}</p>
+                        </div>
+                      </div>
+                    );
+
+                    if (detail.href) {
+                      return (
+                        <a key={detail.label} href={detail.href} className="block">
+                          {content}
+                        </a>
+                      );
+                    }
+                    return <div key={detail.label}>{content}</div>;
+                  })}
+                </div>
+
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6">
+                  <h3 className="text-lg font-medium">Devis gratuit & sans engagement</h3>
+                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    Décrivez votre projet et nous vous recontactons rapidement pour organiser un rendez-vous sur place. La visite terrain et le premier échange sont offerts.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <ContactForm />
+            </Reveal>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {interventionCities.map((city) => (
-              <span key={city} className="border-border bg-background rounded-full border px-3 py-1 text-xs">
-                {city}
-              </span>
-            ))}
-          </div>
-          <p className="mt-6 text-sm">
-            Besoin d&apos;une vérification rapide de zone ? Appelez directement le <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="text-primary font-semibold">{company.phone}</a>.
-          </p>
-          <p className="text-muted-foreground mt-2 text-xs">
-            Le volet RGPD (cookies/consentement) sera raccordé sur la version finale avec tracking analytics.
-          </p>
-          <Link href="/mentions-legales" className="text-primary mt-4 inline-flex text-sm font-semibold hover:underline">
-            Consulter les mentions légales
-          </Link>
+        </Container>
+      </section>
+
+      <section className="bg-card py-20 md:py-28">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Zone d&apos;intervention</p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight">Intervention autour de Vallet</h2>
+              <p className="text-muted-foreground mt-3 max-w-2xl text-sm md:text-base">
+                Nous intervenons dans un rayon de 25 km autour de Vallet, au c&#339;ur du Vignoble Nantais.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
+              <InterventionMapLazy />
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {interventionCities.map((city) => (
+                <span key={city} className="inline-flex items-center rounded-full border border-border bg-background px-4 py-1.5 text-xs font-medium shadow-sm">
+                  {city}
+                </span>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-sm">
+              Besoin d&apos;une vérification rapide de zone ? Appelez le{" "}
+              <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="font-semibold text-primary">
+                {company.phone}
+              </a>
+            </p>
+          </Reveal>
         </Container>
       </section>
     </>

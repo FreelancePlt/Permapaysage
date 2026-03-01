@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import { ThemeScript } from "@/components/layout/theme-script";
+import { BASE_URL, buildPageMetadata } from "@/lib/seo";
+import { company } from "@/lib/site-data";
 
 import "./globals.css";
 
@@ -18,38 +22,44 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.permapaysage.com"),
-  title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
-  description:
-    "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet et dans le Vignoble Nantais.",
-  alternates: {
-    canonical: "/",
-    languages: {
-      fr: "/",
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "fr_FR",
-    url: "https://www.permapaysage.com",
-    siteName: "Permapaysage",
-    title: "Permapaysage — Éco-paysagiste à Vallet",
-    description: "Conception, aménagement et entretien de jardins durables à Vallet.",
-    images: [
-      {
-        url: "/images/og-garden.svg",
-        width: 1200,
-        height: 630,
-        alt: "Permapaysage, éco-paysagiste à Vallet",
-      },
+  metadataBase: new URL(BASE_URL),
+  ...buildPageMetadata({
+    title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
+    description: company.description,
+    path: "/",
+    keywords: [
+      "paysagiste Clisson",
+      "paysagiste Vertou",
+      "amenagement exterieur Vallet",
+      "devis paysagiste Vallet",
     ],
+  }),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/Logo.png", type: "image/png" },
+    ],
+    apple: [{ url: "/Logo.png" }],
+    shortcut: ["/favicon.ico"],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Permapaysage — Éco-paysagiste à Vallet",
-    description: "Conception, aménagement et entretien de jardins durables à Vallet.",
-    images: ["/images/og-garden.svg"],
+  manifest: "/manifest.webmanifest",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
+  appleWebApp: {
+    capable: true,
+    title: "Permapaysage",
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#254239",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -58,6 +68,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <ThemeScript />
         {children}
+        <Analytics />
       </body>
     </html>
   );

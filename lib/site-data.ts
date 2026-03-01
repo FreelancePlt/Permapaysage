@@ -27,7 +27,10 @@ export type Project = {
   category: string;
   city: string;
   summary: string;
+  description: string;
   image: string;
+  gallery: string[];
+  highlights: { label: string; value: string }[];
 };
 
 export type BlogPost = {
@@ -50,16 +53,31 @@ export type CityPage = {
 
 export const company = {
   name: "Permapaysage",
+  legalName: "SASU Permapaysage",
   founder: "Jessy Laderriere",
+  description:
+    "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet et dans le Vignoble Nantais.",
   email: "permapaysage.jl@gmail.com",
   phone: "07 52 62 08 18",
   address: "18 avenue du Général Heurtaux, 44330 Vallet",
+  streetAddress: "18 avenue du Général Heurtaux",
+  postalCode: "44330",
+  city: "Vallet",
+  region: "Pays de la Loire",
+  countryCode: "FR",
+  siren: "953 318 391",
   businessHours: "Lundi au vendredi, 8h - 19h",
   radius: "25 km autour de Vallet",
   rating: "5,0/5",
   reviewCount: 32,
   instagram: "https://instagram.com/perma.paysage",
   linkedin: "https://linkedin.com/company/permapaysage",
+  googleReviewsUrl:
+    "https://search.google.com/local/reviews?placeid=ChIJyevHnQoNImQRCkXIe1ao2f8",
+  sameAs: [
+    "https://instagram.com/perma.paysage",
+    "https://linkedin.com/company/permapaysage",
+  ],
 };
 
 export const navigation: NavigationItem[] = [
@@ -138,24 +156,34 @@ export const metrics: Metric[] = [
   { value: "+4 560", label: "heures passées dans les jardins" },
   { value: "+230", label: "projets réalisés" },
   { value: "25 km", label: "rayon d'intervention" },
-  { value: "50 %", label: "crédit d'impôt sur l'entretien" },
+  { value: "1 430", label: "végétaux plantés" },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    author: "Maryse Chantecaille",
-    content:
-      "Nous sommes tout à fait satisfaits de la réalisation du chantier. Le choix des matériaux a été parfaitement adapté à notre environnement.",
-  },
-  {
     author: "Claudie Ebel",
     content:
-      "Jessy est attentif, patient, très à l'écoute et possède une vraie capacité d'adaptation. Une première collaboration très réussie.",
+      "Premier contrat avec Jessy pour restauration du jardin dont je suis pleinement satisfaite. Jessy est attentif, patient et très à l'écoute des demandes de son client et possède une grande capacité d'adaptation. C'est un professionnel de grande qualité que je ne manquerai pas de recommander autour de moi.",
+  },
+  {
+    author: "Val Gasc",
+    content:
+      "Excellent professionnel ! J'ai fait appel à deux reprises pour l'entretien des espaces verts réalisé avec rigueur et souci du détail. Je recommande vivement Mr Laderriere de Permapaysage à tous ceux qui cherchent un service de qualité.",
+  },
+  {
+    author: "Laura Denis",
+    content:
+      "Nous recommandons fortement cette entreprise. Le travail est toujours très bien réalisé et Jessy est arrangeant et sympathique. Nous sommes pleinement satisfaits.",
+  },
+  {
+    author: "Marie Annick Birot",
+    content:
+      "Nous avons fait appel à Jessy et à son apprenti pour notre jardin immense. Il a su mettre en valeur quelques arbrisseaux et végétaux tout en recréant l'ambiance du jardin et en les intégrant au décor d'ensemble. Un plaisir de dialoguer avec lui.",
   },
   {
     author: "Hervé Morice",
     content:
-      "Professionnel à l'écoute de nos besoins. Nous faisons appel à ses services depuis moins d'un an et nous le recommandons.",
+      "Très bon contact avec Jessy. C'est un professionnel à l'écoute des besoins. Nous faisons appel à ses services depuis moins d'un an, et nous le recommandons !",
   },
 ];
 
@@ -165,24 +193,66 @@ export const projects: Project[] = [
     title: "Jardin vivant à Vallet",
     category: "Conception + aménagement",
     city: "Vallet",
-    summary: "Transformation complète d'un terrain sec en jardin nourricier avec terrasse bois et massifs durables.",
-    image: "/images/project-01.svg",
+    summary:
+      "Transformation complète d'un terrain sec en jardin nourricier avec terrasse bois et massifs durables.",
+    description:
+      "Ce projet a consisté à transformer un terrain nu et sec en un jardin vivant et productif. La conception s'appuie sur les principes de la permaculture : observation du terrain, gestion de l'eau, choix de végétaux adaptés au sol argilo-calcaire du Vignoble Nantais. Une terrasse en bois douglas relie la maison au jardin, prolongeant l'espace de vie vers l'extérieur. Les massifs mêlent arbustes persistants, vivaces mellifères et plantes comestibles pour un jardin beau et utile toute l'année.",
+    image: "/photos-entretien/apres/ap-04.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-01.jpg",
+      "/photos-entretien/apres/ap-02.jpg",
+      "/photos-entretien/apres/ap-03.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Vallet (44)" },
+      { label: "Surface", value: "≈ 350 m²" },
+      { label: "Durée", value: "3 semaines" },
+      { label: "Approche", value: "Permaculture" },
+    ],
   },
   {
     slug: "terrasse-massifs-clisson",
     title: "Terrasse et massifs à Clisson",
     category: "Aménagement",
     city: "Clisson",
-    summary: "Création d'un espace de vie extérieur structuré, chaleureux et facile à entretenir.",
-    image: "/images/project-02.svg",
+    summary:
+      "Création d'un espace de vie extérieur structuré, chaleureux et facile à entretenir.",
+    description:
+      "L'objectif était de créer un extérieur à la fois accueillant et facile à vivre. La terrasse en bois structure l'espace et offre un lieu de convivialité ouvert sur le jardin. Les massifs plantés en bordure apportent du volume et de la couleur sans demander un entretien intensif. Le choix de végétaux résistants et d'un paillage épais limite les interventions tout en maintenant une esthétique soignée au fil des saisons.",
+    image: "/photos-entretien/apres/ap-09.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-06.jpg",
+      "/photos-entretien/apres/ap-07.jpg",
+      "/photos-entretien/apres/ap-08.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Clisson (44)" },
+      { label: "Surface", value: "≈ 180 m²" },
+      { label: "Durée", value: "2 semaines" },
+      { label: "Matériaux", value: "Bois douglas, pierre" },
+    ],
   },
   {
     slug: "entretien-raisonne-vertou",
     title: "Entretien raisonné à Vertou",
     category: "Entretien",
     city: "Vertou",
-    summary: "Programme d'entretien écologique annuel avec taille raisonnée et zéro phytosanitaire.",
-    image: "/images/project-03.svg",
+    summary:
+      "Programme d'entretien écologique annuel avec taille raisonnée et zéro phytosanitaire.",
+    description:
+      "Ce jardin de particulier bénéficie d'un programme d'entretien annuel basé sur des pratiques écologiques. Chaque passage est planifié selon les saisons : tonte en mulching au printemps, taille raisonnée des haies en été, nettoyage d'automne et préparation hivernale. L'approche zéro phytosanitaire repose sur le désherbage manuel, le paillage naturel et le respect des cycles de croissance. Le résultat : un jardin propre, sain et vivant toute l'année.",
+    image: "/photos-entretien/apres/ap-05.jpg",
+    gallery: [
+      "/photos-entretien/avant/av-01.jpg",
+      "/photos-entretien/avant/av-02.jpg",
+      "/photos-entretien/apres/ap-06.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Vertou (44)" },
+      { label: "Fréquence", value: "Mensuel" },
+      { label: "Méthode", value: "Zéro phyto" },
+      { label: "Avantage", value: "Crédit d'impôt 50 %" },
+    ],
   },
 ];
 
@@ -195,11 +265,13 @@ export const blogPosts: BlogPost[] = [
     category: "Conception",
     publishedAt: "2026-02-20",
     readTime: "6 min",
-    image: "/images/blog-01.svg",
+    image: "/photos-entretien/apres/ap-03.jpg",
     content: [
-      "Un jardin durable repose sur l'observation du terrain avant toute décision. La lumière, les vents et la qualité du sol orientent le plan d'ensemble.",
-      "Le second levier consiste à structurer des zones d'usages claires. On distingue les espaces de détente, de passage, de plantation et d'entretien.",
-      "Enfin, le choix des végétaux locaux et des matériaux pérennes garantit un résultat stable dans le temps, avec moins d'arrosage et moins d'interventions.",
+      "Un jardin durable repose avant tout sur l'observation du terrain. Avant de planter quoi que ce soit, il faut comprendre les dynamiques du lieu : l'ensoleillement au fil de la journée, les vents dominants, la nature du sol et les zones de rétention d'eau. Dans le Vignoble Nantais, le sol argilo-calcaire et le climat océanique offrent des conditions favorables à de nombreuses espèces, à condition de bien les positionner.",
+      "Le second principe consiste à structurer des zones d'usages claires. Un jardin fonctionnel distingue les espaces de détente (terrasse, coin lecture), les zones de passage (allées, circulations), les surfaces plantées (massifs, haies, potager) et les espaces techniques (compost, rangement). Cette organisation évite l'entretien inutile et rend le jardin agréable au quotidien.",
+      "Le troisième levier est le choix des végétaux. Privilégier des espèces locales et adaptées au climat réduit considérablement les besoins en arrosage et en traitements. Le laurier-tin, le cornouiller, la lavande ou encore les graminées ornementales sont des valeurs sûres qui demandent peu d'entretien une fois bien installées.",
+      "Quatrième principe : travailler avec le sol plutôt que contre lui. Le paillage (mulching) protège la terre, limite l'évaporation et nourrit la vie du sol. Éviter le retournement systématique et favoriser les couvre-sols vivants permet de maintenir un écosystème stable et fertile.",
+      "Enfin, un jardin durable se pense dans le temps. Les matériaux choisis (bois certifié, pierre locale, acier corten) doivent vieillir avec élégance. L'idée n'est pas de créer un décor figé, mais un espace vivant qui évolue avec les saisons et gagne en caractère année après année.",
     ],
   },
   {
@@ -210,11 +282,12 @@ export const blogPosts: BlogPost[] = [
     category: "Entretien",
     publishedAt: "2026-02-12",
     readTime: "4 min",
-    image: "/images/blog-02.svg",
+    image: "/photos-entretien/apres/ap-06.jpg",
     content: [
-      "Le mulching permet de restituer de la matière organique au sol tout en limitant les évacuations de déchets verts.",
-      "La taille raisonnée respecte la physiologie des arbres et arbustes. Elle améliore la tenue esthétique sans créer de stress excessif.",
-      "Appliquées ensemble, ces méthodes réduisent l'entretien curatif au profit d'un entretien préventif plus durable.",
+      "Le mulching consiste à broyer finement les résidus de tonte et à les laisser se décomposer sur place. Contrairement à l'idée reçue, cette technique ne crée pas de feutrage si elle est pratiquée régulièrement. Elle restitue de l'azote au sol, maintient l'humidité et réduit le volume de déchets verts à évacuer. Sur une saison complète, c'est un gain de temps et d'argent significatif.",
+      "La taille raisonnée, de son côté, respecte le cycle naturel des arbres et arbustes. Plutôt que de tailler sévèrement en bloc, on intervient au bon moment et avec mesure. Une haie de laurier taillée deux fois par an en respectant sa forme naturelle sera plus dense, plus saine et plus esthétique qu'une haie « rasée » quatre fois par an.",
+      "Ces deux pratiques partagent une même philosophie : accompagner le vivant plutôt que le contraindre. Le sol reste couvert et actif, les plantes poussent dans leur forme naturelle, et le jardin trouve son équilibre avec moins d'interventions lourdes.",
+      "Concrètement, un jardin entretenu avec ces méthodes nécessite moins de passages, moins de produits et produit moins de déchets. C'est un entretien préventif qui évite les rattrapages coûteux. Et visuellement, le résultat est souvent plus naturel et harmonieux qu'un entretien classique intensif.",
     ],
   },
   {
@@ -225,11 +298,12 @@ export const blogPosts: BlogPost[] = [
     category: "Aménagement",
     publishedAt: "2026-02-05",
     readTime: "5 min",
-    image: "/images/blog-03.svg",
+    image: "/photos-entretien/apres/ap-09.jpg",
     content: [
-      "Le choix de l'essence dépend de l'exposition, de l'humidité et de la fréquence d'utilisation de la terrasse.",
-      "Une bonne conception intègre les circulations, les zones d'ombre et la continuité avec les massifs.",
-      "La qualité de mise en oeuvre reste déterminante pour la stabilité, l'écoulement des eaux et la longévité globale.",
+      "Le choix de l'essence de bois est la première décision structurante. Le pin traité autoclave (classe 4) offre un bon rapport qualité-prix et convient aux budgets serrés. Le douglas, naturellement résistant, vieillit avec un grisé élégant. Pour les projets haut de gamme, les bois exotiques (ipé, cumaru) ou le bois composite offrent une longévité supérieure à 25 ans avec un entretien minimal.",
+      "L'orientation et l'exposition de la terrasse sont déterminantes. Une terrasse plein sud séchera vite mais chauffera en été, tandis qu'une exposition nord restera plus fraîche et humide, favorisant les mousses. Dans le Vignoble Nantais, l'humidité océanique impose une attention particulière à la ventilation sous les lames et à l'espacement entre elles pour un bon drainage.",
+      "La structure porteuse est souvent négligée mais conditionne la durabilité de l'ensemble. Des lambourdes en aluminium ou en bois exotique, posées sur des plots réglables, garantissent une assise stable et une ventilation optimale. L'espacement régulier entre les lames (5 à 8 mm) permet l'écoulement des eaux et évite la stagnation responsable du pourrissement prématuré.",
+      "Enfin, pensez votre terrasse comme un prolongement de la maison. Son intégration avec les massifs environnants, les marches d'accès au jardin et l'éclairage extérieur font la différence entre une simple plateforme et un véritable espace de vie. Un bon dessin initial évite les reprises coûteuses et crée un ensemble cohérent dès la pose.",
     ],
   },
 ];
@@ -285,17 +359,17 @@ export const amenagementTypes = [
   {
     title: "Terrasses bois",
     description: "Des espaces à vivre chaleureux et durables, posés dans les règles de l'art.",
-    image: "/images/project-01.svg",
+    image: "/photos-entretien/apres/ap-09.jpg",
   },
   {
     title: "Clôtures et limites",
     description: "Palissades bois ou naturelles pour structurer l'espace et s'isoler avec élégance.",
-    image: "/images/project-02.svg",
+    image: "/photos-entretien/apres/ap-02.jpg",
   },
   {
     title: "Massifs et végétalisation",
     description: "Des palettes végétales adaptées au sol et au climat, vivantes toute l'année.",
-    image: "/images/project-03.svg",
+    image: "/photos-entretien/apres/ap-04.jpg",
   },
 ];
 

@@ -3,7 +3,12 @@ import { notFound } from "next/navigation";
 
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
-import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbSchema,
+  buildLocalBusinessSchema,
+  buildPageMetadata,
+  buildWebPageSchema,
+} from "@/lib/seo";
 import { cityPages, services } from "@/lib/site-data";
 
 type CityPageProps = {
@@ -22,16 +27,23 @@ export async function generateMetadata({ params }: CityPageProps) {
 
   if (!cityPage) {
     return buildPageMetadata({
-      title: "Paysagiste a Vallet — Permapaysage",
+      title: "Paysagiste à Vallet — Permapaysage",
       description: "Permapaysage intervient autour de Vallet.",
       path: `/${citySlug}`,
+      noIndex: true,
     });
   }
 
   return buildPageMetadata({
-    title: `Paysagiste a ${cityPage.city} — Conception et amenagement | Permapaysage`,
-    description: `${cityPage.intro} Services: conception, amenagement et entretien des exterieurs.`,
+    title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
+    description: `${cityPage.intro} Services : conception, aménagement et entretien des extérieurs.`,
     path: `/${cityPage.slug}`,
+    keywords: [
+      `paysagiste ${cityPage.city}`,
+      `amenagement jardin ${cityPage.city}`,
+      `entretien jardin ${cityPage.city}`,
+      `conception jardin ${cityPage.city}`,
+    ],
   });
 }
 
@@ -43,32 +55,31 @@ export default async function CitySeoPage({ params }: CityPageProps) {
     notFound();
   }
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Permapaysage",
-    areaServed: cityPage.city,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Vallet",
-      postalCode: "44330",
-      addressCountry: "FR",
-    },
-    url: `https://www.permapaysage.com/${cityPage.slug}`,
-  };
+  const schemas = [
+    buildWebPageSchema({
+      title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
+      description: `${cityPage.intro} Services : conception, aménagement et entretien des extérieurs.`,
+      path: `/${cityPage.slug}`,
+    }),
+    buildLocalBusinessSchema(`/${cityPage.slug}`, cityPage.city),
+    buildBreadcrumbSchema([
+      { name: "Accueil", path: "/" },
+      { name: cityPage.city, path: `/${cityPage.slug}` },
+    ]),
+  ];
 
   return (
     <>
-      <StructuredData data={schema} />
+      <StructuredData data={schemas} />
       <section className="py-16 md:py-24">
         <Container>
           <div className="max-w-3xl space-y-5">
             <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Page locale</p>
-            <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Paysagiste a {cityPage.city}</h1>
+            <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">Paysagiste à {cityPage.city}</h1>
             <p className="text-muted-foreground text-base leading-relaxed md:text-lg">{cityPage.intro}</p>
             <div className="bg-card border-border rounded-md border p-5 text-sm">
               <p>
-                Distance depuis Vallet: <span className="text-foreground font-semibold">{cityPage.distance}</span>
+                Distance depuis Vallet : <span className="text-foreground font-semibold">{cityPage.distance}</span>
               </p>
               <p className="text-muted-foreground mt-2">Intervention sur rendez-vous, du lundi au vendredi.</p>
             </div>
@@ -88,7 +99,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 
           <div className="bg-primary text-primary-foreground mt-12 rounded-lg p-7 md:flex md:items-center md:justify-between">
             <div>
-              <h2 className="text-2xl leading-tight">Un projet de jardin a {cityPage.city} ?</h2>
+              <h2 className="text-2xl leading-tight">Un projet de jardin à {cityPage.city} ?</h2>
               <p className="mt-2 text-sm text-primary-foreground/90">Demandez un devis gratuit avec un retour rapide.</p>
             </div>
             <Link
