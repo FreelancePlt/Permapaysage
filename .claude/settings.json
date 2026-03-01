@@ -5,7 +5,6 @@
       "Bash(rtk next build)",
       "Bash(npx next build)",
       "Bash(curl -s http://localhost:3000)",
-      "Bash(curl -s \"https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJyevHnQoNImQRCkXIe1ao2f8&fields=name,rating,user_ratings_total,reviews&language=fr&key=AIzaSyBiDqmijoFNm9CUmTKBgFIVd3Vob4wxzZM\")"
     ]
   }
 }
