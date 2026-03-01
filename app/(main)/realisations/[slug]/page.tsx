@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
@@ -58,6 +59,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const otherProjects = projects.filter((p) => p.slug !== project.slug);
+
   return (
     <>
       <StructuredData
@@ -75,19 +78,58 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           ]),
         ]}
       />
+
       <section className="py-16 md:py-24">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">{project.category}</p>
-              <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">{project.title}</h1>
-              <p className="text-muted-foreground mt-4 max-w-xl text-base leading-relaxed md:text-lg">{project.summary}</p>
-              <div className="mt-7 grid gap-3 text-sm sm:grid-cols-2">
-                <p className="bg-card border-border rounded-sm border px-3 py-2">Localisation : {project.city}</p>
-                <p className="bg-card border-border rounded-sm border px-3 py-2">Approche : durabilité et biodiversité</p>
-                <p className="bg-card border-border rounded-sm border px-3 py-2">Matériaux : nobles et robustes</p>
-                <p className="bg-card border-border rounded-sm border px-3 py-2">Suivi : entretien saisonnier possible</p>
+          <div className="grid items-start gap-10 lg:grid-cols-2">
+            <div className="space-y-4">
+              <Image
+                src={project.image}
+                alt={`Vue principale du projet ${project.title}`}
+                width={1200}
+                height={900}
+                priority
+                className="aspect-4/3 w-full rounded-lg object-cover"
+              />
+              <div className="grid grid-cols-3 gap-3">
+                {project.gallery.map((img, i) => (
+                  <Image
+                    key={img}
+                    src={img}
+                    alt={`${project.title} — vue ${i + 2}`}
+                    width={400}
+                    height={400}
+                    className="aspect-square w-full rounded-md object-cover"
+                  />
+                ))}
               </div>
+            </div>
+
+            <div className="lg:sticky lg:top-24">
+              <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
+                {project.category}
+              </p>
+              <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">
+                {project.title}
+              </h1>
+              <p className="text-muted-foreground mt-4 text-base leading-relaxed md:text-lg">
+                {project.summary}
+              </p>
+
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {project.highlights.map((h) => (
+                  <div
+                    key={h.label}
+                    className="bg-muted/50 rounded-lg px-4 py-3"
+                  >
+                    <p className="text-muted-foreground text-xs font-medium uppercase tracking-wide">
+                      {h.label}
+                    </p>
+                    <p className="mt-1 text-sm font-semibold">{h.value}</p>
+                  </div>
+                ))}
+              </div>
+
               <Link
                 href="/contact"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
@@ -95,35 +137,64 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 Démarrer un projet similaire
               </Link>
             </div>
-
-            <div className="space-y-4">
-              <Image
-                src={project.image}
-                alt={`Vue principale du projet ${project.title}`}
-                width={1200}
-                height={900}
-                className="border-border aspect-[4/3] w-full rounded-lg border object-cover"
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <Image
-                  src="/images/project-detail-01.svg"
-                  alt={`Perspective détaillée du projet ${project.title}`}
-                  width={700}
-                  height={700}
-                  className="border-border aspect-square w-full rounded-md border object-cover"
-                />
-                <Image
-                  src="/images/project-detail-02.svg"
-                  alt={`Aménagement secondaire du projet ${project.title}`}
-                  width={700}
-                  height={700}
-                  className="border-border aspect-square w-full rounded-md border object-cover"
-                />
-              </div>
-            </div>
           </div>
         </Container>
       </section>
+
+      <section className="bg-muted/30 py-16 md:py-24">
+        <Container>
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-2xl leading-tight tracking-tight md:text-3xl">
+              À propos du projet
+            </h2>
+            <p className="text-muted-foreground mt-6 text-base leading-relaxed md:text-lg">
+              {project.description}
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {otherProjects.length > 0 && (
+        <section className="py-16 md:py-24">
+          <Container>
+            <h2 className="text-2xl leading-tight tracking-tight md:text-3xl">
+              Autres réalisations
+            </h2>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {otherProjects.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/realisations/${p.slug}`}
+                  className="bg-card border-border group flex overflow-hidden rounded-lg border transition-shadow hover:shadow-lg"
+                >
+                  <div className="w-2/5 shrink-0 overflow-hidden">
+                    <Image
+                      src={p.image}
+                      alt={`Projet ${p.title}`}
+                      width={400}
+                      height={300}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center gap-2 p-5">
+                    <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
+                      {p.category}
+                    </p>
+                    <h3 className="text-lg font-semibold leading-tight">
+                      {p.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {p.summary}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      <CtaSection />
     </>
   );
 }

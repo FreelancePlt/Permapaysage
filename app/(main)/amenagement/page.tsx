@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import { ServicePageSection } from "@/components/sections/service-page";
 import { CtaSection } from "@/components/sections/cta";
+import { BeforeAfterSlider } from "@/components/shared/before-after-slider";
 import { Container } from "@/components/shared/container";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
@@ -131,21 +132,13 @@ export default function AmenagementPage() {
             ].map((item, idx) => (
               <Reveal key={item.title} delay={idx * 100}>
                 <div className="group overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:shadow-lg">
-                  <div className="relative flex aspect-video w-full overflow-hidden">
-                    <div className="absolute left-4 top-4 z-10 rounded-full border border-border bg-background/90 px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm">
-                      Avant
-                    </div>
-                    <div className="relative h-full w-1/2 overflow-hidden border-r border-border">
-                      <Image src={item.avant} alt={`Avant — ${item.title}`} fill className="object-cover" />
-                    </div>
-                    <div className="absolute right-4 top-4 z-10 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white shadow-sm">
-                      Après
-                    </div>
-                    <div className="relative h-full w-1/2 overflow-hidden">
-                      <Image src={item.apres} alt={`Après — ${item.title}`} fill className="object-cover" />
-                    </div>
-                    <div className="absolute inset-y-0 left-1/2 z-10 w-0.5 -translate-x-1/2 bg-white shadow-sm" />
-                  </div>
+                  <BeforeAfterSlider
+                    beforeSrc={item.avant}
+                    afterSrc={item.apres}
+                    beforeAlt={`Avant — ${item.title}`}
+                    afterAlt={`Après — ${item.title}`}
+                    className="rounded-b-none"
+                  />
                   <div className="p-6">
                     <h3 className="text-lg font-medium">{item.title}</h3>
                     <p className="text-muted-foreground mt-1 text-sm">{item.description}</p>

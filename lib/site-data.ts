@@ -27,7 +27,10 @@ export type Project = {
   category: string;
   city: string;
   summary: string;
+  description: string;
   image: string;
+  gallery: string[];
+  highlights: { label: string; value: string }[];
 };
 
 export type BlogPost = {
@@ -190,24 +193,66 @@ export const projects: Project[] = [
     title: "Jardin vivant à Vallet",
     category: "Conception + aménagement",
     city: "Vallet",
-    summary: "Transformation complète d'un terrain sec en jardin nourricier avec terrasse bois et massifs durables.",
+    summary:
+      "Transformation complète d'un terrain sec en jardin nourricier avec terrasse bois et massifs durables.",
+    description:
+      "Ce projet a consisté à transformer un terrain nu et sec en un jardin vivant et productif. La conception s'appuie sur les principes de la permaculture : observation du terrain, gestion de l'eau, choix de végétaux adaptés au sol argilo-calcaire du Vignoble Nantais. Une terrasse en bois douglas relie la maison au jardin, prolongeant l'espace de vie vers l'extérieur. Les massifs mêlent arbustes persistants, vivaces mellifères et plantes comestibles pour un jardin beau et utile toute l'année.",
     image: "/photos-entretien/apres/ap-04.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-01.jpg",
+      "/photos-entretien/apres/ap-02.jpg",
+      "/photos-entretien/apres/ap-03.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Vallet (44)" },
+      { label: "Surface", value: "≈ 350 m²" },
+      { label: "Durée", value: "3 semaines" },
+      { label: "Approche", value: "Permaculture" },
+    ],
   },
   {
     slug: "terrasse-massifs-clisson",
     title: "Terrasse et massifs à Clisson",
     category: "Aménagement",
     city: "Clisson",
-    summary: "Création d'un espace de vie extérieur structuré, chaleureux et facile à entretenir.",
+    summary:
+      "Création d'un espace de vie extérieur structuré, chaleureux et facile à entretenir.",
+    description:
+      "L'objectif était de créer un extérieur à la fois accueillant et facile à vivre. La terrasse en bois structure l'espace et offre un lieu de convivialité ouvert sur le jardin. Les massifs plantés en bordure apportent du volume et de la couleur sans demander un entretien intensif. Le choix de végétaux résistants et d'un paillage épais limite les interventions tout en maintenant une esthétique soignée au fil des saisons.",
     image: "/photos-entretien/apres/ap-09.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-06.jpg",
+      "/photos-entretien/apres/ap-07.jpg",
+      "/photos-entretien/apres/ap-08.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Clisson (44)" },
+      { label: "Surface", value: "≈ 180 m²" },
+      { label: "Durée", value: "2 semaines" },
+      { label: "Matériaux", value: "Bois douglas, pierre" },
+    ],
   },
   {
     slug: "entretien-raisonne-vertou",
     title: "Entretien raisonné à Vertou",
     category: "Entretien",
     city: "Vertou",
-    summary: "Programme d'entretien écologique annuel avec taille raisonnée et zéro phytosanitaire.",
+    summary:
+      "Programme d'entretien écologique annuel avec taille raisonnée et zéro phytosanitaire.",
+    description:
+      "Ce jardin de particulier bénéficie d'un programme d'entretien annuel basé sur des pratiques écologiques. Chaque passage est planifié selon les saisons : tonte en mulching au printemps, taille raisonnée des haies en été, nettoyage d'automne et préparation hivernale. L'approche zéro phytosanitaire repose sur le désherbage manuel, le paillage naturel et le respect des cycles de croissance. Le résultat : un jardin propre, sain et vivant toute l'année.",
     image: "/photos-entretien/apres/ap-05.jpg",
+    gallery: [
+      "/photos-entretien/avant/av-01.jpg",
+      "/photos-entretien/avant/av-02.jpg",
+      "/photos-entretien/apres/ap-06.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Vertou (44)" },
+      { label: "Fréquence", value: "Mensuel" },
+      { label: "Méthode", value: "Zéro phyto" },
+      { label: "Avantage", value: "Crédit d'impôt 50 %" },
+    ],
   },
 ];
 
