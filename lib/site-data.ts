@@ -72,11 +72,13 @@ export const company = {
   reviewCount: 32,
   instagram: "https://instagram.com/perma.paysage",
   linkedin: "https://linkedin.com/company/permapaysage",
+  facebook: "https://www.facebook.com/permapaysage",
   googleReviewsUrl:
     "https://search.google.com/local/reviews?placeid=ChIJyevHnQoNImQRCkXIe1ao2f8",
   sameAs: [
     "https://instagram.com/perma.paysage",
     "https://linkedin.com/company/permapaysage",
+    "https://www.facebook.com/permapaysage",
   ],
 };
 
@@ -153,10 +155,9 @@ export const processSteps = [
 ];
 
 export const metrics: Metric[] = [
-  { value: "+4 560", label: "heures passées dans les jardins" },
-  { value: "+230", label: "projets réalisés" },
-  { value: "25 km", label: "rayon d'intervention" },
-  { value: "1 430", label: "végétaux plantés" },
+  { value: "+150", label: "clients accompagnés" },
+  { value: "+2 000", label: "végétaux plantés" },
+  { value: "+6 500", label: "heures dans vos jardins" },
 ];
 
 export const testimonials: Testimonial[] = [
@@ -254,6 +255,72 @@ export const projects: Project[] = [
       { label: "Avantage", value: "Crédit d'impôt 50 %" },
     ],
   },
+  {
+    slug: "haies-champetres-gorges",
+    title: "Haies champêtres à Gorges",
+    category: "Conception + aménagement",
+    city: "Gorges",
+    summary:
+      "Plantation de haies libres mêlant essences locales pour structurer un grand terrain sans rigidité.",
+    description:
+      "Ce projet consistait à remplacer une ancienne clôture grillagée par des haies champêtres composées d'essences variées : cornouiller sanguin, noisetier, viorne, prunellier et troène. Le résultat est une limite naturelle qui offre un refuge à la faune, des floraisons échelonnées et une belle diversité de feuillages au fil des saisons.",
+    image: "/photos-entretien/apres/ap-01.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-02.jpg",
+      "/photos-entretien/apres/ap-03.jpg",
+      "/photos-entretien/apres/ap-04.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Gorges (44)" },
+      { label: "Linéaire", value: "≈ 60 ml" },
+      { label: "Durée", value: "1 semaine" },
+      { label: "Approche", value: "Biodiversité" },
+    ],
+  },
+  {
+    slug: "jardin-nourricier-le-pallet",
+    title: "Jardin nourricier au Pallet",
+    category: "Conception",
+    city: "Le Pallet",
+    summary:
+      "Création d'un potager en permaculture avec buttes, composteur et récupération d'eau de pluie.",
+    description:
+      "Ce jardin nourricier a été conçu selon les principes de la permaculture : buttes de culture permanentes, associations de plantes compagnes, composteur intégré et système de récupération d'eau de pluie. L'ensemble s'intègre naturellement au jardin existant et permet à la famille de produire une partie de ses légumes toute l'année.",
+    image: "/photos-entretien/apres/ap-03.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-01.jpg",
+      "/photos-entretien/apres/ap-06.jpg",
+      "/photos-entretien/apres/ap-07.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Le Pallet (44)" },
+      { label: "Surface", value: "≈ 80 m²" },
+      { label: "Durée", value: "2 semaines" },
+      { label: "Approche", value: "Permaculture" },
+    ],
+  },
+  {
+    slug: "renovation-pelouse-haute-goulaine",
+    title: "Rénovation de pelouse à Haute-Goulaine",
+    category: "Entretien",
+    city: "Haute-Goulaine",
+    summary:
+      "Scarification, réensemencement et programme d'entretien pour retrouver une pelouse dense et saine.",
+    description:
+      "Cette pelouse dégradée par le feutrage et les mousses a bénéficié d'un programme complet de rénovation : scarification en profondeur, réensemencement avec un mélange adapté au sol et à l'exposition, puis mise en place d'un entretien régulier en mulching. En quelques mois, la pelouse a retrouvé densité et couleur sans aucun produit chimique.",
+    image: "/photos-entretien/apres/ap-06.jpg",
+    gallery: [
+      "/photos-entretien/avant/av-04.jpg",
+      "/photos-entretien/avant/av-05.jpg",
+      "/photos-entretien/apres/ap-05.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Haute-Goulaine (44)" },
+      { label: "Surface", value: "≈ 400 m²" },
+      { label: "Méthode", value: "Zéro phyto" },
+      { label: "Avantage", value: "Crédit d'impôt 50 %" },
+    ],
+  },
 ];
 
 export const blogPosts: BlogPost[] = [
@@ -308,31 +375,112 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-export const entretienFaq = [
+export const entretienPrestations = [
   {
-    question: "Le crédit d'impôt de 50 % est-il applicable ?",
-    answer:
-      "Oui, les prestations d'entretien des espaces verts sont réalisées dans le cadre du service à la personne, selon les conditions en vigueur.",
+    title: "Tonte de pelouse en mulching",
+    description:
+      "Retrouvez le plaisir de marcher pieds nus dans une herbe fraîche chaque samedi, sans jamais sortir la tondeuse.",
   },
   {
-    question: "Intervenez-vous toute l'année ?",
+    title: "Débroussaillage",
+    description:
+      "Ne laissez plus les ronces envahir votre tranquillité. Nous redonnons vie à vos espaces oubliés.",
+  },
+  {
+    title: "Taille de haies, arbustes & fruitiers",
+    description:
+      "Une taille au moment idéal pour garantir floraisons et récoltes, sans corvée ni évacuation pour vous.",
+  },
+  {
+    title: "Désherbage manuel et écoresponsable",
+    description:
+      "Dites adieu aux mauvaises herbes sans culpabilité. Un extérieur soigné et respectueux de la biodiversité.",
+  },
+  {
+    title: "Entretien des massifs vivaces et fleuris",
+    description:
+      "Un suivi saisonnier pour que vos massifs soient un spectacle permanent sous vos fenêtres.",
+  },
+  {
+    title: "Soufflage & ramassage des feuilles",
+    description:
+      "Des allées et une pelouse dégagées en un clin d\u2019œil pour préserver la beauté et la sécurité de vos accès.",
+  },
+  {
+    title: "Nettoyage des allées et terrasses",
+    description:
+      "Redonnez de l\u2019éclat à vos espaces de vie. Retrouvez le plaisir de recevoir vos proches en toute sérénité.",
+  },
+  {
+    title: "Scarification",
+    description:
+      "Offrez une cure de jeunesse à votre pelouse. Élimination du feutrage pour permettre à votre gazon de respirer et reverdir.",
+  },
+];
+
+export const entretienGaranties = [
+  {
+    title: "Satisfaction garantie",
+    description:
+      "Si un détail ne vous convient pas, nous revenons corriger le travail gratuitement sous 3 jours.",
+  },
+  {
+    title: "Transparence fiscale",
+    description:
+      "Profitez d\u2019un service pro pour la moitié du prix. Nous gérons toutes les démarches administratives pour vous.",
+  },
+  {
+    title: "Respect de votre temps",
+    description:
+      "Toujours à l\u2019heure, nous ne repartons jamais sans avoir nettoyé vos allées. Un jardin net, sans effort pour vous.",
+  },
+];
+
+export const entretienFaq = [
+  {
+    question: "Quels travaux d\u2019entretien sont éligibles au crédit d\u2019impôt de 50 % ?",
     answer:
-      "Oui, le suivi s'adapte aux saisons avec des passages planifiés selon les besoins de votre jardin.",
+      "La quasi-totalité des tâches d\u2019entretien courant sont couvertes : tonte, débroussaillage, désherbage manuel, scarification, ramassage des feuilles, taille de haies et arbustes (à hauteur d\u2019homme), nettoyage des allées et terrasses.",
+  },
+  {
+    question: "Si je ne paye pas d\u2019impôts, ai-je quand même droit aux 50 % ?",
+    answer:
+      "Absolument. C\u2019est un crédit d\u2019impôt universel. Si vous n\u2019êtes pas imposable, le Trésor Public vous rembourse la moitié de vos dépenses par virement ou chèque. Avec l\u2019Avance Immédiate Urssaf, vous ne payez que 50 % dès la facture.",
+  },
+  {
+    question: "C\u2019est quoi l\u2019Avance Immédiate de l\u2019Urssaf ?",
+    answer:
+      "Au lieu d\u2019attendre un an pour être remboursé, l\u2019Urssaf déduit votre aide instantanément. Pour 200 \u20AC de prestation, vous ne réglez que 100 \u20AC. C\u2019est l\u2019État qui verse directement le complément.",
+  },
+  {
+    question: "Dois-je fournir les outils ou l\u2019essence ?",
+    answer:
+      "Rien du tout. Nous venons avec notre propre équipement professionnel. Vous n\u2019avez pas à vous soucier de l\u2019entretien des machines, du stockage ou des consommables.",
+  },
+  {
+    question: "Intervenez-vous pour une seule fois ou faut-il un contrat ?",
+    answer:
+      "Nous nous adaptons à votre besoin. Que ce soit pour un coup de propre ponctuel ou un entretien régulier à l\u2019année, vous êtes libre. Pas d\u2019engagement de longue durée.",
   },
   {
     question: "Utilisez-vous des produits phytosanitaires ?",
     answer:
-      "Non. L'approche privilégie des pratiques écologiques: désherbage manuel, mulching et entretien raisonné.",
+      "Non. L\u2019approche privilégie des pratiques 100 % écologiques : désherbage manuel, mulching, taille raisonnée et respect des cycles de croissance.",
   },
   {
     question: "Quels sont vos tarifs et fréquences de passage ?",
     answer:
-      "Les tarifs varient selon la surface et les besoins. Les passages peuvent être ponctuels (taille de haies, grand nettoyage) ou réguliers (contrat annuel d'entretien).",
+      "Les tarifs varient selon la surface et les besoins. Les passages peuvent être ponctuels (taille de haies, grand nettoyage) ou réguliers (contrat annuel d\u2019entretien). Contactez-nous pour un devis gratuit.",
   },
   {
     question: "Acceptez-vous le CESU ?",
     answer:
-      "Oui, dans le cadre du service à la personne (réalisé via Le Jardinier du Vignoble), le règlement par Chèque Emploi Service Universel (CESU) préfinancé est accepté.",
+      "Oui, dans le cadre du service à la personne (réalisé via Le Jardinier du Vignoble), le règlement par Chèque Emploi Service Universel (CESU) préfinancé est accepté, ainsi que CB, virement et chèque.",
+  },
+  {
+    question: "Y a-t-il des prestations non éligibles au crédit d\u2019impôt ?",
+    answer:
+      "Oui, sont exclus : les travaux de création paysagère (massifs, clôtures, terrasses), l\u2019élagage nécessitant des cordes ou harnais, et la vente de végétaux ou matériel. Seule la main-d\u2019œuvre d\u2019entretien est déductible.",
   },
 ];
 

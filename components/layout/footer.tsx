@@ -1,4 +1,5 @@
-import { ArrowRightIcon, InstagramLogoIcon, LeafIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LeafIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import Link from "next/link";
 
 import { company, legalLinks, navigation } from "@/lib/site-data";
@@ -7,7 +8,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-border bg-primary text-white">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.03] blur-3xl" />
+        <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/3 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
       </div>
 
@@ -63,6 +64,15 @@ export function Footer() {
           </ul>
           <div className="flex items-center gap-3 pt-3">
             <Link
+              href={company.facebook}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook Permapaysage"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/60 transition-all hover:border-white/40 hover:bg-white/10 hover:text-white"
+            >
+              <FacebookLogoIcon size={18} />
+            </Link>
+            <Link
               href={company.instagram}
               target="_blank"
               rel="noreferrer"
@@ -80,6 +90,16 @@ export function Footer() {
             >
               <LinkedinLogoIcon size={18} />
             </Link>
+          </div>
+
+          <div className="flex items-center gap-3 pt-4">
+            <Image
+              src="/logos/unipros.png"
+              alt="Membre UNEP — Union Nationale des Entreprises du Paysage"
+              width={80}
+              height={40}
+              className="h-8 w-auto brightness-0 invert opacity-60 transition-opacity hover:opacity-90"
+            />
           </div>
         </div>
       </div>

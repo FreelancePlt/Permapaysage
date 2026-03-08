@@ -1,18 +1,15 @@
 import {
   ArrowRightIcon,
-  ChatCircleDotsIcon,
   ClockIcon,
   CompassIcon,
-  HandshakeIcon,
+  GlobeIcon,
+  HandsClappingIcon,
+  HeartIcon,
   LeafIcon,
-  MapPinIcon,
-  MagnifyingGlassIcon,
   NavigationArrowIcon,
-  NoteIcon,
   PlantIcon,
   RecycleIcon,
   StarIcon,
-  TreeIcon,
   UsersIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
@@ -31,7 +28,7 @@ import {
   buildWebPageSchema,
   buildWebsiteSchema,
 } from "@/lib/seo";
-import { blogPosts, company, metrics, processSteps, projects, services, testimonials } from "@/lib/site-data";
+import { blogPosts, company, metrics, projects, services, testimonials } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
@@ -65,8 +62,7 @@ const reviewSchema = {
 };
 
 const serviceIcons = [CompassIcon, RecycleIcon, LeafIcon];
-const processIcons = [ChatCircleDotsIcon, MagnifyingGlassIcon, NoteIcon, HandshakeIcon, PlantIcon];
-const metricIcons = [ClockIcon, TreeIcon, MapPinIcon, LeafIcon];
+const metricIcons = [UsersIcon, PlantIcon, ClockIcon];
 
 export default function HomePage() {
   const homepageSchemas = [
@@ -113,34 +109,37 @@ export default function HomePage() {
               <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
                 Permapaysage conçoit, aménage et entretient des extérieurs sobres, chaleureux et écologiques dans un rayon de 25 km autour de Vallet.
               </p>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-4">
                 <Link
                   href="/contact"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-7 text-sm font-semibold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
                 >
                   Obtenir un devis gratuit
-                  <ArrowRightIcon size={16} weight="bold" />
+                  <ArrowRightIcon size={18} weight="bold" />
                 </Link>
                 <Link
                   href="/realisations"
-                  className="inline-flex h-12 items-center justify-center rounded-lg border border-white/30 px-7 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
+                  className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/40 px-8 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/60"
                 >
                   Voir les réalisations
                 </Link>
               </div>
-              <div className="flex flex-wrap gap-6 text-sm text-white/70">
-                <p className="inline-flex items-center gap-1.5">
-                  <StarIcon size={16} weight="fill" className="text-secondary" />
-                  <span className="font-semibold text-white">{company.rating}</span> sur Google
-                </p>
-                <p className="inline-flex items-center gap-1.5">
-                  <UsersIcon size={16} className="text-white/50" />
-                  <span className="font-semibold text-white">{company.reviewCount} avis</span> vérifiés
-                </p>
-                <p className="inline-flex items-center gap-1.5">
-                  <NavigationArrowIcon size={16} className="text-white/50" />
-                  <span className="font-semibold text-white">{company.radius}</span>
-                </p>
+              <div className="flex flex-wrap gap-4 sm:gap-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                  <StarIcon size={20} weight="fill" className="text-yellow-400" />
+                  <span className="text-base font-bold text-white">{company.rating}</span>
+                  <span className="text-sm text-white/70">sur Google</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                  <UsersIcon size={20} className="text-white/80" />
+                  <span className="text-base font-bold text-white">{company.reviewCount} avis</span>
+                  <span className="text-sm text-white/70">vérifiés</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                  <NavigationArrowIcon size={20} className="text-white/80" />
+                  <span className="text-base font-bold text-white">25 km</span>
+                  <span className="text-sm text-white/70">autour de Vallet</span>
+                </div>
               </div>
             </div>
 
@@ -221,7 +220,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── PROCESSUS ── */}
+      {/* ── LES 3 PILIERS ── */}
       <section className="relative overflow-hidden bg-primary py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.04] blur-3xl" />
@@ -231,49 +230,57 @@ export default function HomePage() {
         <Container>
           <Reveal>
             <div className="relative mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Processus</p>
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Notre philosophie</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight text-white md:text-4xl">
-                Une méthode claire en 5 étapes
+                Les 3 piliers de Permapaysage
               </h2>
               <p className="mt-4 text-base text-white/70 md:text-lg">
-                Un cadre simple pour avancer sereinement, avec une vision long terme du jardin.
+                Chaque projet s&apos;appuie sur les trois éthiques fondamentales de la permaculture.
               </p>
             </div>
           </Reveal>
 
-          <ol className="relative mt-14 grid grid-cols-2 gap-6 md:grid-cols-5 md:gap-4 lg:gap-6">
-            <div className="pointer-events-none absolute left-[10%] right-[10%] top-[48px] hidden h-px bg-white/15 md:block" aria-hidden />
-            {processSteps.map((step, index) => {
-              const Icon = processIcons[index];
+          <div className="relative mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
+            {[
+              {
+                icon: GlobeIcon,
+                title: "Prendre soin de la terre",
+                description: "Préserver les sols, favoriser la biodiversité et travailler avec les cycles naturels plutôt que contre eux.",
+              },
+              {
+                icon: HeartIcon,
+                title: "Prendre soin des hommes",
+                description: "Créer des espaces de vie qui nourrissent le bien-être, la santé et le lien entre les personnes.",
+              },
+              {
+                icon: HandsClappingIcon,
+                title: "Partager équitablement",
+                description: "Restituer l\u2019excédent, partager les savoirs et contribuer à un modèle plus juste et durable.",
+              },
+            ].map((pillar, idx) => {
+              const Icon = pillar.icon;
               return (
-                <Reveal key={step.title} delay={index * 80}>
-                  <li
-                    className={`relative flex h-full flex-col items-center rounded-3xl bg-white/[0.04] px-4 pb-6 pt-2 text-center ring-1 ring-white/10 backdrop-blur-sm${
-                      index === 4 ? " col-span-2 md:col-span-1" : ""
-                    }`}
-                  >
-                    <div className="relative z-10 mb-5 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-white backdrop-blur-sm">
-                      {Icon && <Icon size={24} weight="duotone" />}
+                <Reveal key={pillar.title} delay={idx * 120}>
+                  <article className="group flex h-full flex-col items-center rounded-3xl bg-white/6 px-8 py-10 text-center ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-white transition-colors group-hover:border-white/30 group-hover:bg-white/15">
+                      <Icon size={30} weight="duotone" />
                     </div>
-                    <p className="inline-flex rounded-full bg-secondary/18 px-3 py-1 text-[11px] font-bold tracking-[0.18em] uppercase text-secondary-foreground ring-1 ring-white/10">
-                      Étape {index + 1}
+                    <h3 className="text-xl font-semibold leading-snug text-white">{pillar.title}</h3>
+                    <p className="mt-3 max-w-[30ch] text-sm leading-relaxed text-white/75 md:text-base">
+                      {pillar.description}
                     </p>
-                    <h3 className="mt-3 text-lg font-semibold leading-snug text-white">{step.title}</h3>
-                    <p className="mt-2 max-w-[24ch] text-sm leading-6 text-white/80 md:text-[15px]">
-                      {step.description}
-                    </p>
-                  </li>
+                  </article>
                 </Reveal>
               );
             })}
-          </ol>
+          </div>
         </Container>
       </section>
 
       {/* ── CHIFFRES ── */}
       <section className="relative overflow-hidden bg-card py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/[0.06] blur-3xl" />
+          <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/6 blur-3xl" />
         </div>
         <Container>
           <Reveal>
@@ -284,7 +291,7 @@ export default function HomePage() {
               </h2>
             </div>
           </Reveal>
-          <div className="relative mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="relative mt-14 grid gap-6 sm:grid-cols-3">
             {metrics.map((metric, idx) => {
               const Icon = metricIcons[idx];
               return (
@@ -330,8 +337,8 @@ export default function HomePage() {
                   <div className="absolute -right-3 -top-3 font-serif text-7xl leading-none text-primary/10" aria-hidden>&ldquo;</div>
                   <div className="relative flex flex-1 flex-col">
                     <div className="mb-4 flex gap-0.5">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <StarIcon key={i} size={16} weight="fill" className="text-secondary" />
+                      {["s1", "s2", "s3", "s4", "s5"].map((id) => (
+                        <StarIcon key={id} size={16} weight="fill" className="text-secondary" />
                       ))}
                     </div>
                     <blockquote className="flex-1 text-sm leading-relaxed md:text-base">
@@ -384,8 +391,8 @@ export default function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {projects.map((project, idx) => (
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.slice(0, 6).map((project, idx) => (
               <Reveal key={project.slug} delay={idx * 100}>
                 <Link href={`/realisations/${project.slug}`} className="group block">
                   <article className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
@@ -403,8 +410,8 @@ export default function HomePage() {
                       </span>
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl leading-tight">{project.title}</h3>
-                      <p className="text-muted-foreground mt-2 text-sm">{project.summary}</p>
+                      <h3 className="text-xl leading-tight line-clamp-1">{project.title}</h3>
+                      <p className="text-muted-foreground mt-2 text-sm line-clamp-2">{project.summary}</p>
                       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
                         Voir le projet
                         <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />

@@ -3,7 +3,6 @@ import { DM_Sans, Fraunces } from "next/font/google";
 
 import { Analytics } from "@vercel/analytics/next";
 
-import { ThemeScript } from "@/components/layout/theme-script";
 import { BASE_URL, buildPageMetadata } from "@/lib/seo";
 import { company } from "@/lib/site-data";
 
@@ -58,15 +57,14 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#254239",
-  colorScheme: "light dark",
+  themeColor: "#1A531A",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" suppressHydrationWarning className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
       <body>
-        <ThemeScript />
         {children}
         <Analytics />
       </body>

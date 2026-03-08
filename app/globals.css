@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,6 +10,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-light);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -20,6 +19,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -32,47 +32,27 @@
 }
 
 :root {
-  --background: hsl(60 11% 97%);
-  --foreground: hsl(60 5% 10%);
-  --card: hsl(43 14% 94%);
-  --card-foreground: hsl(60 5% 10%);
-  --popover: hsl(60 11% 97%);
-  --popover-foreground: hsl(60 5% 10%);
-  --primary: hsl(108 22% 33%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(43 73% 31%);
-  --secondary-foreground: hsl(0 0% 100%);
-  --muted: hsl(40 10% 90%);
-  --muted-foreground: hsl(60 3% 41%);
-  --accent: hsl(40 10% 90%);
-  --accent-foreground: hsl(60 5% 10%);
-  --destructive: hsl(0 70% 48%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(40 7% 87%);
-  --input: hsl(40 7% 87%);
-  --ring: hsl(108 22% 33%);
-}
-
-.dark {
-  --background: hsl(60 4% 8%);
-  --foreground: hsl(40 12% 93%);
-  --card: hsl(60 4% 12%);
-  --card-foreground: hsl(40 12% 93%);
-  --popover: hsl(60 4% 12%);
-  --popover-foreground: hsl(40 12% 93%);
-  --primary: hsl(108 25% 48%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(43 73% 31%);
-  --secondary-foreground: hsl(0 0% 100%);
-  --muted: hsl(60 4% 16%);
-  --muted-foreground: hsl(50 3% 64%);
-  --accent: hsl(60 4% 16%);
-  --accent-foreground: hsl(40 12% 93%);
-  --destructive: hsl(0 70% 48%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(60 3% 20%);
-  --input: hsl(60 3% 20%);
-  --ring: hsl(108 25% 48%);
+  --background: #FAFAF8;
+  --foreground: #2F4F4F;
+  --card: #FFF8DC;
+  --card-foreground: #2F4F4F;
+  --popover: #FAFAF8;
+  --popover-foreground: #2F4F4F;
+  --primary: #1A531A;
+  --primary-foreground: #FFFFFF;
+  --primary-light: #6B8E23;
+  --secondary: #6B8E23;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F0EDE8;
+  --muted-foreground: #5F7A7A;
+  --accent: #F0EDE8;
+  --accent-foreground: #2F4F4F;
+  --destructive: #C53030;
+  --destructive-foreground: #FFFFFF;
+  --success: #2D8A4E;
+  --border: #DDD8CE;
+  --input: #DDD8CE;
+  --ring: #1A531A;
 }
 
 @layer base {
