@@ -6,7 +6,7 @@ import { company, legalLinks, navigation } from "@/lib/site-data";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-primary text-white">
+    <footer className="relative overflow-hidden border-t border-border text-white" style={{ backgroundColor: "#0F3A0F" }}>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/3 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
@@ -15,7 +15,13 @@ export function Footer() {
       <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 md:grid-cols-[1.3fr_1fr_1fr] md:px-6 md:py-20">
         <div className="space-y-5">
           <div className="flex items-center gap-2">
-            <LeafIcon size={20} weight="fill" className="text-white/70" />
+            <Image
+              src="/Logo.png"
+              alt="Logo de Permapaysage"
+              width={32}  
+              height={32}
+              className="h-8 w-8 rounded-full "
+            />
             <span className="text-xs font-semibold tracking-[0.18em] uppercase text-white/70">Permapaysage</span>
           </div>
           <h2 className="font-serif text-2xl tracking-tight">Des jardins qui prennent racine dans le temps.</h2>
@@ -92,20 +98,26 @@ export function Footer() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-3 pt-4">
-            <Image
-              src="/logos/unipros.png"
-              alt="Membre UNEP — Union Nationale des Entreprises du Paysage"
-              width={80}
-              height={40}
-              className="h-8 w-auto brightness-0 invert opacity-60 transition-opacity hover:opacity-90"
-            />
-          </div>
         </div>
       </div>
 
-      <div className="relative border-t border-white/10 px-4 py-5 text-center text-xs text-white/40 md:px-6">
-        <p>© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
+      <div className="relative border-t border-white/10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-4 py-8 md:flex-row md:justify-between md:px-6">
+          <div className="flex items-center gap-4">
+            <span className="text-xs font-semibold tracking-[0.12em] uppercase text-white/50">Membre de</span>
+            <div className="h-5 w-px bg-white/20" />
+            <div className="flex items-center gap-5">
+              <Image
+                src="/logos/unipros.png"
+                alt="Membre Unipros — Union Nationale des Intégrateurs Professionnels"
+                width={120}
+                height={48}
+                className="h-12 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
+              />
+            </div>
+          </div>
+          <p className="text-xs text-white/40">© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
+        </div>
       </div>
     </footer>
   );

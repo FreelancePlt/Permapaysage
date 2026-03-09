@@ -17,6 +17,7 @@ import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
+import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
@@ -62,6 +63,11 @@ const reviewSchema = {
 };
 
 const serviceIcons = [CompassIcon, RecycleIcon, LeafIcon];
+const serviceImages: Record<string, string> = {
+  conception: "/services/conception-jardin.png",
+  amenagement: "/services/amenagements-exterieurs.png",
+  entretien: "/services/entretien-espaces-verts.png",
+};
 const metricIcons = [UsersIcon, PlantIcon, ClockIcon];
 
 export default function HomePage() {
@@ -125,21 +131,24 @@ export default function HomePage() {
                 </Link>
               </div>
               <div className="flex flex-wrap gap-4 sm:gap-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                <Link
+                  href={company.googleReviewsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
                   <StarIcon size={20} weight="fill" className="text-yellow-400" />
                   <span className="text-base font-bold text-white">{company.rating}</span>
-                  <span className="text-sm text-white/70">sur Google</span>
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-                  <UsersIcon size={20} className="text-white/80" />
-                  <span className="text-base font-bold text-white">{company.reviewCount} avis</span>
-                  <span className="text-sm text-white/70">vérifiés</span>
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                  <span className="text-sm text-white/70">sur Google · {company.reviewCount} avis vérifiés</span>
+                </Link>
+                <Link
+                  href="#zone-intervention"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
                   <NavigationArrowIcon size={20} className="text-white/80" />
                   <span className="text-base font-bold text-white">25 km</span>
                   <span className="text-sm text-white/70">autour de Vallet</span>
-                </div>
+                </Link>
               </div>
             </div>
 
@@ -190,23 +199,24 @@ export default function HomePage() {
               return (
                 <Reveal key={service.slug} delay={idx * 100}>
                   <Link href={`/${service.slug}`} className="group block h-full">
-                    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-xl">
-                      <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-primary/5 transition-all duration-500 group-hover:bg-primary/10 group-hover:scale-125" />
-                      <div className="relative">
-                        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                          {Icon && <Icon size={28} weight="duotone" />}
+                    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-xl">
+                      <div className="relative overflow-hidden">
+                        <Image
+                          src={serviceImages[service.slug]}
+                          alt={`Illustration ${service.title}`}
+                          width={600}
+                          height={400}
+                          className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      </div>
+                      <div className="relative flex flex-1 flex-col p-8">
+                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                          {Icon && <Icon size={24} weight="duotone" />}
                         </div>
                         <h3 className="text-2xl leading-tight">{service.title}</h3>
-                        <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{service.shortDescription}</p>
-                        <ul className="mt-5 space-y-2.5 text-sm">
-                          {service.points.map((point) => (
-                            <li key={point} className="text-muted-foreground flex items-start gap-2.5">
-                              <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors group-hover:gap-2.5">
+                        <p className="text-muted-foreground mt-3 flex-1 text-sm leading-relaxed">{service.shortDescription}</p>
+                        <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors group-hover:gap-2.5">
                           Découvrir
                           <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
                         </span>
@@ -331,29 +341,37 @@ export default function HomePage() {
             </div>
           </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.slice(0, 3).map((testimonial, idx) => (
-              <Reveal key={testimonial.author} delay={idx * 100}>
-                <figure className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-7">
-                  <div className="absolute -right-3 -top-3 font-serif text-7xl leading-none text-primary/10" aria-hidden>&ldquo;</div>
-                  <div className="relative flex flex-1 flex-col">
-                    <div className="mb-4 flex gap-0.5">
-                      {["s1", "s2", "s3", "s4", "s5"].map((id) => (
-                        <StarIcon key={id} size={16} weight="fill" className="text-secondary" />
-                      ))}
-                    </div>
-                    <blockquote className="flex-1 text-sm leading-relaxed md:text-base">
-                      &ldquo;{testimonial.content}&rdquo;
-                    </blockquote>
-                    <figcaption className="mt-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-                        {testimonial.author.charAt(0)}
+            {testimonials.slice(0, 3).map((testimonial, idx) => {
+              const colors = [
+                { bg: "bg-primary", text: "text-white" },
+                { bg: "bg-secondary", text: "text-white" },
+                { bg: "bg-primary-light", text: "text-white" },
+              ];
+              const color = colors[idx % colors.length];
+              return (
+                <Reveal key={testimonial.author} delay={idx * 100}>
+                  <figure className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
+                    <div className="absolute -right-3 -top-3 font-serif text-7xl leading-none text-primary/10" aria-hidden>&ldquo;</div>
+                    <div className="relative flex flex-1 flex-col">
+                      <div className="mb-4 flex gap-0.5">
+                        {["s1", "s2", "s3", "s4", "s5"].map((id) => (
+                          <StarIcon key={id} size={18} weight="fill" className="text-secondary" />
+                        ))}
                       </div>
-                      <span className="text-sm font-medium">{testimonial.author}</span>
-                    </figcaption>
-                  </div>
-                </figure>
-              </Reveal>
-            ))}
+                      <blockquote className="flex-1 text-sm leading-relaxed md:text-base">
+                        &ldquo;{testimonial.content}&rdquo;
+                      </blockquote>
+                      <figcaption className="mt-5 flex items-center gap-3">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-bold ${color.bg} ${color.text}`}>
+                          {testimonial.author.charAt(0)}
+                        </div>
+                        <span className="text-sm font-semibold">{testimonial.author}</span>
+                      </figcaption>
+                    </div>
+                  </figure>
+                </Reveal>
+              );
+            })}
           </div>
           <Reveal delay={300}>
             <div className="mt-10 text-center">
@@ -391,11 +409,11 @@ export default function HomePage() {
               </Link>
             </div>
           </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 6).map((project, idx) => (
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {projects.slice(0, 3).map((project, idx) => (
               <Reveal key={project.slug} delay={idx * 100}>
-                <Link href={`/realisations/${project.slug}`} className="group block">
-                  <article className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                <Link href={`/realisations/${project.slug}`} className="group block h-full">
+                  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
                     <div className="relative overflow-hidden">
                       <Image
                         src={project.image}
@@ -409,9 +427,9 @@ export default function HomePage() {
                         {project.category}
                       </span>
                     </div>
-                    <div className="p-6">
+                    <div className="flex flex-1 flex-col p-6">
                       <h3 className="text-xl leading-tight line-clamp-1">{project.title}</h3>
-                      <p className="text-muted-foreground mt-2 text-sm line-clamp-2">{project.summary}</p>
+                      <p className="text-muted-foreground mt-2 flex-1 text-sm line-clamp-2">{project.summary}</p>
                       <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
                         Voir le projet
                         <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
@@ -422,6 +440,39 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={300}>
+            <div className="mt-10 text-center">
+              <Link
+                href="/realisations"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-primary px-8 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
+              >
+                Découvrir les autres projets
+                <ArrowRightIcon size={16} weight="bold" />
+              </Link>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* ── ZONE D'INTERVENTION ── */}
+      <section id="zone-intervention" className="py-20 md:py-28">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Zone d&apos;intervention</p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
+                À votre service dans un rayon de 25 km
+              </h2>
+              <p className="text-muted-foreground mt-4 text-base md:text-lg">
+                Basés à Vallet, nous intervenons dans tout le Vignoble Nantais : Clisson, Vertou, Le Loroux-Bottereau, Aigrefeuille-sur-Maine et alentours.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="mt-12 overflow-hidden rounded-2xl border border-border shadow-sm">
+              <InterventionMapLazy />
+            </div>
+          </Reveal>
         </Container>
       </section>
 
@@ -486,7 +537,11 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <CtaSection />
+      <CtaSection
+        title="Votre jardin mérite mieux. Parlons-en."
+        description="Chaque projet commence par un échange. Décrivez-nous votre terrain, vos envies et vos contraintes — on s'occupe du reste."
+        ctaText="Demander un devis gratuit →"
+      />
     </>
   );
 }
