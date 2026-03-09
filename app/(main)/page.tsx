@@ -540,7 +540,7 @@ export default function HomePage() {
       <CtaSection
         title="Votre jardin mérite mieux. Parlons-en."
         description="Chaque projet commence par un échange. Décrivez-nous votre terrain, vos envies et vos contraintes — on s'occupe du reste."
-        ctaText="Demander un devis gratuit →"
+        ctaText="Demander un devis gratuit"
       />
     </>
   );
