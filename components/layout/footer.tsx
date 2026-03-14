@@ -114,6 +114,13 @@ export function Footer() {
                 height={48}
                 className="h-12 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
               />
+              <Image
+                src="/logos/unep.png"
+                alt="Membre UNEP — Union Nationale des Entreprises du Paysage"
+                width={120}
+                height={48}
+                className="h-12 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
+              />
             </div>
           </div>
           <p className="text-xs text-white/40">© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
