@@ -109,7 +109,17 @@ export default function RealisationsPage() {
           </div>
         </Container>
       </section>
-      <CtaSection />
+      <CtaSection
+        eyebrow="Votre projet commence ici"
+        title="Arrêtez de rêver du jardin des autres."
+        description="Vous venez de voir ce qu'un terrain peut devenir quand on allie la force du bois, la noblesse de la pierre et le respect du vivant. Et si votre jardin était notre prochaine réussite ? Ne laissez plus les contraintes techniques ou le manque de temps freiner votre vision. Nous transformons vos doutes en un plan d'action concret."
+        points={[
+          "Analyse de faisabilité immédiate.",
+          "Priorisation de vos besoins (vie, jeu, détente).",
+          "Zéro stress : nous gérons la complexité, vous gardez le plaisir.",
+        ]}
+        ctaText="Je lance ma transformation avec Permapaysage →"
+      />
     </>
   );
 }

@@ -7,16 +7,15 @@ import {
   HeartIcon,
   LeafIcon,
   NavigationArrowIcon,
-  PlantIcon,
   RecycleIcon,
   StarIcon,
-  UsersIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
+import { HeroCarousel } from "@/components/shared/hero-carousel";
 import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
@@ -65,10 +64,9 @@ const reviewSchema = {
 const serviceIcons = [CompassIcon, RecycleIcon, LeafIcon];
 const serviceImages: Record<string, string> = {
   conception: "/services/conception-jardin.png",
-  amenagement: "/services/amenagements-exterieurs.png",
-  entretien: "/services/entretien-espaces-verts.png",
+  amenagement: "/services/entretien-espaces-verts.png",
+  entretien: "/services/amenagements-exterieurs.png",
 };
-const metricIcons = [UsersIcon, PlantIcon, ClockIcon];
 
 export default function HomePage() {
   const homepageSchemas = [
@@ -104,7 +102,7 @@ export default function HomePage() {
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="space-y-8 text-center lg:text-left animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
                 <LeafIcon size={14} weight="fill" />
                 Éco-paysagiste à Vallet
@@ -112,10 +110,10 @@ export default function HomePage() {
               <h1 className="text-4xl leading-[1.08] tracking-tight text-white md:text-6xl">
                 Des jardins vivants, structurés pour durer et faciles à aimer.
               </h1>
-              <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
+              <p className="mx-auto max-w-xl text-base leading-relaxed text-white/80 md:text-lg lg:mx-0">
                 Permapaysage conçoit, aménage et entretient des extérieurs sobres, chaleureux et écologiques dans un rayon de 25 km autour de Vallet.
               </p>
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
                   href="/contact"
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
@@ -130,7 +128,7 @@ export default function HomePage() {
                   Voir les réalisations
                 </Link>
               </div>
-              <div className="flex flex-wrap gap-4 sm:gap-6">
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:justify-start">
                 <Link
                   href={company.googleReviewsUrl}
                   target="_blank"
@@ -153,16 +151,7 @@ export default function HomePage() {
             </div>
 
             <div className="relative animate-in fade-in zoom-in-95 duration-700 delay-200">
-              <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
-                <Image
-                  src="/photos-entretien/apres/ap-08.jpg"
-                  alt="Jardin entretenu par Permapaysage avec pelouse tondue et terrasse bois"
-                  width={1024}
-                  height={768}
-                  priority
-                  className="aspect-4/3 w-full rounded-xl object-cover"
-                />
-              </div>
+              <HeroCarousel />
               <div className="absolute -bottom-4 -left-4 z-10 hidden rounded-xl border border-white/20 bg-primary/90 px-5 py-3 shadow-xl backdrop-blur-md md:block">
                 <div className="flex items-center gap-3 text-white">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
@@ -200,13 +189,13 @@ export default function HomePage() {
                 <Reveal key={service.slug} delay={idx * 100}>
                   <Link href={`/${service.slug}`} className="group block h-full">
                     <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-xl">
-                      <div className="relative overflow-hidden">
+                      <div className="relative overflow-hidden bg-[#F7F5F0]">
                         <Image
                           src={serviceImages[service.slug]}
                           alt={`Illustration ${service.title}`}
                           width={600}
                           height={400}
-                          className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="aspect-4/3 w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                       </div>
@@ -240,9 +229,9 @@ export default function HomePage() {
         <Container>
           <Reveal>
             <div className="relative mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Notre philosophie</p>
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Nos valeurs</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight text-white md:text-4xl">
-                Les 3 piliers de Permapaysage
+                Nos valeurs
               </h2>
               <p className="mt-4 text-base text-white/70 md:text-lg">
                 Chaque projet s&apos;appuie sur les trois éthiques fondamentales de la permaculture.
@@ -255,17 +244,17 @@ export default function HomePage() {
               {
                 icon: GlobeIcon,
                 title: "Prendre soin de la terre",
-                description: "Préserver les sols, favoriser la biodiversité et travailler avec les cycles naturels plutôt que contre eux.",
+                description: "Au contact quotidien du vivant, nous ne nous contentons pas d\u2019aménager : nous agissons. En sélectionnant des végétaux et en pratiquant une gestion raisonnée, nous devenons les gardiens de votre écosystème. S\u2019occuper de votre jardin avec conscience, c\u2019est préserver activement la biodiversité terrestre du vignoble nantais.",
               },
               {
                 icon: HeartIcon,
                 title: "Prendre soin des hommes",
-                description: "Créer des espaces de vie qui nourrissent le bien-être, la santé et le lien entre les personnes.",
+                description: "Un projet réussi repose sur l\u2019équilibre humain. Pour nos clients, cela signifie une écoute réelle et la suppression de toute charge mentale liée au jardin. Pour mes salariés, c\u2019est garantir des conditions de travail dignes, du matériel performant et une sécurité totale sur le terrain. Respecter ceux qui façonnent la terre, c\u2019est vous assurer un chantier serein et un résultat d\u2019excellence.",
               },
               {
                 icon: HandsClappingIcon,
                 title: "Partager équitablement",
-                description: "Restituer l\u2019excédent, partager les savoirs et contribuer à un modèle plus juste et durable.",
+                description: "Nous concevons des jardins qui se mangent et qui se partagent. En intégrant des fruitiers et des végétaux nourriciers, nous créons un équilibre entre vos besoins et ceux de la biodiversité locale. C\u2019est notre vision de l\u2019équité : une terre généreuse qui offre des récoltes aux hommes et un refuge aux pollinisateurs de Loire Atlantique.",
               },
             ].map((pillar, idx) => {
               const Icon = pillar.icon;
@@ -276,7 +265,7 @@ export default function HomePage() {
                       <Icon size={30} weight="duotone" />
                     </div>
                     <h3 className="text-xl font-semibold leading-snug text-white">{pillar.title}</h3>
-                    <p className="mt-3 max-w-[30ch] text-sm leading-relaxed text-white/75 md:text-base">
+                    <p className="mt-3 text-sm leading-relaxed text-white/75 md:text-base">
                       {pillar.description}
                     </p>
                   </article>
@@ -301,21 +290,16 @@ export default function HomePage() {
               </h2>
             </div>
           </Reveal>
-          <div className="relative mt-14 grid gap-6 sm:grid-cols-3">
-            {metrics.map((metric, idx) => {
-              const Icon = metricIcons[idx];
-              return (
-                <Reveal key={metric.label} delay={idx * 100}>
-                  <article className="group flex flex-col items-center rounded-2xl border border-border bg-background p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                      {Icon && <Icon size={24} weight="duotone" />}
-                    </div>
-                    <p className="text-4xl font-semibold tracking-tight text-primary">{metric.value}</p>
-                    <p className="text-muted-foreground mt-2 text-sm">{metric.label}</p>
-                  </article>
-                </Reveal>
-              );
-            })}
+          <div className="relative mt-14 grid gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
+            {metrics.map((metric, idx) => (
+              <Reveal key={metric.label} delay={idx * 80}>
+                <article className="group flex flex-col items-center rounded-2xl border border-border bg-background p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
+                  <p className="text-3xl font-semibold tracking-tight text-primary lg:text-4xl">{metric.value}</p>
+                  <p className="mt-2 text-sm font-medium">{metric.label}</p>
+                  <p className="text-muted-foreground mt-1 text-xs">{metric.subtext}</p>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -538,9 +522,9 @@ export default function HomePage() {
       </section>
 
       <CtaSection
-        title="Votre jardin mérite mieux. Parlons-en."
-        description="Chaque projet commence par un échange. Décrivez-nous votre terrain, vos envies et vos contraintes — on s'occupe du reste."
-        ctaText="Demander un devis gratuit"
+        title="Votre jardin ne devrait pas être une contrainte."
+        description="Redécouvrez le plaisir d'un extérieur qui vous ressemble, sans la fatigue ni les doutes techniques. Que vous rêviez d'une terrasse chaleureuse ou d'un verger nourricier, nous transformons votre terrain en un véritable sanctuaire."
+        ctaText="Lancer mon étude personnalisée sous 48h →"
       />
     </>
   );

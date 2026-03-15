@@ -14,6 +14,7 @@ export type Service = {
 export type Metric = {
   value: string;
   label: string;
+  subtext: string;
 };
 
 export type Testimonial = {
@@ -28,9 +29,11 @@ export type Project = {
   city: string;
   summary: string;
   description: string;
+  aboutText: string;
   image: string;
   gallery: string[];
   highlights: { label: string; value: string }[];
+  seoKeywords: string[];
 };
 
 export type BlogPost = {
@@ -155,9 +158,11 @@ export const processSteps = [
 ];
 
 export const metrics: Metric[] = [
-  { value: "+150", label: "clients accompagnés" },
-  { value: "+2 000", label: "végétaux plantés" },
-  { value: "+6 500", label: "heures dans vos jardins" },
+  { value: "+150", label: "jardins sublimés", subtext: "Pour un cadre de vie apaisé." },
+  { value: "+2 800", label: "végétaux plantés", subtext: "Essences locales et nourricières." },
+  { value: "+14 700 m²", label: "entretenus", subtext: "La maîtrise de vos espaces." },
+  { value: "+73 m³", label: "de biomasse", subtext: "Ressources revalorisées sur place." },
+  { value: "+7 500", label: "heures de métier", subtext: "L\u2019exigence du geste artisanal." },
 ];
 
 export const testimonials: Testimonial[] = [
@@ -190,14 +195,16 @@ export const testimonials: Testimonial[] = [
 
 export const projects: Project[] = [
   {
-    slug: "jardin-vivant-vallet",
-    title: "Jardin vivant à Vallet",
-    category: "Conception + aménagement",
-    city: "Vallet",
+    slug: "conception-jardin-ecologique-clisson",
+    title: "Conception de Jardin Écologique à Clisson",
+    category: "Conception",
+    city: "Clisson",
     summary:
-      "Transformation complète d'un terrain sec en jardin nourricier avec terrasse bois et massifs durables.",
+      "Sanctuaire personnel nourricier, feuille de route durable pour un jardin de ville de 600 m².",
     description:
-      "Ce projet a consisté à transformer un terrain nu et sec en un jardin vivant et productif. La conception s'appuie sur les principes de la permaculture : observation du terrain, gestion de l'eau, choix de végétaux adaptés au sol argilo-calcaire du Vignoble Nantais. Une terrasse en bois douglas relie la maison au jardin, prolongeant l'espace de vie vers l'extérieur. Les massifs mêlent arbustes persistants, vivaces mellifères et plantes comestibles pour un jardin beau et utile toute l'année.",
+      "L\u2019enjeu de ce projet de conception de jardin à Clisson était de créer un sanctuaire personnel : un espace paisible, nourricier et adapté à son écosystème. Plus qu\u2019un simple plan, nous avons dessiné une feuille de route durable. L\u2019objectif : permettre à notre cliente de bâtir son refuge étape par étape, en garantissant la santé du sol et la cohérence paysagère.",
+    aboutText:
+      "Ce projet incarne notre philosophie : la conception comme outil de liberté. Pour ce jardin de ville dans le Vignoble, nous avons privilégié une sélection végétale indigène et des zones de biodiversité. Ce plan de paysagiste permet aujourd\u2019hui à la propriétaire de planter ses fruitiers sereinement, avec la certitude que chaque geste respecte l\u2019équilibre naturel de son terrain.",
     image: "/photos-entretien/apres/ap-04.jpg",
     gallery: [
       "/photos-entretien/apres/ap-01.jpg",
@@ -205,21 +212,28 @@ export const projects: Project[] = [
       "/photos-entretien/apres/ap-03.jpg",
     ],
     highlights: [
-      { label: "Localisation", value: "Vallet (44)" },
-      { label: "Surface", value: "≈ 350 m²" },
-      { label: "Durée", value: "3 semaines" },
-      { label: "Approche", value: "Permaculture" },
+      { label: "Localisation", value: "Clisson (44190)" },
+      { label: "Surface", value: "600 m²" },
+      { label: "Expertise", value: "Bureau d\u2019étude bioclimatique" },
+      { label: "Catégorie", value: "Conception" },
+    ],
+    seoKeywords: [
+      "Conception jardin Clisson",
+      "Paysagiste conseil 44",
+      "Plan de jardin permaculture",
     ],
   },
   {
-    slug: "terrasse-massifs-clisson",
-    title: "Terrasse et massifs à Clisson",
+    slug: "amenagement-jardin-familial-mouzillon",
+    title: "Aménagement de Jardin Familial à Mouzillon",
     category: "Aménagement",
-    city: "Clisson",
+    city: "Mouzillon",
     summary:
-      "Création d'un espace de vie extérieur structuré, chaleureux et facile à entretenir.",
+      "Espace de jeu sécurisé de 350 m² avec structure bois durable et végétalisation sensorielle.",
     description:
-      "L'objectif était de créer un extérieur à la fois accueillant et facile à vivre. La terrasse en bois structure l'espace et offre un lieu de convivialité ouvert sur le jardin. Les massifs plantés en bordure apportent du volume et de la couleur sans demander un entretien intensif. Le choix de végétaux résistants et d'un paillage épais limite les interventions tout en maintenant une esthétique soignée au fil des saisons.",
+      "Transformer un terrain nu en un espace de jeu sécurisé : tel était le défi de cet aménagement de jardin à Mouzillon. Pour ce projet de 350 m², nos clients cherchaient un espace clos « zéro souci » pour leur enfant. Nous avons conçu une structure bois durable et une végétalisation sensorielle pour protéger l\u2019intimité familiale sans compromis sur l\u2019esthétique.",
+    aboutText:
+      "La sécurité est une base de sérénité. Nous avons ceinturé le jardin d\u2019une clôture en bois local intégrée à des massifs arbustifs denses. L\u2019innovation : une sélection végétale sans épines (plantes mellifères et graminées). En combinant une terrasse bois et une pelouse robuste, nous avons créé une extension de vie où le design noble rencontre la spontanéité de l\u2019enfance.",
     image: "/photos-entretien/apres/ap-09.jpg",
     gallery: [
       "/photos-entretien/apres/ap-06.jpg",
@@ -227,65 +241,28 @@ export const projects: Project[] = [
       "/photos-entretien/apres/ap-08.jpg",
     ],
     highlights: [
-      { label: "Localisation", value: "Clisson (44)" },
-      { label: "Surface", value: "≈ 180 m²" },
-      { label: "Durée", value: "2 semaines" },
-      { label: "Matériaux", value: "Bois douglas, pierre" },
+      { label: "Localisation", value: "Mouzillon (44330)" },
+      { label: "Surface", value: "350 m²" },
+      { label: "Expertise", value: "Aménagement bois et végétalisation" },
+      { label: "Catégorie", value: "Aménagement" },
+    ],
+    seoKeywords: [
+      "Aménagement extérieur Mouzillon",
+      "Création jardin familial",
+      "Terrasse bois paysagiste",
     ],
   },
   {
-    slug: "entretien-raisonne-vertou",
-    title: "Entretien raisonné à Vertou",
-    category: "Entretien",
-    city: "Vertou",
-    summary:
-      "Programme d'entretien écologique annuel avec taille raisonnée et zéro phytosanitaire.",
-    description:
-      "Ce jardin de particulier bénéficie d'un programme d'entretien annuel basé sur des pratiques écologiques. Chaque passage est planifié selon les saisons : tonte en mulching au printemps, taille raisonnée des haies en été, nettoyage d'automne et préparation hivernale. L'approche zéro phytosanitaire repose sur le désherbage manuel, le paillage naturel et le respect des cycles de croissance. Le résultat : un jardin propre, sain et vivant toute l'année.",
-    image: "/photos-entretien/apres/ap-05.jpg",
-    gallery: [
-      "/photos-entretien/avant/av-01.jpg",
-      "/photos-entretien/avant/av-02.jpg",
-      "/photos-entretien/apres/ap-06.jpg",
-    ],
-    highlights: [
-      { label: "Localisation", value: "Vertou (44)" },
-      { label: "Fréquence", value: "Mensuel" },
-      { label: "Méthode", value: "Zéro phyto" },
-      { label: "Avantage", value: "Crédit d'impôt 50 %" },
-    ],
-  },
-  {
-    slug: "haies-champetres-gorges",
-    title: "Haies champêtres à Gorges",
-    category: "Conception + aménagement",
-    city: "Gorges",
-    summary:
-      "Plantation de haies libres mêlant essences locales pour structurer un grand terrain sans rigidité.",
-    description:
-      "Ce projet consistait à remplacer une ancienne clôture grillagée par des haies champêtres composées d'essences variées : cornouiller sanguin, noisetier, viorne, prunellier et troène. Le résultat est une limite naturelle qui offre un refuge à la faune, des floraisons échelonnées et une belle diversité de feuillages au fil des saisons.",
-    image: "/photos-entretien/apres/ap-01.jpg",
-    gallery: [
-      "/photos-entretien/apres/ap-02.jpg",
-      "/photos-entretien/apres/ap-03.jpg",
-      "/photos-entretien/apres/ap-04.jpg",
-    ],
-    highlights: [
-      { label: "Localisation", value: "Gorges (44)" },
-      { label: "Linéaire", value: "≈ 60 ml" },
-      { label: "Durée", value: "1 semaine" },
-      { label: "Approche", value: "Biodiversité" },
-    ],
-  },
-  {
-    slug: "jardin-nourricier-le-pallet",
-    title: "Jardin nourricier au Pallet",
-    category: "Conception",
+    slug: "terrasse-travertin-le-pallet",
+    title: "Terrasse en Travertin au Pallet",
+    category: "Aménagement",
     city: "Le Pallet",
     summary:
-      "Création d'un potager en permaculture avec buttes, composteur et récupération d'eau de pluie.",
+      "Terrasse de prestige en travertin Opus Romain, 45 m² de maçonnerie paysagère.",
     description:
-      "Ce jardin nourricier a été conçu selon les principes de la permaculture : buttes de culture permanentes, associations de plantes compagnes, composteur intégré et système de récupération d'eau de pluie. L'ensemble s'intègre naturellement au jardin existant et permet à la famille de produire une partie de ses légumes toute l'année.",
+      "L\u2019avant d\u2019une maison est sa première poignée de main. Au Pallet, l\u2019objectif était de remplacer un passage neutre par une terrasse de prestige soulignant l\u2019architecture. Nous avons opté pour le travertin en Opus Romain, une pierre naturelle aux nuances intemporelles. Ce calepinage traditionnel apporte un cachet authentique dès le premier pas sur la propriété.",
+    aboutText:
+      "Poser du travertin en Opus Romain est un exercice de précision que nous affectionnons. Ce puzzle de pierre doit être techniquement irréprochable pour garantir l\u2019évacuation des eaux. Sa clarté illumine la façade et s\u2019intègre parfaitement à l\u2019esprit du Vignoble Nantais. Une extension minérale qui valorise immédiatement le patrimoine de nos clients.",
     image: "/photos-entretien/apres/ap-03.jpg",
     gallery: [
       "/photos-entretien/apres/ap-01.jpg",
@@ -293,32 +270,102 @@ export const projects: Project[] = [
       "/photos-entretien/apres/ap-07.jpg",
     ],
     highlights: [
-      { label: "Localisation", value: "Le Pallet (44)" },
-      { label: "Surface", value: "≈ 80 m²" },
-      { label: "Durée", value: "2 semaines" },
-      { label: "Approche", value: "Permaculture" },
+      { label: "Localisation", value: "Le Pallet (44330)" },
+      { label: "Surface", value: "45 m²" },
+      { label: "Matériau", value: "Travertin 1er choix (Pierre naturelle)" },
+      { label: "Catégorie", value: "Aménagement" },
+    ],
+    seoKeywords: [
+      "Terrasse travertin Le Pallet",
+      "Maçonnerie paysagère 44",
+      "Pierre naturelle extérieur",
     ],
   },
   {
-    slug: "renovation-pelouse-haute-goulaine",
-    title: "Rénovation de pelouse à Haute-Goulaine",
-    category: "Entretien",
-    city: "Haute-Goulaine",
+    slug: "cloture-bois-basse-goulaine",
+    title: "Pose de Clôture en Bois à Basse-Goulaine",
+    category: "Aménagement",
+    city: "Basse-Goulaine",
     summary:
-      "Scarification, réensemencement et programme d'entretien pour retrouver une pelouse dense et saine.",
+      "Séparation élégante et durable de 22 mètres en bois local sur muret existant.",
     description:
-      "Cette pelouse dégradée par le feutrage et les mousses a bénéficié d'un programme complet de rénovation : scarification en profondeur, réensemencement avec un mélange adapté au sol et à l'exposition, puis mise en place d'un entretien régulier en mulching. En quelques mois, la pelouse a retrouvé densité et couleur sans aucun produit chimique.",
+      "Comment redonner du prestige à un muret existant ? À Basse-Goulaine, nous avons recréé une séparation élégante et durable. L\u2019enjeu : trouver l\u2019équilibre entre intimité et esthétique aérienne. Le choix s\u2019est porté sur un bois de pays (Classe 4), sélectionné pour sa résistance face aux vents du Vignoble, garantissant une tenue parfaite sur le long terme.",
+    aboutText:
+      "L\u2019installation d\u2019une clôture bois sur muret demande une rigueur technique : la solidité dépend de l\u2019ancrage inox pour prévenir la corrosion. Nous avons opté pour une pose à claire-voie qui laisse passer la lumière tout en protégeant des regards. Une ligne sobre qui transforme un muret maçonné en un élément de décor noble et naturel.",
+    image: "/photos-entretien/apres/ap-02.jpg",
+    gallery: [
+      "/photos-entretien/apres/ap-01.jpg",
+      "/photos-entretien/apres/ap-04.jpg",
+      "/photos-entretien/apres/ap-05.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "Basse-Goulaine (44115)" },
+      { label: "Linéaire", value: "22 mètres" },
+      { label: "Matériaux", value: "Bois local et fixations inox" },
+      { label: "Catégorie", value: "Aménagement" },
+    ],
+    seoKeywords: [
+      "Clôture bois Basse-Goulaine",
+      "Brise-vue bois local",
+      "Aménagement clôture 44",
+    ],
+  },
+  {
+    slug: "entretien-jardin-la-chapelle-heulin",
+    title: "Entretien de Jardin à La Chapelle-Heulin",
+    category: "Entretien",
+    city: "La Chapelle-Heulin",
+    summary:
+      "Suivi mensuel rigoureux pour une esthétique constante, avec crédit d\u2019impôt de 50 %.",
+    description:
+      "Un jardin est une matière vivante. À La Chapelle-Heulin, nous assurons un suivi mensuel rigoureux pour garantir une esthétique constante. Plus besoin de surveiller le calendrier : nous intervenons avec précision (tonte, taille, désherbage) pour que votre extérieur reste un lieu de détente absolue, sans la moindre contrainte pour vous.",
+    aboutText:
+      "Notre approche repose sur l\u2019anticipation. Nous entretenons la structure chaque mois : tonte adaptée à la météo et taille respectueuse des floraisons. Le désherbage est manuel ou thermique, sans chimie. Le résultat ? Un jardin qui ne semble jamais à l\u2019abandon. C\u2019est l\u2019expertise du Jardinier du Vignoble au service de votre temps libre.",
+    image: "/photos-entretien/apres/ap-05.jpg",
+    gallery: [
+      "/photos-entretien/avant/av-01.jpg",
+      "/photos-entretien/avant/av-02.jpg",
+      "/photos-entretien/apres/ap-06.jpg",
+    ],
+    highlights: [
+      { label: "Localisation", value: "La Chapelle-Heulin (44330)" },
+      { label: "Fréquence", value: "Passage mensuel (12 mois/an)" },
+      { label: "Avantage", value: "50 % de crédit d\u2019impôt (Avance immédiate)" },
+      { label: "Catégorie", value: "Entretien" },
+    ],
+    seoKeywords: [
+      "Entretien jardin La Chapelle-Heulin",
+      "Jardinier crédit d\u2019impôt 44",
+      "Tonte et taille Vignoble",
+    ],
+  },
+  {
+    slug: "remise-en-etat-jardin-mouzillon",
+    title: "Remise en état de Jardin à Mouzillon",
+    category: "Entretien",
+    city: "Mouzillon",
+    summary:
+      "Interventions stratégiques 2 à 3 fois par an : taille de structure, nettoyage et mise au propre.",
+    description:
+      "Certains jardins exigent un coup de maître aux moments charnières. Nous intervenons 2 à 3 fois par an à Mouzillon pour les travaux de force : taille de structure en sortie d\u2019hiver, nettoyage de printemps et mise au propre d\u2019automne. La solution idéale pour un jardin sain et architecturé sans intervention régulière.",
+    aboutText:
+      "Intervenir ponctuellement demande une vision globale. Chaque passage est une opération « coup de poing » : grandes hauteurs, volumes de déchets verts et taille technique. Nous revalorisons la biomasse sur place (paillage) pour limiter l\u2019évaporation et la repousse. C\u2019est l\u2019assurance d\u2019un jardin dompté et prêt à être admiré toute la saison.",
     image: "/photos-entretien/apres/ap-06.jpg",
     gallery: [
       "/photos-entretien/avant/av-04.jpg",
       "/photos-entretien/avant/av-05.jpg",
-      "/photos-entretien/apres/ap-05.jpg",
+      "/photos-entretien/apres/ap-08.jpg",
     ],
     highlights: [
-      { label: "Localisation", value: "Haute-Goulaine (44)" },
-      { label: "Surface", value: "≈ 400 m²" },
-      { label: "Méthode", value: "Zéro phyto" },
-      { label: "Avantage", value: "Crédit d'impôt 50 %" },
+      { label: "Localisation", value: "Mouzillon (44330)" },
+      { label: "Fréquence", value: "2 à 3 passages stratégiques / an" },
+      { label: "Prestations", value: "Taille de haies, élagage, nettoyage massifs" },
+      { label: "Catégorie", value: "Entretien" },
+    ],
+    seoKeywords: [
+      "Remise en état jardin Mouzillon",
+      "Taille de haie paysagiste",
+      "Nettoyage jardin 44",
     ],
   },
 ];
