@@ -4,7 +4,7 @@
       "Bash(npm run build)",
       "Bash(rtk next build)",
       "Bash(npx next build)",
-      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000)"
     ]
   }
 }
