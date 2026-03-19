@@ -1,6 +1,5 @@
 import {
   ArrowRightIcon,
-  ClockIcon,
   CompassIcon,
   GlobeIcon,
   HandsClappingIcon,
@@ -28,7 +27,10 @@ import {
   buildWebPageSchema,
   buildWebsiteSchema,
 } from "@/lib/seo";
-import { blogPosts, company, metrics, projects, services, testimonials } from "@/lib/site-data";
+import { urlFor } from "@/lib/sanity/image";
+import { getArticles } from "@/lib/sanity/queries";
+import type { Article } from "@/lib/sanity/types";
+import { company, metrics, projects, services, testimonials } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
@@ -68,7 +70,9 @@ const serviceImages: Record<string, string> = {
   entretien: "/services/amenagements-exterieurs.png",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const articles: Article[] = await getArticles();
+
   const homepageSchemas = [
     buildWebsiteSchema(),
     buildOrganizationSchema(),
@@ -92,12 +96,11 @@ export default function HomePage() {
     <>
       <StructuredData data={homepageSchemas} />
 
-      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-primary py-20 md:py-32">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-0 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-[400px] w-[400px] translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-          <div className="absolute top-1/2 left-0 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.03] blur-2xl" />
+          <div className="absolute top-0 left-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-100 w-100 translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
+          <div className="absolute top-1/2 left-0 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/3 blur-2xl" />
         </div>
 
         <Container>
@@ -168,7 +171,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── SERVICES ── */}
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
@@ -219,7 +221,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── LES 3 PILIERS ── */}
       <section className="relative overflow-hidden bg-primary py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.04] blur-3xl" />
@@ -276,7 +277,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── CHIFFRES ── */}
       <section className="relative overflow-hidden bg-card py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/6 blur-3xl" />
@@ -304,7 +304,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── AVIS CLIENTS ── */}
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
@@ -373,7 +372,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── RÉALISATIONS ── */}
       <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
@@ -438,7 +436,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── ZONE D'INTERVENTION ── */}
       <section id="zone-intervention" className="py-20 md:py-28">
         <Container>
           <Reveal>
@@ -460,71 +457,68 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ── BLOG ── */}
-      <section className="py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Blog</p>
-                <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
-                  Conseils jardinage et permaculture
-                </h2>
-                <p className="text-muted-foreground text-base md:text-lg">
-                  Des contenus pratiques pour concevoir et entretenir un jardin résilient.
-                </p>
+      {articles.length > 0 && (
+        <section className="py-20 md:py-28">
+          <Container>
+            <Reveal>
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="max-w-2xl space-y-3">
+                  <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Blog</p>
+                  <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
+                    Conseils jardinage et permaculture
+                  </h2>
+                  <p className="text-muted-foreground text-base md:text-lg">
+                    Des contenus pratiques pour concevoir et entretenir un jardin résilient.
+                  </p>
+                </div>
+                <Link href="/blog" className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
+                  Tous les articles
+                  <ArrowRightIcon size={14} weight="bold" />
+                </Link>
               </div>
-              <Link href="/blog" className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
-                Tous les articles
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {blogPosts.map((post, idx) => (
-              <Reveal key={post.slug} delay={idx * 100}>
-                <Link href={`/blog/${post.slug}`} className="group block h-full">
-                  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div className="relative overflow-hidden">
-                      <Image
-                        src={post.image}
-                        alt={`Illustration de l'article ${post.title}`}
-                        width={900}
-                        height={600}
-                        className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                      <span className="absolute left-4 top-4 rounded-full bg-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                        {post.category}
-                      </span>
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <div className="text-muted-foreground mb-3 flex items-center gap-3 text-xs">
-                        <span>{new Date(post.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
-                        <span className="inline-flex items-center gap-1">
-                          <ClockIcon size={13} />
-                          {post.readTime}
+            </Reveal>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {articles.slice(0, 3).map((article, idx) => (
+                <Reveal key={article._id} delay={idx * 100}>
+                  <Link href={`/blog/${article.slug.current}`} className="group block h-full">
+                    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                      <div className="relative overflow-hidden">
+                        <Image
+                          src={urlFor(article.imagePrincipale).width(900).height(600).url()}
+                          alt={article.imagePrincipale.alt}
+                          width={900}
+                          height={600}
+                          className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        <span className="absolute left-4 top-4 rounded-full bg-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                          {article.categorie}
                         </span>
                       </div>
-                      <h3 className="text-lg leading-snug">{post.title}</h3>
-                      <p className="text-muted-foreground mt-2 flex-1 text-sm leading-relaxed">{post.excerpt}</p>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
-                        Lire l&apos;article
-                        <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </article>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
+                      <div className="flex flex-1 flex-col p-6">
+                        <div className="text-muted-foreground mb-3 flex items-center gap-3 text-xs">
+                          <span>{new Date(article.datePublication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
+                        </div>
+                        <h3 className="text-lg leading-snug">{article.titre}</h3>
+                        <p className="text-muted-foreground mt-2 flex-1 text-sm leading-relaxed">{article.resume}</p>
+                        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
+                          Lire l&apos;article
+                          <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
+                    </article>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
 
       <CtaSection
         title="Votre jardin ne devrait pas être une contrainte."
         description="Redécouvrez le plaisir d'un extérieur qui vous ressemble, sans la fatigue ni les doutes techniques. Que vous rêviez d'une terrasse chaleureuse ou d'un verger nourricier, nous transformons votre terrain en un véritable sanctuaire."
-        ctaText="Lancer mon étude personnalisée sous 48h →"
+        ctaText="Lancer mon étude personnalisée sous 48h"
       />
     </>
   );
