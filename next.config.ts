@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
-const securityHeaders = [
+const baseHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "DENY" },
   { key: "X-XSS-Protection", value: "1; mode=block" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
@@ -23,8 +22,23 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
-        headers: securityHeaders,
+        // Studio : autorise l'iframe depuis sanity.io (dashboard)
+        source: "/studio/:path*",
+        headers: [
+          ...baseHeaders,
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self' https://*.sanity.io",
+          },
+        ],
+      },
+      {
+        // Tout le reste : bloque les iframes
+        source: "/((?!studio).*)",
+        headers: [
+          ...baseHeaders,
+          { key: "X-Frame-Options", value: "DENY" },
+        ],
       },
     ];
   },
