@@ -91,21 +91,6 @@ export async function getRealisationSlugs() {
 	)
 }
 
-// --- Avis ---
-
-export async function getAvis() {
-	return client.fetch(
-		`*[_type == "avis" && publie == true] | order(date desc) {
-			_id,
-			nom,
-			texte,
-			note,
-			date,
-			serviceRendu
-		}`,
-	)
-}
-
 // --- FAQ ---
 
 export async function getFaq(categorie?: string) {

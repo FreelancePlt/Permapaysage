@@ -43,15 +43,6 @@ export interface Realisation {
 	dateRealisation?: string
 }
 
-export interface Avis {
-	_id: string
-	nom: string
-	texte: string
-	note: number
-	date?: string
-	serviceRendu?: string
-}
-
 export interface Faq {
 	_id: string
 	question: string

@@ -23,11 +23,6 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
       S.listItem()
-        .title('Avis clients')
-        .schemaType('avis')
-        .child(S.documentTypeList('avis').title('Avis clients')),
-      S.divider(),
-      S.listItem()
         .title('FAQ')
         .schemaType('faq')
         .child(

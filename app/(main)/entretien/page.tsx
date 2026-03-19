@@ -26,12 +26,13 @@ import {
   buildWebPageSchema,
 } from "@/lib/seo";
 import {
-  entretienFaq,
   entretienGaranties,
   entretienPrestations,
   interventionCities,
   services,
 } from "@/lib/site-data";
+import { getFaq } from "@/lib/sanity/queries";
+import type { Faq } from "@/lib/sanity/types";
 
 const avantApresGallery = [
   { title: "Taille de haie", avant: "/photos-entretien/avant/av-02.jpg", apres: "/photos-entretien/apres/ap-02.jpg" },
@@ -55,12 +56,17 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-export default function EntretienPage() {
+export const revalidate = 60;
+
+export default async function EntretienPage() {
   const service = services.find((item) => item.slug === "entretien");
 
   if (!service) {
     notFound();
   }
+
+  const sanityFaqs: Faq[] = await getFaq("entretien");
+  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
 
   const schemas = [
     buildWebPageSchema({
@@ -77,7 +83,7 @@ export default function EntretienPage() {
       serviceType: "Entretien des espaces verts",
       areaServed: "Vallet et Vignoble Nantais",
     }),
-    buildFaqSchema(entretienFaq),
+    buildFaqSchema(faqItems),
     buildBreadcrumbSchema([
       { name: "Accueil", path: "/" },
       { name: "Entretien", path: "/entretien" },
@@ -364,7 +370,7 @@ export default function EntretienPage() {
           </Reveal>
           <Reveal delay={100}>
             <div className="mx-auto mt-10 max-w-3xl">
-              <FaqAccordion items={entretienFaq} />
+              <FaqAccordion items={faqItems} />
             </div>
           </Reveal>
         </Container>
