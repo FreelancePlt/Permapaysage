@@ -23,6 +23,16 @@ const nextConfig: NextConfig = {
     return [
       {
         // Studio : autorise l'iframe depuis sanity.io (dashboard)
+        source: "/studio",
+        headers: [
+          ...baseHeaders,
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'self' https://*.sanity.io",
+          },
+        ],
+      },
+      {
         source: "/studio/:path*",
         headers: [
           ...baseHeaders,
