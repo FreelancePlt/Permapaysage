@@ -37,6 +37,8 @@ const categorieLabels: Record<string, string> = {
   entretien: "Entretien",
 };
 
+export const revalidate = 60;
+
 export default async function RealisationsPage() {
   const realisations: Realisation[] = await getRealisations();
 

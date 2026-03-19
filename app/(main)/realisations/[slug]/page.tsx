@@ -33,6 +33,8 @@ const categorieLabels: Record<string, string> = {
   entretien: "Entretien",
 };
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const slugs: string[] = await getRealisationSlugs();
   return slugs.map((slug) => ({ slug }));
