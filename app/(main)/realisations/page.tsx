@@ -11,7 +11,9 @@ import {
   buildPageMetadata,
   buildWebPageSchema,
 } from "@/lib/seo";
-import { projects } from "@/lib/site-data";
+import { urlFor } from "@/lib/sanity/image";
+import { getRealisations } from "@/lib/sanity/queries";
+import type { Realisation } from "@/lib/sanity/types";
 
 export const metadata = buildPageMetadata({
   title: "Réalisations jardin — Permapaysage",
@@ -26,7 +28,30 @@ export const metadata = buildPageMetadata({
   ],
 });
 
-export default function RealisationsPage() {
+const categorieLabels: Record<string, string> = {
+  conception: "Conception",
+  amenagement: "Aménagement",
+  terrasse: "Terrasse",
+  cloture: "Clôture",
+  massif: "Massif",
+  entretien: "Entretien",
+};
+
+export default async function RealisationsPage() {
+  const realisations: Realisation[] = await getRealisations();
+
+  const items = realisations.map((r) => ({
+    slug: r.slug.current,
+    title: r.titre,
+    category: categorieLabels[r.categorie] || r.categorie,
+    city: r.ville || "",
+    summary: r.resume || r.description,
+    image: r.images?.[0]
+      ? urlFor(r.images[0]).width(900).height(600).url()
+      : "/placeholder.jpg",
+    imageAlt: r.images?.[0]?.alt || r.titre,
+  }));
+
   const schemas = [
     buildWebPageSchema({
       title: "Réalisations jardin — Permapaysage",
@@ -36,9 +61,9 @@ export default function RealisationsPage() {
       type: "CollectionPage",
     }),
     buildItemListSchema(
-      projects.map((project) => ({
-        name: project.title,
-        path: `/realisations/${project.slug}`,
+      items.map((item) => ({
+        name: item.title,
+        path: `/realisations/${item.slug}`,
       })),
     ),
     buildBreadcrumbSchema([
@@ -59,17 +84,17 @@ export default function RealisationsPage() {
           />
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
+            {items.map((item) => (
               <Link
-                key={project.slug}
-                href={`/realisations/${project.slug}`}
+                key={item.slug}
+                href={`/realisations/${item.slug}`}
                 className="bg-card border-border group overflow-hidden rounded-lg border transition-shadow hover:shadow-lg"
               >
                 <article>
                   <div className="overflow-hidden">
                     <Image
-                      src={project.image}
-                      alt={`Projet ${project.title} à ${project.city}`}
+                      src={item.image}
+                      alt={item.imageAlt}
                       width={900}
                       height={600}
                       className="aspect-4/3 w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -77,11 +102,11 @@ export default function RealisationsPage() {
                   </div>
                   <div className="space-y-3 p-5">
                     <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
-                      {project.category}
+                      {item.category}
                     </p>
-                    <h2 className="text-2xl leading-tight">{project.title}</h2>
+                    <h2 className="text-2xl leading-tight">{item.title}</h2>
                     <p className="text-muted-foreground text-sm leading-relaxed">
-                      {project.summary}
+                      {item.summary}
                     </p>
                     <span className="text-primary inline-flex items-center gap-1 text-sm font-semibold">
                       Voir le détail

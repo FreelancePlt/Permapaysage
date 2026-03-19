@@ -31,7 +31,10 @@ export interface Realisation {
 	_id: string
 	titre: string
 	slug: { current: string }
+	resume: string
 	description: string
+	aPropos?: string
+	infos?: { label: string; valeur: string }[]
 	categorie: string
 	ville?: string
 	images: SanityImage[]

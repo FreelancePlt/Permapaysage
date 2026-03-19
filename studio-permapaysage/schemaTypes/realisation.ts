@@ -24,12 +24,55 @@ export const realisation = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'resume',
+      title: 'Résumé court',
+      type: 'text',
+      rows: 2,
+      description: 'Résumé affiché dans la liste des réalisations (1-2 phrases)',
+      validation: (rule) => rule.required().max(200),
+    }),
+    defineField({
       name: 'description',
       title: 'Description du projet',
       type: 'text',
       rows: 4,
       description: 'Décrivez le projet réalisé, les matériaux utilisés, les défis relevés...',
-      validation: (rule) => rule.required().max(500),
+      validation: (rule) => rule.required().max(1000),
+    }),
+    defineField({
+      name: 'aPropos',
+      title: 'À propos du projet',
+      type: 'text',
+      rows: 4,
+      description: 'Texte complémentaire sur l\'approche, la philosophie du projet',
+    }),
+    defineField({
+      name: 'infos',
+      title: 'Informations clés',
+      type: 'array',
+      description: 'Infos affichées en grille (ex: Surface → 350 m², Matériau → Bois local)',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Libellé',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'valeur',
+              title: 'Valeur',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: {title: 'label', subtitle: 'valeur'},
+          },
+        },
+      ],
     }),
     defineField({
       name: 'categorie',
