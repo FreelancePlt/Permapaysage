@@ -14,12 +14,10 @@ import { notFound } from "next/navigation";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
-import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
   buildBreadcrumbSchema,
-  buildFaqSchema,
   buildLocalBusinessSchema,
   buildPageMetadata,
   buildServiceSchema,
@@ -31,8 +29,6 @@ import {
   interventionCities,
   services,
 } from "@/lib/site-data";
-import { getFaq } from "@/lib/sanity/queries";
-import type { Faq } from "@/lib/sanity/types";
 
 const avantApresGallery = [
   { title: "Taille de haie", avant: "/photos-entretien/avant/av-02.jpg", apres: "/photos-entretien/apres/ap-02.jpg" },
@@ -65,9 +61,6 @@ export default async function EntretienPage() {
     notFound();
   }
 
-  const sanityFaqs: Faq[] = await getFaq("entretien");
-  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
-
   const schemas = [
     buildWebPageSchema({
       title: "Entretien de jardin à Vallet — Crédit d'impôt 50 % | Permapaysage",
@@ -83,7 +76,6 @@ export default async function EntretienPage() {
       serviceType: "Entretien des espaces verts",
       areaServed: "Vallet et Vignoble Nantais",
     }),
-    buildFaqSchema(faqItems),
     buildBreadcrumbSchema([
       { name: "Accueil", path: "/" },
       { name: "Entretien", path: "/entretien" },
@@ -353,26 +345,6 @@ export default async function EntretienPage() {
               </Reveal>
             ))}
           </div>
-        </Container>
-      </section>
-
-      {/* ── FAQ ── */}
-      <section className="bg-card py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
-              <p className="text-muted-foreground mt-4 md:text-lg">
-                Tout ce que vous devez savoir sur nos prestations d&apos;entretien.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="mx-auto mt-10 max-w-3xl">
-              <FaqAccordion items={faqItems} />
-            </div>
-          </Reveal>
         </Container>
       </section>
 

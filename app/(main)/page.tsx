@@ -14,12 +14,14 @@ import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
+import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { HeroCarousel } from "@/components/shared/hero-carousel";
 import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
   BASE_URL,
+  buildFaqSchema,
   buildItemListSchema,
   buildLocalBusinessSchema,
   buildOrganizationSchema,
@@ -28,8 +30,8 @@ import {
   buildWebsiteSchema,
 } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity/image";
-import { getArticles } from "@/lib/sanity/queries";
-import type { Article } from "@/lib/sanity/types";
+import { getArticles, getFaq } from "@/lib/sanity/queries";
+import type { Article, Faq } from "@/lib/sanity/types";
 import { company, metrics, projects, services, testimonials } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
@@ -71,7 +73,11 @@ const serviceImages: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const articles: Article[] = await getArticles();
+  const [articles, sanityFaqs]: [Article[], Faq[]] = await Promise.all([
+    getArticles(),
+    getFaq(),
+  ]);
+  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
 
   const homepageSchemas = [
     buildWebsiteSchema(),
@@ -90,6 +96,7 @@ export default async function HomePage() {
       })),
     ),
     reviewSchema,
+    ...(faqItems.length > 0 ? [buildFaqSchema(faqItems)] : []),
   ];
 
   return (
@@ -511,6 +518,27 @@ export default async function HomePage() {
                 </Reveal>
               ))}
             </div>
+          </Container>
+        </section>
+      )}
+
+      {faqItems.length > 0 && (
+        <section className="bg-card py-20 md:py-28">
+          <Container>
+            <Reveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
+                <p className="text-muted-foreground mt-4 md:text-lg">
+                  Les réponses aux questions que vous vous posez le plus souvent.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="mx-auto mt-10 max-w-3xl">
+                <FaqAccordion items={faqItems} />
+              </div>
+            </Reveal>
           </Container>
         </section>
       )}
