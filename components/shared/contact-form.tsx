@@ -1,7 +1,8 @@
 "use client";
 
 import { CheckCircleIcon } from "@phosphor-icons/react";
-import { useState, type FormEvent } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect, type FormEvent } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -21,12 +22,28 @@ const initialFormData: FormData = {
   message: "",
 };
 
+const projectTypeOptions = [
+  { value: "visite-conseil", label: "Visite conseil" },
+  { value: "conception", label: "Conception de jardin" },
+  { value: "amenagement", label: "Aménagement des extérieurs" },
+  { value: "entretien", label: "Entretien des espaces verts" },
+  { value: "global", label: "Projet complet" },
+];
+
 const inputClassName =
   "border-border bg-background h-12 w-full rounded-lg border px-4 text-sm transition-all focus:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none";
 
 export function ContactForm() {
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [status, setStatus] = useState<FormStatus>("idle");
+
+  useEffect(() => {
+    const objet = searchParams.get("objet");
+    if (objet && projectTypeOptions.some((opt) => opt.value === objet)) {
+      setFormData((prev) => ({ ...prev, projectType: objet }));
+    }
+  }, [searchParams]);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -145,10 +162,11 @@ export function ContactForm() {
             <option value="" disabled>
               Sélectionnez une option
             </option>
-            <option value="conception">Conception de jardin</option>
-            <option value="amenagement">Aménagement des extérieurs</option>
-            <option value="entretien">Entretien des espaces verts</option>
-            <option value="global">Projet complet</option>
+            {projectTypeOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
           </select>
         </label>
         <label className="space-y-2 text-sm font-medium sm:col-span-2">

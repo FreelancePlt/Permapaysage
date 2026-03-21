@@ -51,6 +51,8 @@ export type CityPage = {
   slug: string;
   city: string;
   distance: string;
+  postalCode: string;
+  coordinates: [number, number];
   intro: string;
 };
 
@@ -161,7 +163,6 @@ export const metrics: Metric[] = [
   { value: "+150", label: "jardins sublimés", subtext: "Pour un cadre de vie apaisé." },
   { value: "+2 800", label: "végétaux plantés", subtext: "Essences locales et nourricières." },
   { value: "+14 700 m²", label: "entretenus", subtext: "La maîtrise de vos espaces." },
-  { value: "+73 m³", label: "de biomasse", subtext: "Ressources revalorisées sur place." },
   { value: "+7 500", label: "heures de métier", subtext: "L\u2019exigence du geste artisanal." },
 ];
 
@@ -570,15 +571,18 @@ export const amenagementTypes = [
 
 export const interventionCities = [
   "Vallet",
-  "Clisson",
   "Le Loroux-Bottereau",
-  "Haute-Goulaine",
   "Saint-Julien-de-Concelles",
-  "Vertou",
+  "Clisson",
+  "Divatte-sur-Loire",
+  "Haute-Goulaine",
   "Gorges",
+  "Aigrefeuille-sur-Maine",
+  "Gétigné",
   "Le Pallet",
-  "Mouzillon",
   "La Chapelle-Heulin",
+  "Le Landreau",
+  "Mouzillon",
 ];
 
 export const cityPages: CityPage[] = [
@@ -586,65 +590,86 @@ export const cityPages: CityPage[] = [
     slug: "paysagiste-vallet",
     city: "Vallet",
     distance: "0 km",
-    intro: "Intervention rapide à Vallet pour concevoir, aménager et entretenir des jardins durables.",
+    postalCode: "44330",
+    coordinates: [47.1611, -1.2644],
+    intro: "Basés au c\u0153ur de Vallet, nous concevons, aménageons et entretenons des jardins écologiques adaptés au terroir du Vignoble Nantais. Notre connaissance intime du climat et des sols locaux nous permet de créer des espaces extérieurs durables et harmonieux, à deux pas de chez vous.",
   },
   {
     slug: "paysagiste-clisson",
     city: "Clisson",
-    distance: "14 km",
-    intro: "Conception de jardins sur mesure à Clisson, avec une approche permaculture et des matériaux durables.",
+    distance: "10 km",
+    postalCode: "44190",
+    coordinates: [47.0872, -1.2817],
+    intro: "Paysagiste intervenant à Clisson et ses environs, Permapaysage conçoit des jardins écologiques à seulement 10 km de notre siège à Vallet. Entre les bords de la Sèvre et le patrimoine italien de Clisson, nous créons des extérieurs qui s\u2019intègrent naturellement au caractère unique de votre commune.",
   },
   {
     slug: "paysagiste-le-loroux-bottereau",
     city: "Le Loroux-Bottereau",
     distance: "12 km",
-    intro: "Aménagement paysager et entretien écologique dans toute la commune du Loroux-Bottereau.",
+    postalCode: "44430",
+    coordinates: [47.2333, -1.3500],
+    intro: "Paysagiste au Loroux-Bottereau, à 12 km de notre siège. Nous intervenons régulièrement dans votre commune pour des projets de conception, d\u2019aménagement et d\u2019entretien de jardins, toujours dans une démarche écologique et durable.",
   },
   {
     slug: "paysagiste-haute-goulaine",
     city: "Haute-Goulaine",
-    distance: "18 km",
-    intro: "Création d'extérieurs élégants et vivants à Haute-Goulaine, pensés pour durer.",
+    distance: "15 km",
+    postalCode: "44115",
+    coordinates: [47.1975, -1.4286],
+    intro: "Votre éco-paysagiste à Haute-Goulaine, à 15 km de Vallet. Entre marais et vignoble, nous concevons des espaces extérieurs qui respectent la richesse naturelle de votre commune tout en répondant à vos envies de jardin fonctionnel et esthétique.",
   },
   {
     slug: "paysagiste-saint-julien-de-concelles",
     city: "Saint-Julien-de-Concelles",
-    distance: "11 km",
-    intro: "Accompagnement complet à Saint-Julien-de-Concelles pour des extérieurs fonctionnels et sobres.",
+    distance: "18 km",
+    postalCode: "44450",
+    coordinates: [47.2500, -1.3917],
+    intro: "À Saint-Julien-de-Concelles, entre Loire et vignoble, Permapaysage intervient à 18 km de Vallet pour transformer vos extérieurs. Conception de jardin, terrasses, entretien écologique : nous adaptons chaque projet aux spécificités de votre terrain en bord de Loire.",
   },
   {
     slug: "paysagiste-vertou",
     city: "Vertou",
-    distance: "21 km",
-    intro: "Interventions à Vertou pour des projets paysagers cohérents entre esthétique et écologie.",
+    distance: "20 km",
+    postalCode: "44120",
+    coordinates: [47.1681, -1.4711],
+    intro: "Votre paysagiste à Vertou, à 20 km de notre base à Vallet. Que vous habitiez près des bords de Sèvre ou dans les quartiers résidentiels de Vertou, nous concevons des jardins écologiques adaptés à votre terrain et à votre mode de vie.",
   },
   {
     slug: "paysagiste-gorges",
     city: "Gorges",
-    distance: "7 km",
-    intro: "Permapaysage réalise vos aménagements à Gorges avec une attention forte à la biodiversité.",
+    distance: "8 km",
+    postalCode: "44190",
+    coordinates: [47.1000, -1.3000],
+    intro: "Intervenant à Gorges depuis notre siège à Vallet (8 km), nous créons des jardins écologiques qui tirent parti du cadre naturel exceptionnel de votre commune, entre vignes et vallée de la Sèvre.",
   },
   {
     slug: "paysagiste-le-pallet",
     city: "Le Pallet",
     distance: "6 km",
-    intro: "Solutions de conception et d'entretien de jardin au Pallet, adaptées au rythme des saisons.",
+    postalCode: "44330",
+    coordinates: [47.1389, -1.3333],
+    intro: "Paysagiste au Pallet, à 6 km de Vallet. Au c\u0153ur du Muscadet, nous concevons des aménagements paysagers qui respectent le caractère viticole et naturel de votre environnement. Terrasses, clôtures, massifs : chaque projet est pensé pour durer.",
   },
   {
     slug: "paysagiste-mouzillon",
     city: "Mouzillon",
-    distance: "5 km",
-    intro: "Pour vos extérieurs à Mouzillon, une méthode claire: écoute, design, réalisation et suivi.",
+    distance: "4 km",
+    postalCode: "44330",
+    coordinates: [47.1417, -1.2833],
+    intro: "À seulement 4 km de notre siège, Mouzillon est au c\u0153ur de notre zone d\u2019intervention. Nous connaissons parfaitement les sols et le microclimat du vignoble pour créer des jardins qui s\u2019épanouissent naturellement dans votre commune.",
   },
   {
     slug: "paysagiste-la-chapelle-heulin",
     city: "La Chapelle-Heulin",
-    distance: "8 km",
-    intro: "Conception paysagère à La Chapelle-Heulin avec des choix végétaux adaptés au territoire.",
+    distance: "5 km",
+    postalCode: "44330",
+    coordinates: [47.1750, -1.3000],
+    intro: "Votre paysagiste à La Chapelle-Heulin, à 5 km de Vallet. Au c\u0153ur du vignoble nantais, nous connaissons parfaitement les conditions locales pour créer des jardins résilients, beaux et faciles à entretenir.",
   },
 ];
 
 export const legalLinks = [
+  { href: "/faq", label: "FAQ" },
   { href: "/mentions-legales", label: "Mentions légales" },
   { href: "/cgv", label: "CGV" },
   { href: "/politique-cookies", label: "Politique de cookies" },

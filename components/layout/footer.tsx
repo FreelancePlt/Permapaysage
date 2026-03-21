@@ -2,7 +2,7 @@ import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LeafIcon, Linkedin
 import Image from "next/image";
 import Link from "next/link";
 
-import { company, legalLinks, navigation } from "@/lib/site-data";
+import { cityPages, company, legalLinks, navigation } from "@/lib/site-data";
 
 export function Footer() {
   return (
@@ -12,7 +12,7 @@ export function Footer() {
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 md:grid-cols-[1.3fr_1fr_1fr] md:px-6 md:py-20">
+      <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 md:grid-cols-2 lg:grid-cols-4 md:px-6 md:py-20">
         <div className="space-y-5">
           <div className="flex items-center gap-2">
             <Image
@@ -98,6 +98,20 @@ export function Footer() {
             </Link>
           </div>
 
+        </div>
+
+        <div className="space-y-5">
+          <h3 className="font-serif text-lg text-white/90">Nos communes</h3>
+          <ul className="space-y-2.5 text-sm">
+            {cityPages.map((city) => (
+              <li key={city.slug}>
+                <Link href={`/${city.slug}`} className="inline-flex items-center gap-1.5 text-white/60 transition-colors hover:text-white">
+                  <ArrowRightIcon size={12} className="text-white/30" />
+                  Paysagiste à {city.city}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

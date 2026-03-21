@@ -14,8 +14,10 @@ import { notFound } from "next/navigation";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
+import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
+import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
   buildBreadcrumbSchema,
   buildLocalBusinessSchema,
@@ -23,10 +25,11 @@ import {
   buildServiceSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
+import { getFaq } from "@/lib/sanity/queries";
+import type { Faq } from "@/lib/sanity/types";
 import {
   entretienGaranties,
   entretienPrestations,
-  interventionCities,
   services,
 } from "@/lib/site-data";
 
@@ -60,6 +63,9 @@ export default async function EntretienPage() {
   if (!service) {
     notFound();
   }
+
+  const sanityFaqs: Faq[] = await getFaq("entretien");
+  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
 
   const schemas = [
     buildWebPageSchema({
@@ -108,7 +114,7 @@ export default async function EntretienPage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/contact"
+                  href="/contact?objet=entretien"
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
                 >
                   Obtenir un devis
@@ -180,7 +186,7 @@ export default async function EntretienPage() {
             ))}
             <Reveal delay={entretienPrestations.length * 80}>
               <Link
-                href="/contact"
+                href="/contact?objet=entretien"
                 className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl bg-primary p-7 transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1"
               >
                 <div className="pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-white/10" />
@@ -262,7 +268,7 @@ export default async function EntretienPage() {
               </div>
               <div className="mt-8">
                 <Link
-                  href="/contact"
+                  href="/contact?objet=entretien"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-8 text-sm font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
                 >
                   Activer mes 50 % de réduction
@@ -349,44 +355,29 @@ export default async function EntretienPage() {
       </section>
 
       {/* ── ZONE D'INTERVENTION ── */}
-      <section className="py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Zone d&apos;intervention</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">Nos communes d&apos;intervention</h2>
-              <p className="text-muted-foreground mt-4 text-base md:text-lg">
-                Nous intervenons régulièrement dans ces communes du Vignoble Nantais (et jusqu&apos;à 25 km autour de Vallet).
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="mt-10 flex flex-wrap justify-center gap-3 md:gap-4">
-              {interventionCities.map((city) => (
-                <span
-                  key={city}
-                  className="inline-flex items-center rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md"
-                >
-                  {city}
-                </span>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="mt-10 text-center">
-              <Link
-                href="https://lejardinierduvignoble.fr"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-              >
-                En savoir plus sur Le Jardinier du Vignoble
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
+      <ZoneIntervention texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour l'entretien écologique de vos espaces verts dans le Vignoble Nantais." />
+
+      {/* ── FAQ ENTRETIEN ── */}
+      {faqItems.length > 0 && (
+        <section className="bg-card py-20 md:py-28">
+          <Container>
+            <Reveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
+                <p className="text-muted-foreground mt-4 md:text-lg">
+                  Les réponses aux questions que vous vous posez sur l&apos;entretien de jardin.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="mx-auto mt-10 max-w-3xl">
+                <FaqAccordion items={faqItems} />
+              </div>
+            </Reveal>
+          </Container>
+        </section>
+      )}
 
       <CtaSection />
     </>

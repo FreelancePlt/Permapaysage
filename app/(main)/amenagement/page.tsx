@@ -1,17 +1,26 @@
 import {
   ArrowRightIcon,
+  ArrowsOutCardinalIcon,
   EarIcon,
   FileTextIcon,
+  GridFourIcon,
   HammerIcon,
+  PlantIcon,
+  SquareIcon,
   StarIcon,
+  TreeEvergreenIcon,
+  WallIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
 import { Container } from "@/components/shared/container";
+import { FaqAccordion } from "@/components/shared/faq-accordion";
+import { GoogleReviews } from "@/components/shared/google-reviews";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
+import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
   buildBreadcrumbSchema,
   buildLocalBusinessSchema,
@@ -19,7 +28,9 @@ import {
   buildServiceSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
-import { company, services, testimonials } from "@/lib/site-data";
+import { getFaq } from "@/lib/sanity/queries";
+import type { Faq } from "@/lib/sanity/types";
+import { services } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
   title: "Aménagement paysager durable à Vallet — Permapaysage",
@@ -58,6 +69,45 @@ const parcoursSteps = [
   },
 ];
 
+const solutions = [
+  {
+    title: "Bordure",
+    description:
+      "Délimitez vos espaces avec précision pour faciliter l'entretien. Nous utilisons des matériaux nobles et durables (pierre locale, bois, acier) pour structurer vos massifs sans plastique.",
+    icon: SquareIcon,
+  },
+  {
+    title: "Cheminement",
+    description:
+      "Optimisez vos accès avec des revêtements drainants et naturels. Nous concevons des circulations fluides qui respectent la perméabilité de vos sols et le cycle de l'eau.",
+    icon: ArrowsOutCardinalIcon,
+  },
+  {
+    title: "Clôture",
+    description:
+      "Sécurisez votre intimité avec des structures robustes en bois local (Douglas, Chêne) ou minéral. Une protection durable et esthétique, sans traitement chimique pour votre jardin.",
+    icon: WallIcon,
+  },
+  {
+    title: "Gazon",
+    description:
+      "Implantation de pelouses rustiques ou prairies fleuries. Nous sélectionnons des mélanges de semences résistants à la sécheresse pour limiter vos factures d'eau et la fréquence de tonte.",
+    icon: PlantIcon,
+  },
+  {
+    title: "Terrasse",
+    description:
+      "Créez un espace de vie extérieur en bois régional. Conception technique sur-mesure privilégiant la longévité des matériaux et une intégration parfaite au relief de votre terrain.",
+    icon: GridFourIcon,
+  },
+  {
+    title: "Végétalisation",
+    description:
+      "Composition de massifs résilients et mellifères. Nous privilégions des essences indigènes du climat océanique pour garantir une croissance saine et une biodiversité active sans intrants.",
+    icon: TreeEvergreenIcon,
+  },
+];
+
 const realisationCategories = [
   {
     title: "Cheminement et bordures",
@@ -76,8 +126,11 @@ const realisationCategories = [
   },
 ];
 
-export default function AmenagementPage() {
+export default async function AmenagementPage() {
   const service = services.find((item) => item.slug === "amenagement");
+
+  const sanityFaqs: Faq[] = await getFaq("amenagement");
+  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
 
   const schemas = [
     buildWebPageSchema({
@@ -106,7 +159,7 @@ export default function AmenagementPage() {
     <>
       <StructuredData data={schemas} />
 
-      {/* ── HERO ── */}
+      {/* ── BLOC 1 : HERO ── */}
       <section className="relative overflow-hidden bg-primary py-20 md:py-28">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-0 top-0 h-125 w-125 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
@@ -130,10 +183,10 @@ export default function AmenagementPage() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/contact"
+                  href="/contact?objet=amenagement"
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
                 >
-                  Obtenir un devis
+                  Embellir mon jardin
                   <ArrowRightIcon size={18} weight="bold" />
                 </Link>
                 <Link
@@ -160,7 +213,45 @@ export default function AmenagementPage() {
         </Container>
       </section>
 
-      {/* ── LE PARCOURS VERS VOTRE JARDIN ── */}
+      {/* ── BLOC 2 : NOS SOLUTIONS ── */}
+      <section className="py-20 md:py-28">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
+                Nos solutions
+              </p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
+                Des aménagements pensés pour durer
+              </h2>
+              <p className="text-muted-foreground mt-4 md:text-lg">
+                Chaque intervention est réalisée avec des matériaux nobles et des techniques respectueuses de votre environnement.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {solutions.map((solution, idx) => {
+              const Icon = solution.icon;
+              return (
+                <Reveal key={solution.title} delay={idx * 80}>
+                  <article className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md">
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Icon size={24} weight="duotone" />
+                    </div>
+                    <h3 className="text-lg font-semibold">{solution.title}</h3>
+                    <p className="text-muted-foreground mt-2.5 text-sm leading-relaxed">
+                      {solution.description}
+                    </p>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── BLOC 3 : LE PARCOURS VERS VOTRE JARDIN ── */}
       <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
@@ -205,8 +296,14 @@ export default function AmenagementPage() {
         </Container>
       </section>
 
-      {/* ── NOS RÉALISATIONS ── */}
-      <section className="py-20 md:py-28">
+      {/* ── BLOC 4 : AVIS CLIENTS GOOGLE ── */}
+      <GoogleReviews />
+
+      {/* ── BLOC 5 : ZONE D'INTERVENTION ── */}
+      <ZoneIntervention texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour l'aménagement paysager de vos extérieurs dans le Vignoble Nantais." />
+
+      {/* ── BLOC 6 : NOS RÉALISATIONS ── */}
+      <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
@@ -226,7 +323,7 @@ export default function AmenagementPage() {
             {realisationCategories.map((cat, idx) => (
               <Reveal key={cat.title} delay={idx * 100}>
                 <Link href="/realisations" className="group block">
-                  <article className="overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-primary/20">
+                  <article className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-primary/20">
                     <div className="relative aspect-4/3 w-full overflow-hidden">
                       <Image
                         src={cat.image}
@@ -265,96 +362,29 @@ export default function AmenagementPage() {
         </Container>
       </section>
 
-      {/* ── AVIS CLIENTS ── */}
-      <section className="bg-card py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
-                  Avis clients
-                </p>
-                <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
-                  Ils nous font confiance
-                </h2>
-                <p className="text-muted-foreground text-base md:text-lg">
-                  {company.rating} de moyenne sur {company.reviewCount} avis
-                  Google vérifiés.
+      {/* ── BLOC 7 : FAQ AMÉNAGEMENT ── */}
+      {faqItems.length > 0 && (
+        <section className="py-20 md:py-28">
+          <Container>
+            <Reveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
+                <p className="text-muted-foreground mt-4 md:text-lg">
+                  Les réponses aux questions que vous vous posez sur l&apos;aménagement paysager.
                 </p>
               </div>
-              <Link
-                href="/contact"
-                className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline"
-              >
-                Démarrer votre projet
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.slice(0, 3).map((testimonial, idx) => {
-              const colors = [
-                { bg: "bg-primary", text: "text-white" },
-                { bg: "bg-secondary", text: "text-white" },
-                { bg: "bg-primary-light", text: "text-white" },
-              ];
-              const color = colors[idx % colors.length];
-              return (
-                <Reveal key={testimonial.author} delay={idx * 100}>
-                  <figure className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
-                    <div
-                      className="absolute -right-3 -top-3 font-serif text-7xl leading-none text-primary/10"
-                      aria-hidden
-                    >
-                      &ldquo;
-                    </div>
-                    <div className="relative flex flex-1 flex-col">
-                      <div className="mb-4 flex gap-0.5">
-                        {["s1", "s2", "s3", "s4", "s5"].map((id) => (
-                          <StarIcon
-                            key={id}
-                            size={18}
-                            weight="fill"
-                            className="text-secondary"
-                          />
-                        ))}
-                      </div>
-                      <blockquote className="flex-1 text-sm leading-relaxed md:text-base">
-                        &ldquo;{testimonial.content}&rdquo;
-                      </blockquote>
-                      <figcaption className="mt-5 flex items-center gap-3">
-                        <div
-                          className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-bold ${color.bg} ${color.text}`}
-                        >
-                          {testimonial.author.charAt(0)}
-                        </div>
-                        <span className="text-sm font-semibold">
-                          {testimonial.author}
-                        </span>
-                      </figcaption>
-                    </div>
-                  </figure>
-                </Reveal>
-              );
-            })}
-          </div>
-          <Reveal delay={300}>
-            <div className="mt-10 text-center">
-              <Link
-                href={company.googleReviewsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-              >
-                Voir tous les avis sur Google
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="mx-auto mt-10 max-w-3xl">
+                <FaqAccordion items={faqItems} />
+              </div>
+            </Reveal>
+          </Container>
+        </section>
+      )}
 
-      {/* ── CTA FINAL ── */}
+      {/* ── BLOC 8 : CTA FINAL ── */}
       <CtaSection
         eyebrow="Lancer votre projet"
         title="Prêt à redéfinir votre extérieur ?"

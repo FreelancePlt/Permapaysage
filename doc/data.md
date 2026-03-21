@@ -13,7 +13,7 @@
 - **Rayon d'intervention** : 25 km autour de Vallet
 - **Site actuel** : https://www.permapaysage.com (Wix/Odoo)
 - **Domaine cible refonte** : permapaysage.com
-- **Note Google** : 5.0/5 — 32 avis (chiffre à vérifier au moment du dev)
+- **Note Google** : 5.0/5 — 33 avis (chiffre à vérifier au moment du dev)
 
 ## Identité & positionnement
 

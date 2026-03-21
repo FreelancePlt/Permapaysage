@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { FloatingCallButton } from "@/components/shared/floating-call-button";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <Breadcrumbs />
       <main id="main-content">{children}</main>
       <Footer />
+      <FloatingCallButton />
     </>
   );
 }

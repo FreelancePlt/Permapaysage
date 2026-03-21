@@ -1,10 +1,11 @@
 import { ClockIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react/dist/ssr";
+import { Suspense } from "react";
 
 import { ContactForm } from "@/components/shared/contact-form";
 import { Container } from "@/components/shared/container";
-import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
+import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
   buildBreadcrumbSchema,
   buildItemListSchema,
@@ -122,45 +123,18 @@ export default function ContactPage() {
             </Reveal>
 
             <Reveal delay={100}>
-              <ContactForm />
+              <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-card" />}>
+                <ContactForm />
+              </Suspense>
             </Reveal>
           </div>
         </Container>
       </section>
 
-      <section className="bg-card py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Zone d&apos;intervention</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight">Intervention autour de Vallet</h2>
-              <p className="text-muted-foreground mt-3 max-w-2xl text-sm md:text-base">
-                Nous intervenons dans un rayon de 25 km autour de Vallet, au c&#339;ur du Vignoble Nantais.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
-              <InterventionMapLazy />
-            </div>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {interventionCities.map((city) => (
-                <span key={city} className="inline-flex items-center rounded-full border border-border bg-background px-4 py-1.5 text-xs font-medium shadow-sm">
-                  {city}
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-sm">
-              Besoin d&apos;une vérification rapide de zone ? Appelez le{" "}
-              <a href={`tel:${company.phone.replace(/\s/g, "")}`} className="font-semibold text-primary">
-                {company.phone}
-              </a>
-            </p>
-          </Reveal>
-        </Container>
-      </section>
+      <ZoneIntervention
+        texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais."
+        showCTA={false}
+      />
     </>
   );
 }

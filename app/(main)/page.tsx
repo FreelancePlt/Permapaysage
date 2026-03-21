@@ -13,15 +13,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
+import { GoogleReviews } from "@/components/shared/google-reviews";
 import { Container } from "@/components/shared/container";
-import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { HeroCarousel } from "@/components/shared/hero-carousel";
-import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
+import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
   BASE_URL,
-  buildFaqSchema,
   buildItemListSchema,
   buildLocalBusinessSchema,
   buildOrganizationSchema,
@@ -30,8 +29,8 @@ import {
   buildWebsiteSchema,
 } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity/image";
-import { getArticles, getFaq } from "@/lib/sanity/queries";
-import type { Article, Faq } from "@/lib/sanity/types";
+import { getArticles } from "@/lib/sanity/queries";
+import type { Article } from "@/lib/sanity/types";
 import { company, metrics, projects, services, testimonials } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
@@ -73,11 +72,7 @@ const serviceImages: Record<string, string> = {
 };
 
 export default async function HomePage() {
-  const [articles, sanityFaqs]: [Article[], Faq[]] = await Promise.all([
-    getArticles(),
-    getFaq(),
-  ]);
-  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
+  const articles: Article[] = await getArticles();
 
   const homepageSchemas = [
     buildWebsiteSchema(),
@@ -96,13 +91,13 @@ export default async function HomePage() {
       })),
     ),
     reviewSchema,
-    ...(faqItems.length > 0 ? [buildFaqSchema(faqItems)] : []),
   ];
 
   return (
     <>
       <StructuredData data={homepageSchemas} />
 
+      {/* ── BLOC 1 : HERO ── */}
       <section className="relative overflow-hidden bg-primary py-20 md:py-32">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-0 left-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/5 blur-3xl" />
@@ -118,24 +113,24 @@ export default async function HomePage() {
                 Éco-paysagiste à Vallet
               </div>
               <h1 className="text-4xl leading-[1.08] tracking-tight text-white md:text-6xl">
-                Des jardins vivants, structurés pour durer et faciles à aimer.
+                Des jardins vivants et résilients dans le Vignoble Nantais.
               </h1>
               <p className="mx-auto max-w-xl text-base leading-relaxed text-white/80 md:text-lg lg:mx-0">
-                Permapaysage conçoit, aménage et entretient des extérieurs sobres, chaleureux et écologiques dans un rayon de 25 km autour de Vallet.
+                Conception, aménagements et entretien durable et écologique. Valorisez votre patrimoine naturel et réduisez votre temps de travail dans votre jardin.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                 <Link
-                  href="/contact"
+                  href="/contact?objet=conception"
                   className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
                 >
-                  Obtenir un devis gratuit
+                  Demander une étude de projet
                   <ArrowRightIcon size={18} weight="bold" />
                 </Link>
                 <Link
-                  href="/realisations"
+                  href="/entretien"
                   className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/40 px-8 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/60"
                 >
-                  Voir les réalisations
+                  Bénéficiez du crédit d&apos;impôt de 50%
                 </Link>
               </div>
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:justify-start">
@@ -178,6 +173,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* ── BLOC 2 : NOS SERVICES ── */}
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
@@ -228,157 +224,10 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.04] blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
+      {/* ── BLOC 3 : AVIS GOOGLE ── */}
+      <GoogleReviews />
 
-        <Container>
-          <Reveal>
-            <div className="relative mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Nos valeurs</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight text-white md:text-4xl">
-                Nos valeurs
-              </h2>
-              <p className="mt-4 text-base text-white/70 md:text-lg">
-                Chaque projet s&apos;appuie sur les trois éthiques fondamentales de la permaculture.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="relative mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
-            {[
-              {
-                icon: GlobeIcon,
-                title: "Prendre soin de la terre",
-                description: "Au contact quotidien du vivant, nous ne nous contentons pas d\u2019aménager : nous agissons. En sélectionnant des végétaux et en pratiquant une gestion raisonnée, nous devenons les gardiens de votre écosystème. S\u2019occuper de votre jardin avec conscience, c\u2019est préserver activement la biodiversité terrestre du vignoble nantais.",
-              },
-              {
-                icon: HeartIcon,
-                title: "Prendre soin des hommes",
-                description: "Un projet réussi repose sur l\u2019équilibre humain. Pour nos clients, cela signifie une écoute réelle et la suppression de toute charge mentale liée au jardin. Pour mes salariés, c\u2019est garantir des conditions de travail dignes, du matériel performant et une sécurité totale sur le terrain. Respecter ceux qui façonnent la terre, c\u2019est vous assurer un chantier serein et un résultat d\u2019excellence.",
-              },
-              {
-                icon: HandsClappingIcon,
-                title: "Partager équitablement",
-                description: "Nous concevons des jardins qui se mangent et qui se partagent. En intégrant des fruitiers et des végétaux nourriciers, nous créons un équilibre entre vos besoins et ceux de la biodiversité locale. C\u2019est notre vision de l\u2019équité : une terre généreuse qui offre des récoltes aux hommes et un refuge aux pollinisateurs de Loire Atlantique.",
-              },
-            ].map((pillar, idx) => {
-              const Icon = pillar.icon;
-              return (
-                <Reveal key={pillar.title} delay={idx * 120}>
-                  <article className="group flex h-full flex-col items-center rounded-3xl bg-white/6 px-8 py-10 text-center ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-white transition-colors group-hover:border-white/30 group-hover:bg-white/15">
-                      <Icon size={30} weight="duotone" />
-                    </div>
-                    <h3 className="text-xl font-semibold leading-snug text-white">{pillar.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/75 md:text-base">
-                      {pillar.description}
-                    </p>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      <section className="relative overflow-hidden bg-card py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/6 blur-3xl" />
-        </div>
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Chiffres clés</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                Des résultats concrets sur le terrain
-              </h2>
-            </div>
-          </Reveal>
-          <div className="relative mt-14 grid gap-6 grid-cols-1 sm:grid-cols-3 lg:grid-cols-5">
-            {metrics.map((metric, idx) => (
-              <Reveal key={metric.label} delay={idx * 80}>
-                <article className="group flex flex-col items-center rounded-2xl border border-border bg-background p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
-                  <p className="text-3xl font-semibold tracking-tight text-primary lg:text-4xl">{metric.value}</p>
-                  <p className="mt-2 text-sm font-medium">{metric.label}</p>
-                  <p className="text-muted-foreground mt-1 text-xs">{metric.subtext}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Avis clients</p>
-                <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
-                  Ils nous font confiance
-                </h2>
-                <p className="text-muted-foreground text-base md:text-lg">
-                  {company.rating} de moyenne sur {company.reviewCount} avis Google vérifiés.
-                </p>
-              </div>
-              <Link href="/contact" className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
-                Démarrer votre projet
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.slice(0, 3).map((testimonial, idx) => {
-              const colors = [
-                { bg: "bg-primary", text: "text-white" },
-                { bg: "bg-secondary", text: "text-white" },
-                { bg: "bg-primary-light", text: "text-white" },
-              ];
-              const color = colors[idx % colors.length];
-              return (
-                <Reveal key={testimonial.author} delay={idx * 100}>
-                  <figure className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/20">
-                    <div className="absolute -right-3 -top-3 font-serif text-7xl leading-none text-primary/10" aria-hidden>&ldquo;</div>
-                    <div className="relative flex flex-1 flex-col">
-                      <div className="mb-4 flex gap-0.5">
-                        {["s1", "s2", "s3", "s4", "s5"].map((id) => (
-                          <StarIcon key={id} size={18} weight="fill" className="text-secondary" />
-                        ))}
-                      </div>
-                      <blockquote className="flex-1 text-sm leading-relaxed md:text-base">
-                        &ldquo;{testimonial.content}&rdquo;
-                      </blockquote>
-                      <figcaption className="mt-5 flex items-center gap-3">
-                        <div className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-bold ${color.bg} ${color.text}`}>
-                          {testimonial.author.charAt(0)}
-                        </div>
-                        <span className="text-sm font-semibold">{testimonial.author}</span>
-                      </figcaption>
-                    </div>
-                  </figure>
-                </Reveal>
-              );
-            })}
-          </div>
-          <Reveal delay={300}>
-            <div className="mt-10 text-center">
-              <Link
-                href={company.googleReviewsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-              >
-                Voir tous les avis sur Google
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
-
+      {/* ── BLOC 4 : NOS RÉALISATIONS ── */}
       <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
@@ -443,27 +292,95 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      <section id="zone-intervention" className="py-20 md:py-28">
+      {/* ── BLOC 5 : CHIFFRES CLÉS ── */}
+      <section className="relative overflow-hidden bg-background py-20 md:py-28">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/6 blur-3xl" />
+        </div>
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Zone d&apos;intervention</p>
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Chiffres clés</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                À votre service dans un rayon de 25 km
+                Des résultats concrets sur le terrain
               </h2>
-              <p className="text-muted-foreground mt-4 text-base md:text-lg">
-                Basés à Vallet, nous intervenons dans tout le Vignoble Nantais : Clisson, Vertou, Le Loroux-Bottereau, Aigrefeuille-sur-Maine et alentours.
-              </p>
             </div>
           </Reveal>
-          <Reveal delay={200}>
-            <div className="mt-12 overflow-hidden rounded-2xl border border-border shadow-sm">
-              <InterventionMapLazy />
-            </div>
-          </Reveal>
+          <div className="relative mt-14 grid gap-6 grid-cols-2 sm:grid-cols-4">
+            {metrics.map((metric, idx) => (
+              <Reveal key={metric.label} delay={idx * 80}>
+                <article className="group flex flex-col items-center rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
+                  <p className="text-3xl font-semibold tracking-tight text-primary lg:text-4xl">{metric.value}</p>
+                  <p className="mt-2 text-sm font-medium">{metric.label}</p>
+                  <p className="text-muted-foreground mt-1 text-xs">{metric.subtext}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </Container>
       </section>
 
+      {/* ── BLOC 6 : ZONE D'INTERVENTION ── */}
+      <ZoneIntervention texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais." />
+
+      {/* ── BLOC 7 : NOS VALEURS ── */}
+      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.04] blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
+        </div>
+
+        <Container>
+          <Reveal>
+            <div className="relative mx-auto max-w-2xl text-center">
+              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Nos valeurs</p>
+              <h2 className="mt-3 text-3xl leading-tight tracking-tight text-white md:text-4xl">
+                Nos valeurs
+              </h2>
+              <p className="mt-4 text-base text-white/70 md:text-lg">
+                Chaque projet s&apos;appuie sur les trois éthiques fondamentales de la permaculture.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="relative mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
+            {[
+              {
+                icon: GlobeIcon,
+                title: "Prendre soin de la terre",
+                description: "Au contact quotidien du vivant, nous ne nous contentons pas d\u2019aménager : nous agissons. En sélectionnant des végétaux et en pratiquant une gestion raisonnée, nous devenons les gardiens de votre écosystème. S\u2019occuper de votre jardin avec conscience, c\u2019est préserver activement la biodiversité terrestre du vignoble nantais.",
+              },
+              {
+                icon: HeartIcon,
+                title: "Prendre soin des hommes",
+                description: "Un projet réussi repose sur l\u2019équilibre humain. Pour nos clients, cela signifie une écoute réelle et la suppression de toute charge mentale liée au jardin. Pour mes salariés, c\u2019est garantir des conditions de travail dignes, du matériel performant et une sécurité totale sur le terrain. Respecter ceux qui façonnent la terre, c\u2019est vous assurer un chantier serein et un résultat d\u2019excellence.",
+              },
+              {
+                icon: HandsClappingIcon,
+                title: "Partager équitablement",
+                description: "Nous concevons des jardins qui se mangent et qui se partagent. En intégrant des fruitiers et des végétaux nourriciers, nous créons un équilibre entre vos besoins et ceux de la biodiversité locale. C\u2019est notre vision de l\u2019équité : une terre généreuse qui offre des récoltes aux hommes et un refuge aux pollinisateurs de Loire Atlantique.",
+              },
+            ].map((pillar, idx) => {
+              const Icon = pillar.icon;
+              return (
+                <Reveal key={pillar.title} delay={idx * 120}>
+                  <article className="group flex h-full flex-col items-center rounded-3xl bg-white/6 px-8 py-10 text-center ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-white transition-colors group-hover:border-white/30 group-hover:bg-white/15">
+                      <Icon size={30} weight="duotone" />
+                    </div>
+                    <h3 className="text-xl font-semibold leading-snug text-white">{pillar.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-white/75 md:text-base">
+                      {pillar.description}
+                    </p>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── BLOC 8 : BLOG ── */}
       {articles.length > 0 && (
         <section className="py-20 md:py-28">
           <Container>
@@ -522,27 +439,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {faqItems.length > 0 && (
-        <section className="bg-card py-20 md:py-28">
-          <Container>
-            <Reveal>
-              <div className="mx-auto max-w-2xl text-center">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
-                <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
-                <p className="text-muted-foreground mt-4 md:text-lg">
-                  Les réponses aux questions que vous vous posez le plus souvent.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={100}>
-              <div className="mx-auto mt-10 max-w-3xl">
-                <FaqAccordion items={faqItems} />
-              </div>
-            </Reveal>
-          </Container>
-        </section>
-      )}
-
+      {/* ── BLOC 9 : CTA FINAL ── */}
       <CtaSection
         title="Votre jardin ne devrait pas être une contrainte."
         description="Redécouvrez le plaisir d'un extérieur qui vous ressemble, sans la fatigue ni les doutes techniques. Que vous rêviez d'une terrasse chaleureuse ou d'un verger nourricier, nous transformons votre terrain en un véritable sanctuaire."
