@@ -148,8 +148,8 @@ export default async function ConceptionPage() {
             <div className="animate-in fade-in zoom-in-95 duration-700 delay-200">
               <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
                 <Image
-                  src="/photos-entretien/apres/ap-03.jpg"
-                  alt="Conception de jardin écologique par Permapaysage"
+                  src="/photos-entretien/illustrations/plan-global-2d.png"
+                  alt="Plan d'aménagement paysager 2D réalisé par Permapaysage"
                   width={1024}
                   height={768}
                   className="aspect-4/3 w-full rounded-xl object-cover"
@@ -281,9 +281,9 @@ export default async function ConceptionPage() {
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { label: "Jardin structuré et tondu", image: "/photos-entretien/apres/ap-04.jpg" },
-              { label: "Haie taillée en ligne", image: "/photos-entretien/apres/ap-02.jpg" },
-              { label: "Pelouse et massifs entretenus", image: "/photos-entretien/apres/ap-08.jpg" },
+              { label: "Croquis d'ambiance paysager réalisé par Permapaysage", image: "/photos-entretien/illustrations/croquis-ambiance.jpg" },
+              { label: "Plan paysager 2D détaillé avec zones fonctionnelles", image: "/photos-entretien/illustrations/plan-global-2d.png" },
+              { label: "Plan de plantation avec sélection d'essences locales", image: "/photos-entretien/illustrations/plan-plantation.png" },
             ].map((item, idx) => (
               <Reveal key={item.label} delay={idx * 100}>
                 <div className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">

@@ -62,27 +62,24 @@ export default function ContactPage() {
     <>
       <StructuredData data={schemas} />
 
-      <section className="relative overflow-hidden bg-primary py-16 md:py-24">
+      <section className="relative overflow-hidden bg-primary py-8 md:py-12">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
           <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
         </div>
         <Container>
           <div className="relative mx-auto max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
-              Contact
-            </div>
-            <h1 className="mt-4 text-4xl leading-tight tracking-tight text-white md:text-5xl">
+            <h1 className="text-3xl leading-tight tracking-tight text-white md:text-4xl">
               Parlons de votre projet paysager
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-white/80 md:text-lg">
+            <p className="mt-2 text-sm leading-relaxed text-white/80 md:text-base">
               Remplissez le formulaire ci-dessous ou contactez-nous directement. Réponse sous 48 heures.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="py-20 md:py-28">
+      <section className="py-10 md:py-14">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
             <Reveal>

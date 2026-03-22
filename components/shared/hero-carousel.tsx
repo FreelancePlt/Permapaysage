@@ -5,20 +5,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const images = [
   {
-    src: "/photos-entretien/apres/ap-04.jpg",
-    alt: "Aménagement de jardin écologique par Permapaysage",
-  },
-  {
-    src: "/photos-entretien/apres/ap-09.jpg",
-    alt: "Terrasse bois et massifs paysagers par Permapaysage",
-  },
-  {
     src: "/photos-entretien/apres/ap-03.jpg",
-    alt: "Conception de jardin durable dans le Vignoble Nantais",
+    alt: "Entretien de jardin paysager par Permapaysage à Vallet",
   },
   {
-    src: "/photos-entretien/apres/ap-01.jpg",
-    alt: "Aménagement extérieur avec végétalisation par Permapaysage",
+    src: "/photos-entretien/illustrations/terrasse-travertin.jpg",
+    alt: "Terrasse en travertin devant maison en pierre par Permapaysage",
+  },
+  {
+    src: "/photos-entretien/illustrations/terrasse-ceramique.jpg",
+    alt: "Terrasse en céramique extérieure aménagée par Permapaysage",
+  },
+  {
+    src: "/photos-entretien/illustrations/croquis-ambiance.jpg",
+    alt: "Croquis d'ambiance aquarelle d'un jardin paysagé par Permapaysage",
+  },
+  {
+    src: "/photos-entretien/illustrations/plan-global-2d.png",
+    alt: "Plan d'aménagement paysager 2D complet réalisé par Permapaysage",
   },
 ];
 
