@@ -38,14 +38,14 @@ export default function CookiesPage() {
             <h2 className="text-2xl">Cookies utilisés</h2>
 
             <div className="space-y-4">
-              <div className="rounded-lg border border-[var(--border)] p-4">
+              <div className="rounded-lg border border-border p-4">
                 <h3 className="mb-1 font-medium">cookie_consent</h3>
                 <p className="text-foreground/70 text-xs">Cookie fonctionnel</p>
                 <p className="mt-2">Stocke votre choix concernant les cookies (accepté ou refusé). Ce cookie est indispensable au bon fonctionnement du bandeau de consentement.</p>
                 <p className="text-foreground/60 mt-1 text-xs">Durée : 13 mois</p>
               </div>
 
-              <div className="rounded-lg border border-[var(--border)] p-4">
+              <div className="rounded-lg border border-border p-4">
                 <h3 className="mb-1 font-medium">_ga, _ga_*</h3>
                 <p className="text-foreground/70 text-xs">Cookies de mesure d&apos;audience (Google Analytics)</p>
                 <p className="mt-2">Permettent de mesurer l&apos;audience du site de manière anonymisée : nombre de visiteurs, pages consultées, durée des visites. Ces cookies ne sont déposés que si vous acceptez les cookies.</p>
