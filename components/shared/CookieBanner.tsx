@@ -26,8 +26,6 @@ export function CookieBanner() {
 
   useEffect(() => {
     const stored = getCookie(COOKIE_NAME);
-    // DEBUG — à supprimer
-    console.log("[CookieBanner] cookie_consent value:", stored);
     if (stored === "accepted" || stored === "refused") {
       setConsent(stored);
     } else {
@@ -37,14 +35,12 @@ export function CookieBanner() {
   }, []);
 
   const accept = useCallback(() => {
-    console.log("[CookieBanner] → Accepter cliqué"); // DEBUG
     setCookie(COOKIE_NAME, "accepted", COOKIE_DAYS);
     setConsent("accepted");
     setVisible(false);
   }, []);
 
   const refuse = useCallback(() => {
-    console.log("[CookieBanner] → Refuser cliqué"); // DEBUG
     setCookie(COOKIE_NAME, "refused", COOKIE_DAYS);
     setConsent("refused");
     setVisible(false);
