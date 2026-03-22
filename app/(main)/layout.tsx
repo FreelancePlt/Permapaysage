@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { CookieBanner } from "@/components/shared/CookieBanner";
 import { FloatingCallButton } from "@/components/shared/floating-call-button";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
@@ -19,6 +20,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <main id="main-content">{children}</main>
       <Footer />
       <FloatingCallButton />
+      <CookieBanner />
     </>
   );
 }
