@@ -36,6 +36,8 @@ export const metadata = buildPageMetadata({
   ],
 });
 
+export const revalidate = 60;
+
 const pricingOffers = [
   {
     title: "Visite conseil",

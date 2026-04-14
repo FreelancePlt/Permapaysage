@@ -45,6 +45,8 @@ export const metadata = buildPageMetadata({
   ],
 });
 
+export const revalidate = 60;
+
 const parcoursSteps = [
   {
     number: "1",
