@@ -671,6 +671,6 @@ export const cityPages: CityPage[] = [
 export const legalLinks = [
   { href: "/faq", label: "FAQ" },
   { href: "/mentions-legales", label: "Mentions légales" },
-  { href: "/cgv", label: "CGV" },
+  { href: "/conditions-generales-de-vente", label: "CGV" },
   { href: "/politique-cookies", label: "Politique de cookies" },
 ];

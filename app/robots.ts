@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/mentions-legales",
-          "/cgv",
+          "/conditions-generales-de-vente",
           "/politique-cookies",
         ],
       },
@@ -22,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/mentions-legales",
-          "/cgv",
+          "/conditions-generales-de-vente",
           "/politique-cookies",
         ],
       },
