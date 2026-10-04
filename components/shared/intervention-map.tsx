@@ -47,14 +47,16 @@ export function InterventionMap() {
       zoomControl={false}
       minZoom={9}
       maxZoom={13}
-      attributionControl={false}
       className="intervention-map h-105 w-full"
       style={{ background: "#F7F3ED" }}
     >
       <MapConfig />
       <ZoomControl position="bottomright" />
 
-      <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+      <TileLayer
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · contributeurs'
+      />
 
       <Circle
         center={VALLET}

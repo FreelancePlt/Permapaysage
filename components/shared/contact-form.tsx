@@ -68,7 +68,7 @@ export function ContactForm() {
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           subject: `Nouveau message de ${formData.name} — Permapaysage`,
-          from_name: "Permapaysage.com",
+          from_name: "Permapaysage",
           ...formData,
           botcheck: "",
         }),
