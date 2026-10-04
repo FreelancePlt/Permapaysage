@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
+import Script from "next/script";
 
 import { Analytics } from "@vercel/analytics/next";
 
@@ -79,7 +80,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             `,
           }}
         />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z6SF5771E1" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Z6SF5771E1"
+          strategy="afterInteractive"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

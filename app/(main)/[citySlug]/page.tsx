@@ -16,7 +16,6 @@ import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
-  BASE_URL,
   buildBreadcrumbSchema,
   buildPageMetadata,
   buildWebPageSchema,

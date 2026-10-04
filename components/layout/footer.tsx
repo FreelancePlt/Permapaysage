@@ -1,4 +1,4 @@
-import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LeafIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -7,7 +7,6 @@ import {
   HammerIcon,
   PlantIcon,
   SquareIcon,
-  StarIcon,
   TreeEvergreenIcon,
   WallIcon,
 } from "@phosphor-icons/react/dist/ssr";
