@@ -2,7 +2,7 @@
 
 import { CheckCircleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -35,15 +35,21 @@ const inputClassName =
 
 export function ContactForm() {
   const searchParams = useSearchParams();
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const objet = searchParams.get("objet");
+  const requestedProjectType = projectTypeOptions.find((option) => option.value === objet)?.value;
+  const [previousObjet, setPreviousObjet] = useState(objet);
+  const [formData, setFormData] = useState<FormData>(() => ({
+    ...initialFormData,
+    projectType: requestedProjectType ?? "",
+  }));
   const [status, setStatus] = useState<FormStatus>("idle");
 
-  useEffect(() => {
-    const objet = searchParams.get("objet");
-    if (objet && projectTypeOptions.some((opt) => opt.value === objet)) {
-      setFormData((prev) => ({ ...prev, projectType: objet }));
+  if (objet !== previousObjet) {
+    setPreviousObjet(objet);
+    if (requestedProjectType) {
+      setFormData({ ...formData, projectType: requestedProjectType });
     }
-  }, [searchParams]);
+  }
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -62,7 +68,7 @@ export function ContactForm() {
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           subject: `Nouveau message de ${formData.name} — Permapaysage`,
-          from_name: "Permapaysage.com",
+          from_name: "Permapaysage",
           ...formData,
           botcheck: "",
         }),

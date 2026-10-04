@@ -15,8 +15,8 @@ import { Container } from "@/components/shared/container";
 import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
+import { cityLocation } from "@/lib/cities";
 import {
-  BASE_URL,
   buildBreadcrumbSchema,
   buildPageMetadata,
   buildWebPageSchema,
@@ -40,16 +40,18 @@ export async function generateMetadata({ params }: CityPageProps) {
 
   if (!cityPage) {
     return buildPageMetadata({
-      title: "Paysagiste à Vallet — Permapaysage",
+      title: "Paysagiste à Vallet | Permapaysage",
       description: "Permapaysage intervient autour de Vallet.",
       path: `/${citySlug}`,
       noIndex: true,
     });
   }
 
+  const location = cityLocation(cityPage.city);
+
   return buildPageMetadata({
-    title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
-    description: `Permapaysage, votre éco-paysagiste à ${cityPage.city} (${cityPage.distance} de Vallet). Conception, aménagement et entretien de jardins écologiques en Loire-Atlantique.`,
+    title: `Paysagiste ${location} | Conception et aménagement | Permapaysage`,
+    description: `Permapaysage, votre éco-paysagiste ${location} (${cityPage.distance} de Vallet). Conception, aménagement et entretien de jardins écologiques en Loire-Atlantique.`,
     path: `/${cityPage.slug}`,
     keywords: [
       `paysagiste ${cityPage.city}`,
@@ -75,6 +77,8 @@ export default async function CitySeoPage({ params }: CityPageProps) {
     notFound();
   }
 
+  const location = cityLocation(cityPage.city);
+
   const localProjects = projects.filter(
     (p) => p.city.toLowerCase() === cityPage.city.toLowerCase(),
   );
@@ -83,7 +87,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
     "@context": "https://schema.org",
     "@type": "LandscapingBusiness",
     name: company.name,
-    description: `Éco-paysagiste à ${cityPage.city} — Conception, aménagement et entretien de jardins écologiques.`,
+    description: `Éco-paysagiste ${location} : conception, aménagement et entretien de jardins écologiques.`,
     url: getAbsoluteUrl(`/${cityPage.slug}`),
     telephone: `+33${company.phone.replace(/\s/g, "").slice(1)}`,
     email: company.email,
@@ -107,14 +111,14 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 
   const schemas = [
     buildWebPageSchema({
-      title: `Paysagiste à ${cityPage.city} — Conception et aménagement | Permapaysage`,
-      description: `Permapaysage, votre éco-paysagiste à ${cityPage.city} (${cityPage.distance} de Vallet). Conception, aménagement et entretien de jardins écologiques en Loire-Atlantique.`,
+      title: `Paysagiste ${location} | Conception et aménagement | Permapaysage`,
+      description: `Permapaysage, votre éco-paysagiste ${location} (${cityPage.distance} de Vallet). Conception, aménagement et entretien de jardins écologiques en Loire-Atlantique.`,
       path: `/${cityPage.slug}`,
     }),
     landscapingBusinessSchema,
     buildBreadcrumbSchema([
       { name: "Accueil", path: "/" },
-      { name: cityPage.city, path: `/${cityPage.slug}` },
+      { name: `Paysagiste ${location}`, path: `/${cityPage.slug}` },
     ]),
   ];
 
@@ -136,7 +140,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
               {cityPage.city} · {cityPage.distance} de Vallet
             </div>
             <h1 className="text-4xl leading-tight tracking-tight text-white md:text-5xl">
-              Paysagiste à {cityPage.city} — Conception, aménagement et entretien
+              Paysagiste {location} : conception, aménagement et entretien
             </h1>
             <p className="max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
               {cityPage.intro}
@@ -165,12 +169,12 @@ export default async function CitySeoPage({ params }: CityPageProps) {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Nos services à {cityPage.city}</p>
+              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Nos services {location}</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
                 Trois expertises pour votre jardin
               </h2>
               <p className="text-muted-foreground mt-4 text-base md:text-lg">
-                De la conception à l&apos;entretien, nous intervenons à {cityPage.city} et dans tout le Vignoble Nantais.
+                De la conception à l&apos;entretien, nous intervenons {location} et dans tout le Vignoble Nantais.
               </p>
             </div>
           </Reveal>
@@ -184,7 +188,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
                       <div className="relative overflow-hidden bg-[#F7F5F0]">
                         <Image
                           src={serviceImages[service.slug]}
-                          alt={`${service.title} à ${cityPage.city}`}
+                          alt={`${service.title} ${location}`}
                           width={600}
                           height={400}
                           className="aspect-4/3 w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
@@ -216,9 +220,9 @@ export default async function CitySeoPage({ params }: CityPageProps) {
           <Container>
             <Reveal>
               <div className="mx-auto max-w-2xl text-center">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Réalisations à {cityPage.city}</p>
+                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Réalisations {location}</p>
                 <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                  Nos projets à {cityPage.city}
+                  Nos projets {location}
                 </h2>
               </div>
             </Reveal>
@@ -268,7 +272,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
                 Zone d&apos;intervention
               </p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                Intervention à {cityPage.city} et alentours
+                Intervention {location} et alentours
               </h2>
             </div>
           </Reveal>
@@ -280,7 +284,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
               </div>
               <div className="space-y-6">
                 <p className="text-base leading-relaxed md:text-lg">
-                  Basés à Vallet, nous intervenons à <strong>{cityPage.city}</strong> ({cityPage.distance}) pour la conception, l&apos;aménagement et l&apos;entretien de jardins dans le Vignoble Nantais.
+                  Basés à Vallet, nous intervenons <strong>{location}</strong> ({cityPage.distance}) pour la conception, l&apos;aménagement et l&apos;entretien de jardins dans le Vignoble Nantais.
                 </p>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <div className="grid grid-cols-2 gap-4 text-sm">
@@ -312,8 +316,8 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 
       {/* ── CTA FINAL ── */}
       <CtaSection
-        title={`Votre jardin à ${cityPage.city} mérite un expert. Parlons-en.`}
-        description={`Échangeons sur votre projet paysager à ${cityPage.city}. Premier rendez-vous et diagnostic offerts.`}
+        title={`Votre jardin ${location} mérite un expert. Parlons-en.`}
+        description={`Échangeons sur votre projet paysager ${location}. Premier rendez-vous et diagnostic offerts.`}
         ctaText="Contacter Permapaysage"
       />
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import { GoogleAnalytics } from "./GoogleAnalytics";
@@ -19,38 +19,39 @@ function setCookie(name: string, value: string, days: number) {
 
 const COOKIE_NAME = "cookie_consent";
 const COOKIE_DAYS = 395; // ~13 mois
+const CONSENT_CHANGE_EVENT = "cookie-consent-change";
+
+function getConsent(): ConsentStatus {
+  const stored = getCookie(COOKIE_NAME);
+  return stored === "accepted" || stored === "refused" ? stored : null;
+}
+
+function getServerConsent(): undefined {
+  return undefined;
+}
+
+function subscribeToConsent(onChange: () => void) {
+  window.addEventListener(CONSENT_CHANGE_EVENT, onChange);
+  return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onChange);
+}
+
+function saveConsent(consent: Exclude<ConsentStatus, null>) {
+  setCookie(COOKIE_NAME, consent, COOKIE_DAYS);
+  window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
+}
 
 export function CookieBanner() {
-  const [consent, setConsent] = useState<ConsentStatus>(undefined as unknown as ConsentStatus);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const stored = getCookie(COOKIE_NAME);
-    if (stored === "accepted" || stored === "refused") {
-      setConsent(stored);
-    } else {
-      setConsent(null);
-      setVisible(true);
-    }
-  }, []);
-
-  const accept = useCallback(() => {
-    setCookie(COOKIE_NAME, "accepted", COOKIE_DAYS);
-    setConsent("accepted");
-    setVisible(false);
-  }, []);
-
-  const refuse = useCallback(() => {
-    setCookie(COOKIE_NAME, "refused", COOKIE_DAYS);
-    setConsent("refused");
-    setVisible(false);
-  }, []);
+  const consent = useSyncExternalStore(
+    subscribeToConsent,
+    getConsent,
+    getServerConsent,
+  );
 
   return (
     <>
       <GoogleAnalytics consent={consent === "accepted"} />
 
-      {visible && (
+      {consent === null && (
         <div
           role="dialog"
           aria-label="Gestion des cookies"
@@ -67,14 +68,14 @@ export function CookieBanner() {
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <button
                 type="button"
-                onClick={refuse}
+                onClick={() => saveConsent("refused")}
                 className="text-foreground/50 hover:text-foreground/70 cursor-pointer rounded-md px-4 py-2 text-sm transition-colors"
               >
                 Refuser
               </button>
               <button
                 type="button"
-                onClick={accept}
+                onClick={() => saveConsent("accepted")}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer rounded-md px-5 py-2 text-sm font-medium transition-colors"
               >
                 Accepter

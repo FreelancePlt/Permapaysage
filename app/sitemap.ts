@@ -1,9 +1,13 @@
 import type { MetadataRoute } from "next";
 
 import { BASE_URL } from "@/lib/seo";
-import { blogPosts, cityPages, projects } from "@/lib/site-data";
+import { getSitemapDocuments } from "@/lib/sanity/queries";
+import { cityPages } from "@/lib/site-data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 60;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const documents = await getSitemapDocuments();
   const staticPages = [
     "",
     "/conception",
@@ -12,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/realisations",
     "/contact",
+    "/faq",
   ];
 
   const now = new Date();
@@ -33,18 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
             : 0.8,
   }));
 
-  const articleEntries = blogPosts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: "yearly" as const,
-    priority: 0.72,
-  }));
-
-  const projectEntries = projects.map((project) => ({
-    url: `${BASE_URL}/realisations/${project.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.78,
+  const contentEntries = documents.map((document) => ({
+    url: `${BASE_URL}/${document._type === "article" ? "blog" : "realisations"}/${document.slug}`,
+    lastModified: new Date(document._updatedAt),
+    changeFrequency: document._type === "article" ? "yearly" as const : "monthly" as const,
+    priority: document._type === "article" ? 0.72 : 0.78,
   }));
 
   const cityEntries = cityPages.map((cityPage) => ({
@@ -54,5 +52,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.74,
   }));
 
-  return [...staticEntries, ...articleEntries, ...projectEntries, ...cityEntries];
+  return [...staticEntries, ...contentEntries, ...cityEntries];
 }

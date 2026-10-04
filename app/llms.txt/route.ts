@@ -4,7 +4,7 @@ import { BASE_URL } from "@/lib/seo";
 
 export function GET() {
   const content = [
-    "# llms.txt for permapaysage.com",
+    "# llms.txt pour permapaysage.fr",
     "Site: Permapaysage",
     "Language: fr",
     `Domain: ${BASE_URL}`,

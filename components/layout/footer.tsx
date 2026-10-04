@@ -1,7 +1,8 @@
-import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LeafIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
+import { cityLocation } from "@/lib/cities";
 import { cityPages, company, legalLinks, navigation } from "@/lib/site-data";
 
 export function Footer() {
@@ -107,7 +108,7 @@ export function Footer() {
               <li key={city.slug}>
                 <Link href={`/${city.slug}`} className="inline-flex items-center gap-1.5 text-white/60 transition-colors hover:text-white">
                   <ArrowRightIcon size={12} className="text-white/30" />
-                  Paysagiste à {city.city}
+                  Paysagiste {cityLocation(city.city)}
                 </Link>
               </li>
             ))}

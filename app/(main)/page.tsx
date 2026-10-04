@@ -255,7 +255,7 @@ export default async function HomePage() {
                     <div className="relative overflow-hidden">
                       <Image
                         src={project.image}
-                        alt={`Projet ${project.title} à ${project.city}`}
+                        alt={project.title}
                         width={900}
                         height={600}
                         className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"

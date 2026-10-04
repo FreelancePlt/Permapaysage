@@ -1,4 +1,17 @@
 import { client } from "./client"
+import type { SitemapDocument } from "./types"
+
+export async function getSitemapDocuments() {
+	return client.fetch<SitemapDocument[]>(
+		`*[_type in ["article", "realisation"] && publie == true && defined(slug.current) && slug.current != ""] {
+			_type,
+			"slug": slug.current,
+			_updatedAt
+		}`,
+		{},
+		{ next: { revalidate: 60 } },
+	)
+}
 
 // --- Articles ---
 

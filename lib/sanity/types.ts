@@ -1,5 +1,11 @@
 import type { PortableTextBlock } from "next-sanity"
 
+export interface SitemapDocument {
+	_type: "article" | "realisation"
+	slug: string
+	_updatedAt: string
+}
+
 export interface SanityImage {
 	_type: "image"
 	asset: {
