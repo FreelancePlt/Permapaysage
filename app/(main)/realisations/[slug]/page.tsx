@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CtaSection } from "@/components/sections/cta";
+import { CtaButton } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
@@ -185,12 +186,7 @@ export default async function ProjectDetailPage({
                 </div>
               )}
 
-              <Link
-                href="/contact"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex h-11 items-center justify-center rounded-sm px-6 text-sm font-semibold transition-colors"
-              >
-                Démarrer un projet similaire
-              </Link>
+              <CtaButton action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
             </div>
           </div>
         </Container>
@@ -275,7 +271,6 @@ export default async function ProjectDetailPage({
           "Priorisation de vos besoins (vie, jeu, détente).",
           "Zéro stress : nous gérons la complexité, vous gardez le plaisir.",
         ]}
-        ctaText="Je lance ma transformation avec Permapaysage"
       />
     </>
   );

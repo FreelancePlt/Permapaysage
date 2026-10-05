@@ -146,7 +146,6 @@ export default async function RealisationsPage() {
           "Priorisation de vos besoins (vie, jeu, détente).",
           "Zéro stress : nous gérons la complexité, vous gardez le plaisir.",
         ]}
-        ctaText="Je lance ma transformation avec Permapaysage"
       />
     </>
   );

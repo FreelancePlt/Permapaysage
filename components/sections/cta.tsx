@@ -1,5 +1,5 @@
-import { ArrowRightIcon, LeafIcon } from "@phosphor-icons/react/dist/ssr";
-import Link from "next/link";
+import { LeafIcon } from "@phosphor-icons/react/dist/ssr";
+import { CtaButton } from "@/components/shared/cta-button";
 
 import { Container } from "@/components/shared/container";
 
@@ -8,8 +8,6 @@ type CtaSectionProps = {
   title?: string;
   description?: string;
   points?: string[];
-  ctaText?: string;
-  ctaHref?: string;
 };
 
 export function CtaSection({
@@ -17,8 +15,6 @@ export function CtaSection({
   title = "Parlons de votre jardin et de votre vision.",
   description = "Un premier échange permet de cadrer rapidement la faisabilité, les priorités et les étapes.",
   points,
-  ctaText = "Contacter Permapaysage",
-  ctaHref = "/contact",
 }: CtaSectionProps) {
   return (
     <section className="relative overflow-hidden bg-[#1A531A] py-20 md:py-28">
@@ -47,13 +43,10 @@ export function CtaSection({
               ))}
             </ul>
           )}
-          <Link
-            href={ctaHref}
-            className="mt-8 inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-10 text-base font-bold text-[#1A531A] shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
-          >
-            {ctaText}
-            <ArrowRightIcon size={18} weight="bold" />
-          </Link>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <CtaButton action="call" variant="primary-dark" />
+            <CtaButton action="visit" variant="secondary-dark" />
+          </div>
         </div>
       </Container>
     </section>

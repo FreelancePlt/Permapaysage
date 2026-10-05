@@ -1,6 +1,6 @@
-import { ArrowRightIcon, MapPinIcon } from "@phosphor-icons/react/dist/ssr";
-import Link from "next/link";
+import { MapPinIcon } from "@phosphor-icons/react/dist/ssr";
 
+import { CtaButton } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { InterventionMapLazy } from "@/components/shared/intervention-map-lazy";
 import { Reveal } from "@/components/shared/reveal";
@@ -52,13 +52,7 @@ export function ZoneIntervention({ texte, showCTA = true }: ZoneInterventionProp
               </p>
 
               {showCTA && (
-                <Link
-                  href="/contact"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-8 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg"
-                >
-                  Demander un devis
-                  <ArrowRightIcon size={16} weight="bold" />
-                </Link>
+                <CtaButton action="visit" variant="primary-light" className="w-full sm:w-auto" />
               )}
             </div>
           </div>

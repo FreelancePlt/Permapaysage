@@ -4,6 +4,9 @@ import { CheckCircleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
+import { ctaButtonVariants } from "@/components/shared/cta-button";
+import { cn } from "@/lib/utils";
+
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 type FormData = {
@@ -100,7 +103,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="text-sm font-semibold text-primary hover:underline"
+          className="text-sm font-semibold text-cta-terracotta-hover hover:underline"
         >
           Envoyer un autre message
         </button>
@@ -198,7 +201,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg disabled:opacity-50 sm:w-auto sm:px-8"
+        className={cn(ctaButtonVariants({ variant: "primary-light" }), "mt-6 w-full sm:w-auto")}
       >
         {status === "loading" ? "Envoi en cours..." : "Envoyer la demande"}
       </button>

@@ -183,4 +183,48 @@ Ces éléments ne bloquent pas la remise au vert des contrôles ni l'étape 1. �
 | Préparation | Terminé | `doc/brief-mise-a-jour-2026-10-04.md`, `doc/chantier-mise-a-jour-2026-10-04.md` | Audit du dépôt ; build réussi ; défauts lint préexistants relevés. |
 | Remise au vert | Terminée | Fichiers détaillés dans le compte rendu ci-dessus | Lint sans avertissement, build et TypeScript, cookies/GA4, présélections et formulaire simulé dans Chromium. |
 | Étape 1 | Terminée côté code ; deux redirections Vercel à rendre permanentes | Fichiers détaillés dans le compte rendu de l'étape 1 | Lint/build/TypeScript, 27 URL HTTP 200, métadonnées, Sanity, carte desktop/mobile, H1 et grammaire. |
-| Étapes 2 à 12 | À faire | À renseigner étape par étape | Contrôles détaillés ci-dessus. |
+| Étape 2 | Terminée | 23 fichiers détaillés dans le compte rendu ci-dessous | Lint strict sans avertissement, build/TypeScript, 27 routes, 135 vues puis 35 contre-vérifications, CTA, clavier, cookies, formulaire simulé et Reveal validés. |
+| Étapes 3 à 12 | À faire | À renseigner étape par étape | Contrôles détaillés ci-dessus. |
+
+
+### Étape 2 réalisée le 5 octobre 2026
+
+La préparation et l'étape 1 ont été intégrées à `main`. Les documents de chantier ont été synchronisés et poussés sur `origin/main` au commit `d8c7176`. L'étape 2 est terminée après revue des sources et recette navigateur finale ; elle fait l'objet du commit distinct `feat: harmoniser les boutons et l’en-tête du site`.
+
+- Tokens crème `#F5EFE3`, ocre `#E0A33A`/survol `#CC8F2A`, encre `#1F2A1F`, terracotta `#B5552B`, blanc, et terracotta sombre `#984522` pour le survol. Les fonds généraux adoptent le crème.
+- `CtaButton` centralise les deux actions, leurs libellés et leurs destinations. Variantes `cva` : principale claire, principale sombre, secondaire claire et secondaire sombre ; hauteur 52 px, texte 17 px demi-gras, coins arrondis. Les contrôles cookies, envoi du formulaire et liens de navigation gardent leurs libellés utiles et reprennent les couleurs des variantes lorsqu'ils sont présentés comme boutons.
+- Appel : lien direct vers `https://cal.com/permapaysage/appel-15-min`. Visite : `/contact?objet=visite-conseil`, opérationnel avec la présélection existante. L'embed Cal.com, l'alias `objet=visite` et les événements GA4 sont réservés à l'étape 3.
+- Header : téléphone `07 52 62 08 18`, `tel:+33752620818`, immédiatement avant le CTA terracotta. Navigation complète à partir de 1280 px pour loger téléphone et CTA ; en dessous, CTA compact à côté du burger. Logo réduit sous 400 px. Offres Conception en trois colonnes à partir de 1024 px pour préserver la largeur des boutons.
+- L'appel flottant mobile existant reste disponible hors Contact, devient terracotta et mesure 52 px. Safe areas inférieure et droite prises en compte ; marge de pied de page pour que ses derniers liens restent accessibles. Le consentement garde la priorité d'affichage (`z-50` face à `z-40`) et son propre espace iOS.
+- CTA des héros et appels finaux : ocre sur vert et contour crème ; zone : visite terracotta. CTA des autres pages et gabarit service inutilisé harmonisés ; liens vers services, projets, blog et autres destinations internes préservés.
+- Apparitions limitées à 0,3 s, sans filtre de flou, désactivées sous 768 px et avec mouvement réduit. Reveal visible par défaut sans JavaScript ou IntersectionObserver ; observer, délai et écouteur média nettoyés. Le changement de préférence rend immédiatement le contenu visible. Les halos décoratifs et arrière-plans floutés statiques restent conservés ; aucune animation de flou n'est introduite. Le comportement du carrousel et son autoplay seront traités à l'étape 4.
+- Contrastes calculés : blanc/terracotta 4,88:1 ; blanc/survol 6,54:1 ; encre/ocre 6,72:1 et encre/survol ocre 5,34:1 ; crème/vert 7,99:1. Le texte du contour clair utilise le terracotta sombre pour dépasser AA sur crème (le terracotta normal donne seulement 4,27:1).
+
+La revue a également harmonisé le bouton « Envoyer un autre message » après succès du formulaire : texte terracotta sombre, libellé et fonctionnement conservés.
+
+La recette navigateur a également conduit à deux améliorations du header, validées après reconstruction : le burger expose `aria-expanded` et `aria-controls` vers la navigation mobile identifiée ; Échap ferme le menu visible et rend le focus à son déclencheur, avec un gestionnaire clavier local au header.
+
+#### Vérifications finales de l'étape 2
+
+- `npm run lint -- --max-warnings=0` : réussi, aucune erreur et aucun avertissement. `npm run build` : réussi, TypeScript compris et 39 pages générées. Ces contrôles ont été rejoués après la dernière correction du header. `git diff --check` : réussi.
+- Les 27 URL du sitemap répondent HTTP 200 en local et conservent leurs canonical officiels `.fr`.
+- Chromium : 135 vues, soit 27 routes aux largeurs 320, 390, 768, 1024 et 1440 px ; aucun débordement horizontal ni libellé de CTA tronqué. Une seconde passe de 35 vues sur sept gabarits a confirmé ces mesures ; les dernières corrections du header ont ensuite été contre-vérifiées au clavier aux cinq largeurs. Captures desktop et mobile inspectées.
+- Les quatre variantes de CTA ont été vérifiées avec les couleurs réellement calculées, au repos et au survol : contrastes AA, bordure de 2 px, ombres conformes, hauteur 52 px et texte 17 px.
+- Menus : clic, survol, Entrée, Tabulation, Échap et retour du focus validés ; attributs du burger contrôlés aux largeurs 320, 390, 768 et 1024 px, navigation desktop à 1440 px.
+- Cookies : acceptation et refus, cookie de 395 jours, persistance après rechargement et accès aux boutons vérifié par hit-test à 320 px.
+- Web3Forms intercepté localement : payload, succès, remise à zéro et état d'erreur avec conservation des champs validés ; présélection `visite-conseil` confirmée. Aucun email réellement envoyé.
+- Reveal : les 29 blocs sont visibles sur mobile, avec mouvement réduit et sans JavaScript. Sur desktop, apparition de 0,3 s sans filtre, au défilement et lors d'un changement de préférence média, validée.
+- Safe areas : règles CSS contrôlées, marge de pied de page de 96 px, bouton flottant de 52 px avec marges inférieure et droite de 20 px complétées par les safe areas. Les 13 liens du footer restent accessibles selon les hit-tests.
+- Aucune erreur JavaScript de page ni erreur d'hydratation relevée. Deux incidents externes préexistants ont été observés en local : `_vercel/insights/script.js` répond HTTP 404 hors Vercel et la collecte Google Analytics `region1.google-analytics.com` échoue avec `ERR_CONNECTION_REFUSED`. Ces incidents ne sont pas présentés comme résolus par ce lot.
+
+Fichiers effectivement modifiés dans ce lot (23, nouveau composant compris) :
+
+- Pages (9) : `app/(main)/[citySlug]/page.tsx`, `app/(main)/amenagement/page.tsx`, `app/(main)/conception/page.tsx`, `app/(main)/contact/page.tsx`, `app/(main)/entretien/page.tsx`, `app/(main)/faq/page.tsx`, `app/(main)/page.tsx`, `app/(main)/realisations/[slug]/page.tsx`, `app/(main)/realisations/page.tsx`.
+- Styles et bouton générique (2) : `app/globals.css`, `components/ui/button.tsx`.
+- Layout et sections (4) : `components/layout/footer.tsx`, `components/layout/header.tsx`, `components/sections/cta.tsx`, `components/sections/service-page.tsx`.
+- Composants partagés (7) : `components/shared/CookieBanner.tsx`, `components/shared/contact-form.tsx`, `components/shared/cta-button.tsx` (nouveau), `components/shared/faq-accordion.tsx`, `components/shared/floating-call-button.tsx`, `components/shared/reveal.tsx`, `components/shared/zone-intervention.tsx`.
+- Journal (1) : `doc/chantier-mise-a-jour-2026-10-04.md`.
+
+#### Passage à l'étape 3
+
+Les étapes 3 à 12 restent à faire. Les destinations sont centralisées dans `ctaDestinations` de `components/shared/cta-button.tsx` : l'appel utilise actuellement un lien HTTPS normal vers `https://cal.com/permapaysage/appel-15-min`, et la visite utilise `/contact?objet=visite-conseil` jusqu'à l'ajout de l'alias `objet=visite` à l'étape 3. Aucun test de réservation Cal.com n'a été effectué dans ce lot. L'étape 3 doit intégrer l'embed différé, contrôler l'événement officiel de confirmation, le focus et la fermeture, puis instrumenter les clics et confirmations GA4 sans doublon selon le brief.
