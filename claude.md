@@ -2,7 +2,7 @@
 
 ## Projet
 
-Refonte complète du site vitrine **permapaysage.com** pour un éco-paysagiste basé à Vallet (44). Le site remplace un Wix/Odoo existant par un site Next.js moderne, performant, optimisé SEO local, avec back-office Sanity pour l'autonomie du client.
+Refonte complète du site vitrine **www.permapaysage.fr** pour un éco-paysagiste basé à Vallet (44). Le site remplace un Wix/Odoo existant par un site Next.js moderne, performant, optimisé SEO local, avec back-office Sanity pour l'autonomie du client.
 
 ## Stack technique
 

@@ -1,6 +1,6 @@
 # Articles pour Sanity — Permapaysage
 
-> 3 articles prêts à être copiés dans Sanity Studio (`permapaysage.com/studio` → Articles de blog → +)
+> 3 articles prêts à être copiés dans Sanity Studio (`www.permapaysage.fr/studio` → Articles de blog → +)
 > Chaque section correspond exactement à un champ du formulaire Sanity.
 
 ---

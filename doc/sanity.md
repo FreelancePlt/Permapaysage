@@ -2,7 +2,7 @@
 
 ## Accès
 
-- **Studio intégré** : `permapaysage.com/studio` (ou `localhost:3000/studio` en dev)
+- **Studio intégré** : `www.permapaysage.fr/studio` (ou `localhost:3000/studio` en dev)
 - **Projet Sanity** : ID `ecfagc9w`, dataset `production`
 - **Compte** : connecté via GitHub (raphael.plassart@gmail.com)
 

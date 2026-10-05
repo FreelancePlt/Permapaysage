@@ -11,8 +11,8 @@
 - **Téléphone** : 07 52 62 08 18
 - **Horaires** : Lundi au vendredi, 8h - 19h
 - **Rayon d'intervention** : 25 km autour de Vallet
-- **Site actuel** : https://www.permapaysage.com (Wix/Odoo)
-- **Domaine cible refonte** : permapaysage.com
+- **Site officiel** : https://www.permapaysage.fr
+- **Domaine cible refonte** : www.permapaysage.fr
 - **Note Google** : 5.0/5 — 33 avis (chiffre à vérifier au moment du dev)
 
 ## Identité & positionnement
@@ -114,8 +114,8 @@ Vallet, Le Loroux-Bottereau, Saint-Julien-de-Concelles, Clisson, Divatte-sur-Loi
 
 ## Éléments techniques du site actuel
 
-- **Plateforme** : Odoo (permapaysage.com redirige vers permapaysage.odoo.com)
-- **Domaine** : permapaysage.com (chez OVH, propriété de Jessy)
+- **Ancienne plateforme** : Odoo (ancien domaine en .com redirigé vers permapaysage.odoo.com)
+- **Ancien domaine** : nom de marque en .com (chez OVH, propriété de Jessy)
 - **Hébergement futur** : Vercel (gratuit)
 - **CMS futur** : Sanity (plan Free)
 - **DNS** : OVH (à pointer vers Vercel)
