@@ -12,7 +12,7 @@ import { getFaq } from "@/lib/sanity/queries";
 import type { Faq } from "@/lib/sanity/types";
 
 export const metadata = buildPageMetadata({
-  title: "FAQ — Questions fréquentes | Permapaysage",
+  title: "FAQ : Questions fréquentes | Permapaysage",
   description:
     "Retrouvez les réponses aux questions les plus fréquentes sur nos services de conception, aménagement et entretien de jardin à Vallet et dans le Vignoble Nantais.",
   path: "/faq",
@@ -32,7 +32,7 @@ export default async function FaqPage() {
 
   const schemas = [
     buildWebPageSchema({
-      title: "FAQ — Questions fréquentes | Permapaysage",
+      title: "FAQ : Questions fréquentes | Permapaysage",
       description:
         "Retrouvez les réponses aux questions les plus fréquentes sur nos services.",
       path: "/faq",
@@ -48,14 +48,10 @@ export default async function FaqPage() {
     <>
       <StructuredData data={schemas} />
 
-      <section className="relative overflow-hidden bg-primary py-16 md:py-24">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
+      <section className="dark-section relative overflow-hidden py-16 md:py-24">
         <Container>
           <div className="relative mx-auto max-w-2xl text-center appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
               FAQ
             </div>
             <h1 className="mt-4 text-4xl leading-tight tracking-tight text-white md:text-5xl">

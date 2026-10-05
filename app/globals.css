@@ -9,6 +9,8 @@
   --color-cta-terracotta: var(--cta-terracotta);
   --color-cta-terracotta-hover: var(--cta-terracotta-hover);
   --color-cta-white: var(--cta-white);
+  --color-surface-sage: var(--surface-sage);
+  --color-primary-deep: var(--primary-deep);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -31,42 +33,48 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --font-sans: var(--font-dm-sans);
-  --font-serif: var(--font-fraunces);
+  --font-serif: var(--font-lora);
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --radius-sm: 0.375rem;
   --radius-md: 0.625rem;
   --radius-lg: 1rem;
+  --shadow-sm: 0 2px 6px rgb(37 55 43 / 0.04);
+  --shadow-md: 0 6px 18px rgb(37 55 43 / 0.07);
+  --shadow-lg: 0 12px 32px rgb(37 55 43 / 0.09);
+  --shadow-xl: 0 18px 48px rgb(37 55 43 / 0.12);
 }
 
 :root {
   --cream: #F5EFE3;
-  --cta-ochre: #E0A33A;
-  --cta-ochre-hover: #CC8F2A;
+  --cta-ochre: #D9AE66;
+  --cta-ochre-hover: #CCA05A;
   --cta-ink: #1F2A1F;
-  --cta-terracotta: #B5552B;
-  --cta-terracotta-hover: #984522;
+  --cta-terracotta: #A65D43;
+  --cta-terracotta-hover: #914D36;
   --cta-white: #FFFFFF;
-  --background: var(--cream);
-  --foreground: #2F4F4F;
-  --card: #F7F5F0;
-  --card-foreground: #2F4F4F;
-  --popover: #FAFAF8;
-  --popover-foreground: #2F4F4F;
-  --primary: #1A531A;
+  --background: #FAF9F6;
+  --foreground: #293D33;
+  --card: #F2F0E9;
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --surface-sage: #EAF0E7;
+  --primary: #2B4D3B;
+  --primary-deep: #203C2F;
   --primary-foreground: #FFFFFF;
-  --primary-light: #4A7C28;
-  --secondary: #7BAE3E;
+  --primary-light: #647B58;
+  --secondary: #566C51;
   --secondary-foreground: #FFFFFF;
-  --muted: #EFECE6;
-  --muted-foreground: #5C6B63;
-  --accent: #EFECE6;
-  --accent-foreground: #2F4F4F;
+  --muted: #EDECE4;
+  --muted-foreground: #606D61;
+  --accent: var(--surface-sage);
+  --accent-foreground: var(--foreground);
   --destructive: #C53030;
   --destructive-foreground: #FFFFFF;
   --success: #2D8A4E;
-  --border: #E4E1DB;
-  --input: #E4E1DB;
-  --ring: #1A531A;
+  --border: #DDDCD1;
+  --input: #DDDCD1;
+  --ring: var(--primary);
 }
 
 @layer base {
@@ -86,7 +94,7 @@
   h2,
   h3,
   h4 {
-    @apply font-serif;
+    @apply font-serif text-balance;
   }
 
   a {
@@ -96,6 +104,69 @@
 
 button {
   cursor: pointer;
+}
+
+.dark-section {
+  background-color: var(--primary);
+  background-image: linear-gradient(115deg, var(--primary), var(--primary-deep));
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--secondary);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.botanical-background {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.botanical-background::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  top: -6rem;
+  right: -5rem;
+  width: clamp(22rem, 40vw, 42rem);
+  height: calc(100% + 12rem);
+  background: var(--primary);
+  opacity: 0.035;
+  mask: url("/motifs/feuillage.svg") center / contain no-repeat;
+  transform: rotate(-24deg);
+}
+
+.dark-section.botanical-background::before {
+  background: var(--cream);
+  opacity: 0.055;
+}
+
+@media (max-width: 767px) {
+  .botanical-background::before {
+    right: -12rem;
+    top: -5rem;
+    height: 36rem;
+    opacity: 0.025;
+  }
+  .dark-section.botanical-background::before {
+    opacity: 0.04;
+  }
+}
+
+.photo-frame {
+  overflow: hidden;
+  border: 1px solid rgb(245 239 227 / 0.25);
+  border-radius: 1rem;
+  background: var(--cream);
+  padding: 0.375rem;
+  box-shadow: 0 20px 50px rgb(12 31 22 / 0.18);
 }
 
 /* Content stays visible until JS enables a supported desktop reveal. */
@@ -188,4 +259,14 @@ button {
 
 .intervention-map .leaflet-control-zoom a:hover {
   background: #f5f2ed !important;
+}
+
+/* Full reviews stay on the page, using the native accessible disclosure. */
+.review-open-label,
+.review-details[open] .review-excerpt,
+.review-details[open] .review-closed-label {
+  display: none;
+}
+.review-details[open] .review-open-label {
+  display: inline;
 }

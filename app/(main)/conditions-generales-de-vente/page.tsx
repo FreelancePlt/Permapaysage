@@ -3,7 +3,7 @@ import { StructuredData } from "@/components/shared/structured-data";
 import { buildBreadcrumbSchema, buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "CGV — Permapaysage",
+  title: "CGV : Permapaysage",
   description: "Conditions générales de vente de Permapaysage.",
   path: "/conditions-generales-de-vente",
   noIndex: true,
@@ -15,7 +15,7 @@ export default function CgvPage() {
       <StructuredData
         data={[
           buildWebPageSchema({
-            title: "CGV — Permapaysage",
+            title: "CGV : Permapaysage",
             description: "Conditions générales de vente de Permapaysage.",
             path: "/conditions-generales-de-vente",
           }),
@@ -29,7 +29,7 @@ export default function CgvPage() {
         <Container className="max-w-3xl space-y-8">
           <header className="space-y-2">
             <h1 className="text-4xl leading-tight tracking-tight md:text-5xl">
-              Conditions générales de vente — Permapaysage
+              Conditions générales de vente : Permapaysage
             </h1>
             <p className="text-sm text-neutral-600">Version applicable au 1er janvier 2024</p>
           </header>
@@ -66,7 +66,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 1 — Devis</h2>
+            <h2 className="text-2xl">Article 1 : Devis</h2>
             <p>La Société établit un devis écrit répondant au besoin formulé par le CLIENT.</p>
             <p>
               Le devis est élaboré gratuitement, sauf information préalable au CLIENT précisant son caractère payant.
@@ -100,7 +100,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 2 — Réalisation d&apos;une étude</h2>
+            <h2 className="text-2xl">Article 2 : Réalisation d&apos;une étude</h2>
             <p>
               La Société peut, à la demande du CLIENT, réaliser une étude (plan de masse, listing végétaux,
               scénographie, etc.). Le CLIENT reste libre de confier l&apos;exécution des travaux à la Société ou de
@@ -122,7 +122,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 3 — Formation du contrat</h2>
+            <h2 className="text-2xl">Article 3 : Formation du contrat</h2>
             <p>
               Le contrat est définitivement formé dès l&apos;acceptation du devis par le CLIENT, sans réserve ni
               modification, et après versement de l&apos;acompte prévu à l&apos;article 4.
@@ -136,7 +136,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 4 — Prix et facturation</h2>
+            <h2 className="text-2xl">Article 4 : Prix et facturation</h2>
             <h3 className="text-lg font-medium">4.1 Acompte</h3>
             <p>Sauf accord contraire mentionné au devis&nbsp;:</p>
             <ul className="list-disc space-y-1 pl-6">
@@ -185,7 +185,7 @@ export default function CgvPage() {
               <li>La possibilité d&apos;exiger le paiement intégral à la commande pour toute affaire ultérieure.</li>
             </ul>
 
-            <h3 className="text-lg font-medium">4.5 Services à la Personne (SAP) — Crédit d&apos;impôt</h3>
+            <h3 className="text-lg font-medium">4.5 Services à la Personne (SAP) : Crédit d&apos;impôt</h3>
             <p>
               Les prestations d&apos;entretien régulier réalisées au domicile du CLIENT particulier peuvent ouvrir droit
               à un crédit d&apos;impôt de 50&nbsp;% au titre des services à la personne, sous réserve&nbsp;:
@@ -204,7 +204,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 5 — Réception des travaux</h2>
+            <h2 className="text-2xl">Article 5 : Réception des travaux</h2>
             <p>
               La signature d&apos;un procès-verbal de réception, avec ou sans réserves, déclenche le transfert des
               risques et le départ des garanties légales (parfait achèvement, biennale, décennale selon la nature de
@@ -219,7 +219,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 6 — Délais d&apos;exécution</h2>
+            <h2 className="text-2xl">Article 6 : Délais d&apos;exécution</h2>
             <p>
               Les délais communiqués sont indicatifs. Ils peuvent être reportés sans indemnité ni pénalité en cas&nbsp;:
             </p>
@@ -240,7 +240,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 7 — Responsabilité et force majeure</h2>
+            <h2 className="text-2xl">Article 7 : Responsabilité et force majeure</h2>
             <h3 className="text-lg font-medium">7.1 Nature de l&apos;obligation</h3>
             <p>
               La Société est tenue d&apos;une obligation de moyens et non de résultat, sauf disposition légale contraire
@@ -260,7 +260,7 @@ export default function CgvPage() {
               partie de ses obligations en raison d&apos;un cas de force majeure. Sont notamment assimilés à des cas de
               force majeure&nbsp;: intempéries exceptionnelles, catastrophes naturelles, sécheresses et restrictions
               préfectorales d&apos;usage de l&apos;eau, inondations, épidémies, grèves ou pénurie de main-d&apos;œuvre,
-              pénuries de matériaux, conflits armés, actes de l&apos;autorité publique — sauf lorsque ces assimilations
+              pénuries de matériaux, conflits armés, actes de l&apos;autorité publique, sauf lorsque ces assimilations
               sont interdites par des dispositions légales d&apos;ordre public.
             </p>
 
@@ -278,7 +278,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 8 — Garantie de reprise des végétaux</h2>
+            <h2 className="text-2xl">Article 8 : Garantie de reprise des végétaux</h2>
             <p>
               La Société n&apos;accorde aucune garantie contractuelle automatique. Cependant, les végétaux fournis ET
               plantés par la Société font l&apos;objet d&apos;une garantie contractuelle de reprise d&apos;une durée de
@@ -316,7 +316,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 9 — Réserve de propriété</h2>
+            <h2 className="text-2xl">Article 9 : Réserve de propriété</h2>
             <p>
               Les produits, matériaux et végétaux fournis demeurent la propriété de la Société jusqu&apos;au paiement
               intégral de leur prix. Le transfert des risques (perte, vol, détérioration) intervient toutefois dès la
@@ -325,7 +325,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 10 — Droit de rétractation (clients particuliers)</h2>
+            <h2 className="text-2xl">Article 10 : Droit de rétractation (clients particuliers)</h2>
             <p>
               Conformément aux articles L.221-18 et suivants du Code de la consommation, pour tout contrat conclu hors
               établissement (notamment au domicile du CLIENT), le CLIENT particulier dispose d&apos;un délai de 14 jours
@@ -346,7 +346,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 11 — Éthique, environnement et gestion des déchets</h2>
+            <h2 className="text-2xl">Article 11 : Éthique, environnement et gestion des déchets</h2>
             <p>Engagée dans une démarche de paysagisme écologique, la Société applique les principes suivants&nbsp;:</p>
             <ul className="list-disc space-y-1 pl-6">
               <li>Zéro produit phytosanitaire de synthèse (désherbants, pesticides, fongicides chimiques)&nbsp;;</li>
@@ -362,7 +362,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 12 — Protection des données personnelles (RGPD)</h2>
+            <h2 className="text-2xl">Article 12 : Protection des données personnelles (RGPD)</h2>
             <p>Conformément au Règlement (UE) 2016/679 (RGPD) et à la loi Informatique et Libertés modifiée&nbsp;:</p>
             <ul className="list-disc space-y-1 pl-6">
               <li>
@@ -386,7 +386,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 13 — Droit à l&apos;image et propriété du site internet</h2>
+            <h2 className="text-2xl">Article 13 : Droit à l&apos;image et propriété du site internet</h2>
             <p>
               Sauf opposition écrite du CLIENT formulée avant le démarrage du chantier, la Société se réserve le droit
               de photographier les ouvrages réalisés et de les utiliser à des fins de communication (site internet,
@@ -403,7 +403,7 @@ export default function CgvPage() {
           </section>
 
           <section className="space-y-3 text-sm leading-relaxed">
-            <h2 className="text-2xl">Article 14 — Litiges, médiation et juridiction</h2>
+            <h2 className="text-2xl">Article 14 : Litiges, médiation et juridiction</h2>
             <h3 className="text-lg font-medium">14.1 Résolution amiable</h3>
             <p>
               En cas de différend, les parties s&apos;engagent à rechercher une solution amiable avant toute action
@@ -416,7 +416,7 @@ export default function CgvPage() {
               gratuitement au médiateur de la consommation&nbsp;:
             </p>
             <p>
-              CM2C — Centre de la Médiation de la Consommation de Conciliateurs de Justice
+              CM2C : Centre de la Médiation de la Consommation de Conciliateurs de Justice
               <br />
               14 rue Saint-Jean, 75017 Paris
               <br />
@@ -434,7 +434,7 @@ export default function CgvPage() {
           </section>
 
           <footer className="border-t pt-6 text-xs text-neutral-600">
-            PERMAPAYSAGE — SASU au capital social de 1&nbsp;000&nbsp;€ — RCS Nantes 953 318 391 — Siège social&nbsp;: 18
+            PERMAPAYSAGE : SASU au capital social de 1&nbsp;000&nbsp;€ : RCS Nantes 953 318 391 : Siège social&nbsp;: 18
             avenue du Général Heurtaux, 44330 VALLET
           </footer>
         </Container>

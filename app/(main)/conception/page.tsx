@@ -12,17 +12,17 @@ import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
   buildBreadcrumbSchema,
-  buildLocalBusinessSchema,
+  buildFaqSchema,
   buildPageMetadata,
   buildServiceSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
 import { getFaq } from "@/lib/sanity/queries";
 import type { Faq } from "@/lib/sanity/types";
-import { services } from "@/lib/site-data";
+import { SERVICE_UPDATED_AT, services } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
-  title: "Conception de jardin écologique à Vallet — Permapaysage",
+  title: "Conception de jardin écologique à Vallet : Permapaysage",
   description:
     "Conception de jardin écologique à Vallet: diagnostic du terrain, plan paysager sur mesure et approche permaculture.",
   path: "/conception",
@@ -77,16 +77,15 @@ export default async function ConceptionPage() {
   }
 
   const sanityFaqs: Faq[] = await getFaq("conception");
-  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
+  const faqItems = sanityFaqs.filter((faq) => faq.question?.trim() && faq.reponse?.trim()).map((f) => ({ question: f.question, answer: f.reponse }));
 
   const schemas = [
     buildWebPageSchema({
-      title: "Conception de jardin écologique à Vallet — Permapaysage",
+      title: "Conception de jardin écologique à Vallet : Permapaysage",
       description:
         "Conception de jardin écologique à Vallet: diagnostic du terrain, plan paysager sur mesure et approche permaculture.",
       path: "/conception",
     }),
-    buildLocalBusinessSchema("/conception"),
     buildServiceSchema({
       name: service.title,
       description: service.longDescription,
@@ -98,6 +97,7 @@ export default async function ConceptionPage() {
       { name: "Accueil", path: "/" },
       { name: "Conception", path: "/conception" },
     ]),
+    ...(faqItems.length ? [buildFaqSchema(faqItems)] : []),
   ];
 
   return (
@@ -105,34 +105,32 @@ export default async function ConceptionPage() {
       <StructuredData data={schemas} />
 
       {/* ── BLOC 1 : HERO ── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-[500px] w-[500px] translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-72 w-72 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
+      <section className="dark-section relative overflow-hidden py-20 md:py-28">
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
             <div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
                 Conception
               </div>
               <h1 className="text-4xl leading-tight tracking-tight text-white md:text-5xl">
                 Conception de jardins écologiques
               </h1>
+              <p className="text-xs text-white/70">Mis à jour le <time dateTime={SERVICE_UPDATED_AT}>5 octobre 2026</time></p>
               <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
                 Spécialiste de l&apos;aménagement paysager dans le Vignoble Nantais (44), nous créons votre jardin sur mesure. Alliez esthétique et biodiversité grâce à des solutions durables inspirées de la permaculture pour valoriser votre extérieur en Loire-Atlantique.
               </p>
               <div className="flex flex-wrap gap-3">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
-                <CtaButton action="visit" variant="secondary-dark" className="w-full sm:w-auto" />
+                <CtaButton emplacement="service" action="call" variant="primary-dark" className="w-full sm:w-auto" />
+                <CtaButton emplacement="service" action="visit" variant="secondary-dark" className="w-full sm:w-auto" />
               </div>
             </div>
             <div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
-              <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+              <div className="photo-frame">
                 <Image
                   src="/photos-entretien/illustrations/plan-global-2d.png"
                   alt="Plan d'aménagement paysager 2D réalisé par Permapaysage"
+                  sizes="(min-width: 1280px) 563px, (min-width: 1024px) calc(48.72vw - 60.77px), (min-width: 768px) calc(100vw - 62px), calc(100vw - 46px)"
                   width={1024}
                   height={768}
                   className="aspect-4/3 w-full rounded-xl object-cover"
@@ -149,7 +147,7 @@ export default async function ConceptionPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Nos offres</p>
+              <p className="section-eyebrow">Nos offres</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
                 Choisissez la formule adaptée à votre projet
               </h2>
@@ -182,7 +180,7 @@ export default async function ConceptionPage() {
                   </ul>
                   <div className="mt-8">
                     <p className="text-2xl font-bold text-primary">{offer.price}</p>
-                    <CtaButton action="call" compact variant={offer.highlighted ? "primary-light" : "secondary-light"} className="mt-4 w-full" />
+                    <CtaButton emplacement="service" action="call" compact variant={offer.highlighted ? "primary-light" : "secondary-light"} className="mt-4 w-full" />
                   </div>
                 </article>
               </Reveal>
@@ -197,7 +195,7 @@ export default async function ConceptionPage() {
           <div className="grid gap-8 lg:grid-cols-2">
             <Reveal>
               <article className="rounded-2xl border border-border bg-background p-8 md:p-10">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Notre approche</p>
+                <p className="section-eyebrow">Notre approche</p>
                 <h2 className="mt-3 text-3xl leading-tight tracking-tight">Approche</h2>
                 <p className="text-muted-foreground mt-4 text-sm leading-relaxed md:text-base">{service.longDescription}</p>
                 <ul className="mt-6 space-y-3">
@@ -213,7 +211,7 @@ export default async function ConceptionPage() {
 
             <Reveal delay={100}>
               <article className="rounded-2xl border border-border bg-background p-8 md:p-10">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Résultats</p>
+                <p className="section-eyebrow">Résultats</p>
                 <h2 className="mt-3 text-3xl leading-tight tracking-tight">Ce que vous obtenez</h2>
                 <ul className="mt-6 space-y-3">
                   {[
@@ -227,7 +225,7 @@ export default async function ConceptionPage() {
                     </li>
                   ))}
                 </ul>
-                <CtaButton action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
+                <CtaButton emplacement="service" action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
               </article>
             </Reveal>
           </div>
@@ -239,7 +237,7 @@ export default async function ConceptionPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Exemples</p>
+              <p className="section-eyebrow">Exemples</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">Plans & Croquis</h2>
               <p className="text-muted-foreground mt-4 md:text-lg">
                 Quelques exemples de nos propositions d&apos;aménagement et palettes végétales.
@@ -255,7 +253,7 @@ export default async function ConceptionPage() {
               <Reveal key={item.label} delay={idx * 100}>
                 <div className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="relative aspect-4/3 w-full overflow-hidden">
-                    <Image src={item.image} alt={item.label} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <Image src={item.image} alt={item.label} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -274,7 +272,7 @@ export default async function ConceptionPage() {
           <Container>
             <Reveal>
               <div className="mx-auto max-w-2xl text-center">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
+                <p className="section-eyebrow">FAQ</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
                 <p className="text-muted-foreground mt-4 md:text-lg">
                   Les réponses aux questions que vous vous posez sur la conception de jardin.

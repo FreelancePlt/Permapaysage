@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { interventionCityLinks } from "@/lib/site-data";
 import { BASE_URL } from "@/lib/seo";
 
 export function GET() {
@@ -17,6 +18,9 @@ export function GET() {
     "- /realisations",
     "- /blog",
     "- /contact",
+    "- /faq",
+    "- /a-propos",
+    ...interventionCityLinks.map(({ href }) => `- ${href}`),
   ].join("\n");
 
   return new NextResponse(content, {

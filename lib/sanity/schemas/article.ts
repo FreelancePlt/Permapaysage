@@ -142,6 +142,13 @@ export const article = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'dateModification',
+      title: 'Date de mise à jour éditoriale',
+      type: 'date',
+      description: 'Facultative : indiquez la date d’une réelle mise à jour du contenu. Sinon, la dernière modification du document est utilisée.',
+      options: {dateFormat: 'DD/MM/YYYY'},
+    }),
+    defineField({
       name: 'publie',
       title: 'Publié',
       type: 'boolean',

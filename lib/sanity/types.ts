@@ -31,6 +31,8 @@ export interface Article {
 	categorie: string
 	contenu: PortableTextBlock[]
 	datePublication: string
+	dateModification?: string
+	_updatedAt?: string
 }
 
 export interface Realisation {
@@ -55,4 +57,22 @@ export interface Faq {
 	reponse: string
 	categorie: string
 	ordre: number
+}
+
+export interface EntretienFormule {
+  _key: string
+  nom?: string
+  description?: string
+  prixDepart?: number
+}
+
+export interface SanityCityContent {
+  _id: string
+  paragrapheLocal?: string
+  distanceDepuisVallet?: string
+  delaiIntervention?: string
+  coordonnees?: { lat: number; lng: number }
+  realisations?: (Realisation & { publie?: boolean })[]
+  avisLocal?: { auteur?: string; texte?: string; source?: string; date?: string }
+  faqLocale?: { question?: string; reponse?: string }[]
 }

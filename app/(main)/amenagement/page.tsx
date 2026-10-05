@@ -23,17 +23,17 @@ import { StructuredData } from "@/components/shared/structured-data";
 import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
   buildBreadcrumbSchema,
-  buildLocalBusinessSchema,
+  buildFaqSchema,
   buildPageMetadata,
   buildServiceSchema,
   buildWebPageSchema,
 } from "@/lib/seo";
 import { getFaq } from "@/lib/sanity/queries";
 import type { Faq } from "@/lib/sanity/types";
-import { services } from "@/lib/site-data";
+import { SERVICE_UPDATED_AT, services } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
-  title: "Aménagement paysager durable à Vallet — Permapaysage",
+  title: "Aménagement paysager durable à Vallet : Permapaysage",
   description:
     "Aménagement paysager durable à Vallet: terrasses bois, clôtures naturelles et massifs végétalisés pensés pour durer.",
   path: "/amenagement",
@@ -114,17 +114,17 @@ const realisationCategories = [
   {
     title: "Cheminement et bordures",
     subtitle: "Bois et métal",
-    image: "/photos-entretien/apres/ap-01.jpg",
+    image: "/photos-entretien/apres/allee-pavee-apres-desherbage.jpg",
   },
   {
     title: "Clôtures et terrasses",
     subtitle: "Bois et composite",
-    image: "/photos-entretien/apres/ap-09.jpg",
+    image: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
   },
   {
     title: "Massifs, végétalisation et mise en scène",
     subtitle: "",
-    image: "/photos-entretien/apres/ap-04.jpg",
+    image: "/photos-entretien/apres/pelouse-devant-maison-apres-tonte.jpg",
   },
 ];
 
@@ -132,16 +132,15 @@ export default async function AmenagementPage() {
   const service = services.find((item) => item.slug === "amenagement");
 
   const sanityFaqs: Faq[] = await getFaq("amenagement");
-  const faqItems = sanityFaqs.map((f) => ({ question: f.question, answer: f.reponse }));
+  const faqItems = sanityFaqs.filter((faq) => faq.question?.trim() && faq.reponse?.trim()).map((f) => ({ question: f.question, answer: f.reponse }));
 
   const schemas = [
     buildWebPageSchema({
-      title: "Aménagement paysager durable à Vallet — Permapaysage",
+      title: "Aménagement paysager durable à Vallet : Permapaysage",
       description:
         "Aménagement paysager durable à Vallet: terrasses bois, clôtures naturelles et massifs végétalisés pensés pour durer.",
       path: "/amenagement",
     }),
-    buildLocalBusinessSchema("/amenagement"),
     buildServiceSchema({
       name: service?.title ?? "Aménagement des extérieurs",
       description:
@@ -155,6 +154,7 @@ export default async function AmenagementPage() {
       { name: "Accueil", path: "/" },
       { name: "Aménagement", path: "/amenagement" },
     ]),
+    ...(faqItems.length ? [buildFaqSchema(faqItems)] : []),
   ];
 
   return (
@@ -162,21 +162,18 @@ export default async function AmenagementPage() {
       <StructuredData data={schemas} />
 
       {/* ── BLOC 1 : HERO ── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-125 w-125 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-72 w-72 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
+      <section className="dark-section relative overflow-hidden py-20 md:py-28">
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
             <div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
                 Aménagement
               </div>
               <h1 className="text-4xl leading-tight tracking-tight text-white md:text-5xl">
-                Un jardin qui prend soin de vous
+                Aménagement paysager à Vallet : terrasses, clôtures, plantations
               </h1>
+              <p className="text-xs text-white/70">Mis à jour le <time dateTime={SERVICE_UPDATED_AT}>5 octobre 2026</time></p>
               <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
                 Redéfinissez votre confort. Nous créons des cadres de vie
                 apaisants où le bois et les végétaux dessinent un parcours
@@ -184,7 +181,7 @@ export default async function AmenagementPage() {
                 proches.
               </p>
               <div className="flex flex-wrap gap-3">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
+                <CtaButton emplacement="service" action="call" variant="primary-dark" className="w-full sm:w-auto" />
                 <Link
                   href="/realisations"
                   className={ctaButtonVariants({ variant: "secondary-dark", className: "w-full sm:w-auto" })}
@@ -194,10 +191,11 @@ export default async function AmenagementPage() {
               </div>
             </div>
             <div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
-              <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
+              <div className="photo-frame">
                 <Image
-                  src="/photos-entretien/apres/ap-09.jpg"
+                  src="/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg"
                   alt="Aménagement paysager réalisé par Permapaysage à Vallet"
+                  sizes="(min-width: 1280px) 563px, (min-width: 1024px) calc(48.72vw - 60.77px), (min-width: 768px) calc(100vw - 62px), calc(100vw - 46px)"
                   width={1024}
                   height={768}
                   className="aspect-4/3 w-full rounded-xl object-cover"
@@ -214,7 +212,7 @@ export default async function AmenagementPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
+              <p className="section-eyebrow">
                 Nos solutions
               </p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
@@ -252,7 +250,7 @@ export default async function AmenagementPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
+              <p className="section-eyebrow">
                 Notre méthode
               </p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
@@ -303,7 +301,7 @@ export default async function AmenagementPage() {
         <Container>
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">
+              <p className="section-eyebrow">
                 Réalisations
               </p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
@@ -319,13 +317,13 @@ export default async function AmenagementPage() {
             {realisationCategories.map((cat, idx) => (
               <Reveal key={cat.title} delay={idx * 100}>
                 <Link href="/realisations" className="group block">
-                  <article className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-primary/20">
+                  <article className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/20">
                     <div className="relative aspect-4/3 w-full overflow-hidden">
                       <Image
                         src={cat.image}
                         alt={cat.title}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4">
@@ -364,7 +362,7 @@ export default async function AmenagementPage() {
           <Container>
             <Reveal>
               <div className="mx-auto max-w-2xl text-center">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">FAQ</p>
+                <p className="section-eyebrow">FAQ</p>
                 <h2 className="mt-3 text-3xl font-semibold tracking-tight">Questions fréquentes</h2>
                 <p className="text-muted-foreground mt-4 md:text-lg">
                   Les réponses aux questions que vous vous posez sur l&apos;aménagement paysager.

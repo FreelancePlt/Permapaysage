@@ -16,6 +16,8 @@ function formatSegment(segment: string): string {
     }
   }
 
+  if (segment === "a-propos") return "À propos";
+
   const mapped = labelMap.get(segment);
   if (mapped) {
     return mapped;

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyImageRedirects } from "./lib/legacy-image-redirects";
 
 const baseHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -18,6 +19,9 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+  },
+  async redirects() {
+    return legacyImageRedirects;
   },
   async headers() {
     return [

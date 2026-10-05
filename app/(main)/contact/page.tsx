@@ -1,137 +1,204 @@
-import { ClockIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from "@phosphor-icons/react/dist/ssr";
+import {
+	CheckCircleIcon,
+	ClockIcon,
+	EnvelopeIcon,
+	MapPinIcon,
+	PhoneIcon,
+} from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import { Suspense } from "react";
 
+import { CtaButton } from "@/components/shared/cta-button";
 import { ContactForm } from "@/components/shared/contact-form";
 import { Container } from "@/components/shared/container";
-import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import {
-  buildBreadcrumbSchema,
-  buildItemListSchema,
-  buildLocalBusinessSchema,
-  buildPageMetadata,
-  buildWebPageSchema,
+	buildBreadcrumbSchema,
+	buildItemListSchema,
+	buildPageMetadata,
+	buildWebPageSchema,
 } from "@/lib/seo";
 import { company, interventionCities } from "@/lib/site-data";
 
 export const metadata = buildPageMetadata({
-  title: "Contactez Permapaysage — Devis gratuit paysagiste Vallet",
-  description:
-    "Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
-  path: "/contact",
-  keywords: [
-    "contact paysagiste Vallet",
-    "devis jardin Vallet",
-    "entreprise paysagiste Clisson",
-    "devis amenagement exterieur Vertou",
-  ],
+	title: "Contactez Permapaysage : Devis gratuit paysagiste Vallet",
+	description:
+		"Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
+	path: "/contact",
+	keywords: [
+		"contact paysagiste Vallet",
+		"devis jardin Vallet",
+		"entreprise paysagiste Clisson",
+		"devis amenagement exterieur Vertou",
+	],
 });
 
 const contactDetails = [
-  { icon: PhoneIcon, label: "Téléphone", value: company.phone, href: `tel:${company.phone.replace(/\s/g, "")}` },
-  { icon: EnvelopeIcon, label: "Email", value: company.email, href: `mailto:${company.email}` },
-  { icon: MapPinIcon, label: "Adresse", value: company.address },
-  { icon: ClockIcon, label: "Horaires", value: company.businessHours },
+	{
+		icon: PhoneIcon,
+		label: "Téléphone",
+		value: company.phone,
+		href: `tel:${company.phone.replace(/\s/g, "")}`,
+	},
+	{
+		icon: EnvelopeIcon,
+		label: "Email",
+		value: company.email,
+		href: `mailto:${company.email}`,
+	},
+	{ icon: MapPinIcon, label: "Adresse", value: company.address },
+	{ icon: ClockIcon, label: "Horaires", value: "Du lundi au vendredi, 8h–19h" },
 ];
 
 export default function ContactPage() {
-  const schemas = [
-    buildWebPageSchema({
-      title: "Contactez Permapaysage — Devis gratuit paysagiste Vallet",
-      description:
-        "Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
-      path: "/contact",
-      type: "ContactPage",
-    }),
-    buildLocalBusinessSchema("/contact", interventionCities),
-    buildItemListSchema(
-      interventionCities.map((city) => ({
-        name: city,
-        path: "/contact",
-      })),
-      "https://schema.org/ItemListUnordered",
-    ),
-    buildBreadcrumbSchema([
-      { name: "Accueil", path: "/" },
-      { name: "Contact", path: "/contact" },
-    ]),
-  ];
+	const schemas = [
+		buildWebPageSchema({
+			title: "Contactez Permapaysage : Devis gratuit paysagiste Vallet",
+			description:
+				"Contactez Permapaysage pour un devis gratuit : conception, aménagement et entretien de jardin à Vallet et dans un rayon de 25 km.",
+			path: "/contact",
+			type: "ContactPage",
+		}),
+		buildItemListSchema(
+			interventionCities.map((city) => ({
+				name: city,
+				path: "/contact",
+			})),
+			"https://schema.org/ItemListUnordered",
+		),
+		buildBreadcrumbSchema([
+			{ name: "Accueil", path: "/" },
+			{ name: "Contact", path: "/contact" },
+		]),
+	];
 
-  return (
-    <>
-      <StructuredData data={schemas} />
+	return (
+		<>
+			<StructuredData data={schemas} />
 
-      <section className="relative overflow-hidden bg-primary py-8 md:py-12">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
-        <Container>
-          <div className="relative mx-auto max-w-2xl text-center appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <h1 className="text-3xl leading-tight tracking-tight text-white md:text-4xl">
-              Parlons de votre projet paysager
-            </h1>
-            <p className="mt-2 text-sm leading-relaxed text-white/80 md:text-base">
-              Remplissez le formulaire ci-dessous ou contactez-nous directement. Réponse sous 48 heures.
-            </p>
-          </div>
-        </Container>
-      </section>
+			<section className="botanical-background bg-surface-sage/40 py-10 md:py-16">
+				<Container>
+					<div className="max-w-3xl">
+						<p className="section-eyebrow">
+							Votre jardin commence par une rencontre
+						</p>
+						<h1 className="mt-4 text-3xl leading-tight tracking-tight md:text-5xl">
+							Parlons de votre projet paysager
+						</h1>
+						<p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+							Une idée à faire grandir, un jardin à entretenir ? Parlez-nous de
+							vos envies, nous réfléchirons ensemble à la suite.
+						</p>
+						<ul className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-primary">
+							{[
+								"Visite terrain offerte",
+								"Sans engagement",
+								"Réponse sous 48 h",
+							].map((benefit) => (
+								<li key={benefit} className="flex items-center gap-2">
+									<CheckCircleIcon size={18} aria-hidden />
+									{benefit}
+								</li>
+							))}
+						</ul>
+					</div>
 
-      <section className="py-10 md:py-14">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-            <Reveal>
-              <div className="space-y-6">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {contactDetails.map((detail) => {
-                    const Icon = detail.icon;
-                    const content = (
-                      <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/20 hover:shadow-sm">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                          <Icon size={22} weight="duotone" />
-                        </div>
-                        <div>
-                          <p className="text-muted-foreground text-xs font-medium uppercase tracking-wider">{detail.label}</p>
-                          <p className="mt-1 text-sm font-medium">{detail.value}</p>
-                        </div>
-                      </div>
-                    );
+					<div className="mt-10 grid items-start gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+						<div className="order-1 min-w-0 lg:order-2">
+							<Suspense
+								fallback={
+									<div className="h-96 animate-pulse rounded-2xl bg-background" />
+								}
+							>
+								<ContactForm />
+							</Suspense>
+						</div>
+						<aside
+							className="order-2 overflow-hidden rounded-2xl bg-card lg:order-1"
+							aria-labelledby="contact-direct-title"
+						>
+							<div className="relative aspect-[16/9]">
+								<Image
+									src="/hero/mare-naturelle-terrasse-bois-paysagiste-vallet.webp"
+									alt="Mare naturelle et terrasse en bois dans un jardin aménagé par Permapaysage"
+									fill
+									sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc((100vw - 96px) * 0.45), 534px"
+									className="object-cover"
+								/>
+							</div>
+							<div className="p-6 md:p-8">
+								<p className="section-eyebrow">Au plaisir d’échanger</p>
+								<h2
+									id="contact-direct-title"
+									className="mt-3 text-2xl leading-snug md:text-3xl"
+								>
+									Un premier échange avec Jessy
+								</h2>
+								<p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+									Jessy vous accompagne dans la conception, l’aménagement et
+									l’entretien de votre jardin. Une visite sur place permet de
+									découvrir le terrain et vos besoins.
+								</p>
+								<dl className="mt-6 space-y-5">
+									{contactDetails.map((detail) => {
+										const Icon = detail.icon;
+										return (
+											<div
+												key={detail.label}
+												className="flex items-start gap-3"
+											>
+												<Icon
+													size={20}
+													className="mt-1 shrink-0 text-primary"
+													aria-hidden
+												/>
+												<div className="min-w-0">
+													<dt className="text-xs text-muted-foreground">
+														{detail.label}
+													</dt>
+													<dd className="mt-1 text-sm leading-relaxed">
+														{detail.href ? (
+															<a
+																href={detail.href}
+																className="break-words font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-primary"
+															>
+																{detail.value}
+															</a>
+														) : (
+															detail.value
+														)}
+													</dd>
+												</div>
+											</div>
+										);
+									})}
+								</dl>
+								<div className="mt-8 rounded-xl bg-surface-sage p-5">
+									<h3 className="text-lg leading-snug">
+										Vous préférez en parler de vive voix ?
+									</h3>
+									<p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+										Réservez un appel gratuit de 15 minutes avec Jessy.
+									</p>
+									<CtaButton
+										action="call"
+										emplacement="contact"
+										variant="secondary-light"
+										compact
+										className="mt-4 h-11 w-full text-sm"
+									/>
+								</div>
+							</div>
+						</aside>
+					</div>
+				</Container>
+			</section>
 
-                    if (detail.href) {
-                      return (
-                        <a key={detail.label} href={detail.href} className="block">
-                          {content}
-                        </a>
-                      );
-                    }
-                    return <div key={detail.label}>{content}</div>;
-                  })}
-                </div>
-
-                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6">
-                  <h3 className="text-lg font-medium">Devis gratuit & sans engagement</h3>
-                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                    Décrivez votre projet et nous vous recontactons rapidement pour organiser un rendez-vous sur place. La visite terrain et le premier échange sont offerts.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={100}>
-              <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-card" />}>
-                <ContactForm />
-              </Suspense>
-            </Reveal>
-          </div>
-        </Container>
-      </section>
-
-      <ZoneIntervention
-        texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais."
-        showCTA={false}
-      />
-    </>
-  );
+			<ZoneIntervention
+				texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais."
+				showCTA={false}
+			/>
+		</>
+	);
 }

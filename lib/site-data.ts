@@ -50,7 +50,7 @@ export type BlogPost = {
 export type CityPage = {
   slug: string;
   city: string;
-  distance: string;
+  distance?: string;
   postalCode: string;
   coordinates: [number, number];
   intro: string;
@@ -206,11 +206,11 @@ export const projects: Project[] = [
       "L\u2019enjeu de ce projet de conception de jardin à Clisson était de créer un sanctuaire personnel : un espace paisible, nourricier et adapté à son écosystème. Plus qu\u2019un simple plan, nous avons dessiné une feuille de route durable. L\u2019objectif : permettre à notre cliente de bâtir son refuge étape par étape, en garantissant la santé du sol et la cohérence paysagère.",
     aboutText:
       "Ce projet incarne notre philosophie : la conception comme outil de liberté. Pour ce jardin de ville dans le Vignoble, nous avons privilégié une sélection végétale indigène et des zones de biodiversité. Ce plan de paysagiste permet aujourd\u2019hui à la propriétaire de planter ses fruitiers sereinement, avec la certitude que chaque geste respecte l\u2019équilibre naturel de son terrain.",
-    image: "/photos-entretien/apres/ap-04.jpg",
+    image: "/photos-entretien/apres/pelouse-devant-maison-apres-tonte.jpg",
     gallery: [
-      "/photos-entretien/apres/ap-01.jpg",
-      "/photos-entretien/apres/ap-02.jpg",
-      "/photos-entretien/apres/ap-03.jpg",
+      "/photos-entretien/apres/allee-pavee-apres-desherbage.jpg",
+      "/photos-entretien/apres/haie-en-bordure-de-route-apres-taille.jpg",
+      "/photos-entretien/apres/haie-de-jardin-apres-taille.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "Clisson (44190)" },
@@ -235,11 +235,11 @@ export const projects: Project[] = [
       "Transformer un terrain nu en un espace de jeu sécurisé : tel était le défi de cet aménagement de jardin à Mouzillon. Pour ce projet de 350 m², nos clients cherchaient un espace clos « zéro souci » pour leur enfant. Nous avons conçu une structure bois durable et une végétalisation sensorielle pour protéger l\u2019intimité familiale sans compromis sur l\u2019esthétique.",
     aboutText:
       "La sécurité est une base de sérénité. Nous avons ceinturé le jardin d\u2019une clôture en bois local intégrée à des massifs arbustifs denses. L\u2019innovation : une sélection végétale sans épines (plantes mellifères et graminées). En combinant une terrasse bois et une pelouse robuste, nous avons créé une extension de vie où le design noble rencontre la spontanéité de l\u2019enfance.",
-    image: "/photos-entretien/apres/ap-09.jpg",
+    image: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
     gallery: [
-      "/photos-entretien/apres/ap-06.jpg",
-      "/photos-entretien/apres/ap-07.jpg",
-      "/photos-entretien/apres/ap-08.jpg",
+      "/photos-entretien/apres/massif-devant-palissade-apres-entretien.jpg",
+      "/photos-entretien/apres/haie-au-dessus-muret-apres-taille.jpg",
+      "/photos-entretien/apres/jardin-devant-baie-vitree-apres-tonte.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "Mouzillon (44330)" },
@@ -264,11 +264,11 @@ export const projects: Project[] = [
       "L\u2019avant d\u2019une maison est sa première poignée de main. Au Pallet, l\u2019objectif était de remplacer un passage neutre par une terrasse de prestige soulignant l\u2019architecture. Nous avons opté pour le travertin en Opus Romain, une pierre naturelle aux nuances intemporelles. Ce calepinage traditionnel apporte un cachet authentique dès le premier pas sur la propriété.",
     aboutText:
       "Poser du travertin en Opus Romain est un exercice de précision que nous affectionnons. Ce puzzle de pierre doit être techniquement irréprochable pour garantir l\u2019évacuation des eaux. Sa clarté illumine la façade et s\u2019intègre parfaitement à l\u2019esprit du Vignoble Nantais. Une extension minérale qui valorise immédiatement le patrimoine de nos clients.",
-    image: "/photos-entretien/apres/ap-03.jpg",
+    image: "/photos-entretien/apres/haie-de-jardin-apres-taille.jpg",
     gallery: [
-      "/photos-entretien/apres/ap-01.jpg",
-      "/photos-entretien/apres/ap-06.jpg",
-      "/photos-entretien/apres/ap-07.jpg",
+      "/photos-entretien/apres/allee-pavee-apres-desherbage.jpg",
+      "/photos-entretien/apres/massif-devant-palissade-apres-entretien.jpg",
+      "/photos-entretien/apres/haie-au-dessus-muret-apres-taille.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "Le Pallet (44330)" },
@@ -293,11 +293,11 @@ export const projects: Project[] = [
       "Comment redonner du prestige à un muret existant ? À Basse-Goulaine, nous avons recréé une séparation élégante et durable. L\u2019enjeu : trouver l\u2019équilibre entre intimité et esthétique aérienne. Le choix s\u2019est porté sur un bois de pays (Classe 4), sélectionné pour sa résistance face aux vents du Vignoble, garantissant une tenue parfaite sur le long terme.",
     aboutText:
       "L\u2019installation d\u2019une clôture bois sur muret demande une rigueur technique : la solidité dépend de l\u2019ancrage inox pour prévenir la corrosion. Nous avons opté pour une pose à claire-voie qui laisse passer la lumière tout en protégeant des regards. Une ligne sobre qui transforme un muret maçonné en un élément de décor noble et naturel.",
-    image: "/photos-entretien/apres/ap-02.jpg",
+    image: "/photos-entretien/apres/haie-en-bordure-de-route-apres-taille.jpg",
     gallery: [
-      "/photos-entretien/apres/ap-01.jpg",
-      "/photos-entretien/apres/ap-04.jpg",
-      "/photos-entretien/apres/ap-05.jpg",
+      "/photos-entretien/apres/allee-pavee-apres-desherbage.jpg",
+      "/photos-entretien/apres/pelouse-devant-maison-apres-tonte.jpg",
+      "/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "Basse-Goulaine (44115)" },
@@ -322,11 +322,11 @@ export const projects: Project[] = [
       "Un jardin est une matière vivante. À La Chapelle-Heulin, nous assurons un suivi mensuel rigoureux pour garantir une esthétique constante. Plus besoin de surveiller le calendrier : nous intervenons avec précision (tonte, taille, désherbage) pour que votre extérieur reste un lieu de détente absolue, sans la moindre contrainte pour vous.",
     aboutText:
       "Notre approche repose sur l\u2019anticipation. Nous entretenons la structure chaque mois : tonte adaptée à la météo et taille respectueuse des floraisons. Le désherbage est manuel ou thermique, sans chimie. Le résultat ? Un jardin qui ne semble jamais à l\u2019abandon. C\u2019est l\u2019expertise du Jardinier du Vignoble au service de votre temps libre.",
-    image: "/photos-entretien/apres/ap-05.jpg",
+    image: "/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg",
     gallery: [
-      "/photos-entretien/avant/av-01.jpg",
-      "/photos-entretien/avant/av-02.jpg",
-      "/photos-entretien/apres/ap-06.jpg",
+      "/photos-entretien/avant/allee-pavee-avant-desherbage.jpg",
+      "/photos-entretien/avant/haie-en-bordure-de-route-avant-taille.jpg",
+      "/photos-entretien/apres/massif-devant-palissade-apres-entretien.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "La Chapelle-Heulin (44330)" },
@@ -351,11 +351,11 @@ export const projects: Project[] = [
       "Certains jardins exigent un coup de maître aux moments charnières. Nous intervenons 2 à 3 fois par an à Mouzillon pour les travaux de force : taille de structure en sortie d\u2019hiver, nettoyage de printemps et mise au propre d\u2019automne. La solution idéale pour un jardin sain et architecturé sans intervention régulière.",
     aboutText:
       "Intervenir ponctuellement demande une vision globale. Chaque passage est une opération « coup de poing » : grandes hauteurs, volumes de déchets verts et taille technique. Nous revalorisons la biomasse sur place (paillage) pour limiter l\u2019évaporation et la repousse. C\u2019est l\u2019assurance d\u2019un jardin dompté et prêt à être admiré toute la saison.",
-    image: "/photos-entretien/apres/ap-06.jpg",
+    image: "/photos-entretien/apres/massif-devant-palissade-apres-entretien.jpg",
     gallery: [
-      "/photos-entretien/avant/av-04.jpg",
-      "/photos-entretien/avant/av-05.jpg",
-      "/photos-entretien/apres/ap-08.jpg",
+      "/photos-entretien/avant/pelouse-devant-maison-avant-tonte.jpg",
+      "/photos-entretien/avant/pelouse-entre-haies-avant-tonte.jpg",
+      "/photos-entretien/apres/jardin-devant-baie-vitree-apres-tonte.jpg",
     ],
     highlights: [
       { label: "Localisation", value: "Mouzillon (44330)" },
@@ -380,7 +380,7 @@ export const blogPosts: BlogPost[] = [
     category: "Conception",
     publishedAt: "2026-02-20",
     readTime: "6 min",
-    image: "/photos-entretien/apres/ap-03.jpg",
+    image: "/photos-entretien/apres/haie-de-jardin-apres-taille.jpg",
     content: [
       "Un jardin durable repose avant tout sur l'observation du terrain. Avant de planter quoi que ce soit, il faut comprendre les dynamiques du lieu : l'ensoleillement au fil de la journée, les vents dominants, la nature du sol et les zones de rétention d'eau. Dans le Vignoble Nantais, le sol argilo-calcaire et le climat océanique offrent des conditions favorables à de nombreuses espèces, à condition de bien les positionner.",
       "Le second principe consiste à structurer des zones d'usages claires. Un jardin fonctionnel distingue les espaces de détente (terrasse, coin lecture), les zones de passage (allées, circulations), les surfaces plantées (massifs, haies, potager) et les espaces techniques (compost, rangement). Cette organisation évite l'entretien inutile et rend le jardin agréable au quotidien.",
@@ -397,7 +397,7 @@ export const blogPosts: BlogPost[] = [
     category: "Entretien",
     publishedAt: "2026-02-12",
     readTime: "4 min",
-    image: "/photos-entretien/apres/ap-06.jpg",
+    image: "/photos-entretien/apres/massif-devant-palissade-apres-entretien.jpg",
     content: [
       "Le mulching consiste à broyer finement les résidus de tonte et à les laisser se décomposer sur place. Contrairement à l'idée reçue, cette technique ne crée pas de feutrage si elle est pratiquée régulièrement. Elle restitue de l'azote au sol, maintient l'humidité et réduit le volume de déchets verts à évacuer. Sur une saison complète, c'est un gain de temps et d'argent significatif.",
       "La taille raisonnée, de son côté, respecte le cycle naturel des arbres et arbustes. Plutôt que de tailler sévèrement en bloc, on intervient au bon moment et avec mesure. Une haie de laurier taillée deux fois par an en respectant sa forme naturelle sera plus dense, plus saine et plus esthétique qu'une haie « rasée » quatre fois par an.",
@@ -413,7 +413,7 @@ export const blogPosts: BlogPost[] = [
     category: "Aménagement",
     publishedAt: "2026-02-05",
     readTime: "5 min",
-    image: "/photos-entretien/apres/ap-09.jpg",
+    image: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
     content: [
       "Le choix de l'essence de bois est la première décision structurante. Le pin traité autoclave (classe 4) offre un bon rapport qualité-prix et convient aux budgets serrés. Le douglas, naturellement résistant, vieillit avec un grisé élégant. Pour les projets haut de gamme, les bois exotiques (ipé, cumaru) ou le bois composite offrent une longévité supérieure à 25 ans avec un entretien minimal.",
       "L'orientation et l'exposition de la terrasse sont déterminantes. Une terrasse plein sud séchera vite mais chauffera en été, tandis qu'une exposition nord restera plus fraîche et humide, favorisant les mousses. Dans le Vignoble Nantais, l'humidité océanique impose une attention particulière à la ventilation sous les lames et à l'espacement entre elles pour un bon drainage.",
@@ -475,7 +475,7 @@ export const entretienGaranties = [
   {
     title: "Transparence fiscale",
     description:
-      "Profitez d\u2019un service pro pour la moitié du prix. Nous gérons toutes les démarches administratives pour vous.",
+      "Nous vous expliquons les conditions du crédit d’impôt et les démarches nécessaires. L’avantage dépend des prestations éligibles, des plafonds et de vos droits disponibles ; l’avance immédiate est optionnelle et nécessite une activation.",
   },
   {
     title: "Respect de votre temps",
@@ -555,34 +555,18 @@ export const amenagementTypes = [
   {
     title: "Terrasses bois",
     description: "Des espaces à vivre chaleureux et durables, posés dans les règles de l'art.",
-    image: "/photos-entretien/apres/ap-09.jpg",
+    image: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
   },
   {
     title: "Clôtures et limites",
     description: "Palissades bois ou naturelles pour structurer l'espace et s'isoler avec élégance.",
-    image: "/photos-entretien/apres/ap-02.jpg",
+    image: "/photos-entretien/apres/haie-en-bordure-de-route-apres-taille.jpg",
   },
   {
     title: "Massifs et végétalisation",
     description: "Des palettes végétales adaptées au sol et au climat, vivantes toute l'année.",
-    image: "/photos-entretien/apres/ap-04.jpg",
+    image: "/photos-entretien/apres/pelouse-devant-maison-apres-tonte.jpg",
   },
-];
-
-export const interventionCities = [
-  "Vallet",
-  "Le Loroux-Bottereau",
-  "Saint-Julien-de-Concelles",
-  "Clisson",
-  "Divatte-sur-Loire",
-  "Haute-Goulaine",
-  "Gorges",
-  "Aigrefeuille-sur-Maine",
-  "Gétigné",
-  "Le Pallet",
-  "La Chapelle-Heulin",
-  "Le Landreau",
-  "Mouzillon",
 ];
 
 export const cityPages: CityPage[] = [
@@ -666,7 +650,35 @@ export const cityPages: CityPage[] = [
     coordinates: [47.1750, -1.3000],
     intro: "Votre paysagiste à La Chapelle-Heulin, à 5 km de Vallet. Au c\u0153ur du vignoble nantais, nous connaissons parfaitement les conditions locales pour créer des jardins résilients, beaux et faciles à entretenir.",
   },
+  // TODO CONTENU: compléter les informations locales, distances et délais vérifiés de ces quatre communes.
+  {
+    slug: "paysagiste-divatte-sur-loire", city: "Divatte-sur-Loire", postalCode: "44450", coordinates: [47.2789, -1.3386],
+    intro: "À Divatte-sur-Loire, votre projet de jardin peut réunir un nouvel aménagement, des plantations et un entretien plus facile à organiser. Permapaysage vous accompagne depuis Vallet : nous commençons par vos usages et les éléments existants pour définir une intervention adaptée.",
+  },
+  {
+    slug: "paysagiste-aigrefeuille-sur-maine", city: "Aigrefeuille-sur-Maine", postalCode: "44140", coordinates: [47.0735, -1.4121],
+    intro: "À Aigrefeuille-sur-Maine, nous vous aidons à mettre en cohérence les différents espaces de votre jardin. Conception, terrasses, clôtures, plantations ou entretien écologique : la visite terrain permet de préciser les priorités de votre projet avant de proposer les travaux.",
+  },
+  {
+    slug: "paysagiste-getigne", city: "Gétigné", postalCode: "44190", coordinates: [47.0771, -1.2196],
+    intro: "À Gétigné, un projet paysager peut commencer par un plan de jardin ou par l’amélioration d’un espace déjà aménagé. Nous associons conception, réalisation et entretien écologique pour vous aider à choisir une première intervention cohérente avec les usages de votre extérieur.",
+  },
+  {
+    slug: "paysagiste-le-landreau", city: "Le Landreau", postalCode: "44430", coordinates: [47.2089, -1.3006],
+    intro: "Au Landreau, nous proposons de relier le dessin du jardin à son entretien dans la durée. Votre besoin peut concerner une terrasse, une clôture, des plantations ou le suivi des espaces verts : nous précisons ensemble le périmètre lors d’une visite terrain.",
+  },
 ];
+
+/** Shared order from the brief, used by homepage, service zones and city navigation. */
+export const interventionCities = [
+  "Vallet", "Clisson", "Le Loroux-Bottereau", "La Chapelle-Heulin", "Le Pallet", "Mouzillon",
+  "Saint-Julien-de-Concelles", "Divatte-sur-Loire", "Haute-Goulaine", "Gorges",
+  "Aigrefeuille-sur-Maine", "Gétigné", "Le Landreau", "Vertou",
+];
+export const interventionCityLinks = interventionCities.map((city) => ({
+  city, href: `/${cityPages.find((page) => page.city === city)!.slug}`,
+}));
+export const SERVICE_UPDATED_AT = "2026-10-05";
 
 export const legalLinks = [
   { href: "/faq", label: "FAQ" },

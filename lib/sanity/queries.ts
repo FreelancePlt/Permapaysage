@@ -1,5 +1,7 @@
+import { cache } from "react"
+import { normalizeCmsEditorialContent } from "@/lib/editorial-content"
 import { client } from "./client"
-import type { SitemapDocument } from "./types"
+import type { EntretienFormule, SanityCityContent, SitemapDocument } from "./types"
 
 export async function getSitemapDocuments() {
 	return client.fetch<SitemapDocument[]>(
@@ -10,7 +12,7 @@ export async function getSitemapDocuments() {
 		}`,
 		{},
 		{ next: { revalidate: 60 } },
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 // --- Articles ---
@@ -24,9 +26,11 @@ export async function getArticles() {
 			imagePrincipale,
 			resume,
 			categorie,
-			datePublication
+			datePublication,
+			dateModification,
+			_updatedAt
 		}`,
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 export async function getArticleBySlug(slug: string) {
@@ -39,16 +43,18 @@ export async function getArticleBySlug(slug: string) {
 			resume,
 			categorie,
 			contenu,
-			datePublication
+			datePublication,
+			dateModification,
+			_updatedAt
 		}`,
 		{ slug },
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 export async function getArticleSlugs() {
 	return client.fetch(
 		`*[_type == "article" && publie == true].slug.current`,
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 // --- Réalisations ---
@@ -74,7 +80,7 @@ export async function getRealisations(categorie?: string) {
 			dateRealisation
 		}`,
 		categorie ? { categorie } : {},
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 export async function getRealisationBySlug(slug: string) {
@@ -95,13 +101,13 @@ export async function getRealisationBySlug(slug: string) {
 			dateRealisation
 		}`,
 		{ slug },
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 export async function getRealisationSlugs() {
 	return client.fetch(
 		`*[_type == "realisation" && publie == true].slug.current`,
-	)
+	).then(normalizeCmsEditorialContent)
 }
 
 // --- FAQ ---
@@ -119,5 +125,33 @@ export async function getFaq(categorie?: string) {
 			ordre
 		}`,
 		categorie ? { categorie } : {},
-	)
+	).then(normalizeCmsEditorialContent)
 }
+
+// Optional singleton; missing or unavailable pricing never blocks the service page.
+export async function getEntretienFormules(): Promise<EntretienFormule[]> {
+  try {
+    const content = await client.fetch<{ formules?: EntretienFormule[] } | null>(
+      `*[_type == "entretienFormules" && _id == "entretien-formules" && publie == true][0] {
+        formules[] { _key, nom, description, prixDepart }
+      }`, {}, { next: { revalidate: 60 } },
+    ).then(normalizeCmsEditorialContent)
+    return Array.isArray(content?.formules) ? content.formules.slice(0, 3) : []
+  } catch {
+    return []
+  }
+}
+
+export const getCityContent = cache(async (slug: string): Promise<SanityCityContent | null> => {
+  try {
+    return await client.fetch<SanityCityContent | null>(
+      `*[_type == "pageVille" && slug.current == $slug && publie == true][0] {
+        _id, paragrapheLocal, distanceDepuisVallet, delaiIntervention, coordonnees,
+        realisations[]-> { _id, titre, slug, resume, description, categorie, ville, images, avant, apres, publie },
+        avisLocal { auteur, texte, source, date }, faqLocale[] { question, reponse }
+      }`, { slug }, { next: { revalidate: 60 } },
+    ).then(normalizeCmsEditorialContent)
+  } catch {
+    return null
+  }
+});

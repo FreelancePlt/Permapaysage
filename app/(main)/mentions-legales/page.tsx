@@ -5,7 +5,7 @@ import { StructuredData } from "@/components/shared/structured-data";
 import { buildBreadcrumbSchema, buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Mentions légales — Permapaysage",
+  title: "Mentions légales : Permapaysage",
   description: "Mentions légales de Permapaysage.",
   path: "/mentions-legales",
   noIndex: true,
@@ -17,7 +17,7 @@ export default function MentionsLegalesPage() {
       <StructuredData
         data={[
           buildWebPageSchema({
-            title: "Mentions légales — Permapaysage",
+            title: "Mentions légales : Permapaysage",
             description: "Mentions légales de Permapaysage.",
             path: "/mentions-legales",
           }),
@@ -47,7 +47,7 @@ export default function MentionsLegalesPage() {
               <span className="font-semibold">RCS :</span> Nantes
             </p>
             <p>
-              <span className="font-semibold">Contact :</span> permapaysage.jl@gmail.com — 07 52 62 08 18
+              <span className="font-semibold">Contact :</span> permapaysage.jl@gmail.com : 07 52 62 08 18
             </p>
           </section>
           <section className="space-y-3 text-sm leading-relaxed">
@@ -61,6 +61,10 @@ export default function MentionsLegalesPage() {
           <Link href="/contact" className="text-primary inline-flex text-sm font-semibold hover:underline">
             Contacter Permapaysage
           </Link>
+          <section className="space-y-3 text-sm leading-relaxed">
+            <h2 className="text-2xl">Google Maps</h2>
+            <p>Les notes et avis Google Maps affichés sur ce site relèvent également des conditions d’utilisation de Google Maps. <a href="https://maps.google.com/help/terms_maps/" target="_blank" rel="noopener noreferrer" className="text-primary underline">Consulter les conditions de Google Maps</a>.</p>
+          </section>
         </Container>
       </section>
     </>

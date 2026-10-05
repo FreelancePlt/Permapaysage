@@ -16,7 +16,7 @@ export function SectionHeading({ eyebrow, title, description, action, className,
     <div className={cn("flex flex-col gap-4 md:flex-row md:items-end md:justify-between", className)}>
       <div className="max-w-2xl space-y-3">
         {eyebrow ? (
-          <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">{eyebrow}</p>
+          <p className="section-eyebrow">{eyebrow}</p>
         ) : null}
         <Heading className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">{title}</Heading>
         {description ? <p className="text-muted-foreground text-base md:text-lg">{description}</p> : null}

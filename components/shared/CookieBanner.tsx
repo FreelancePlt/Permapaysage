@@ -71,7 +71,7 @@ export function CookieBanner() {
               <button
                 type="button"
                 onClick={() => saveConsent("refused")}
-                className="text-foreground/50 hover:text-foreground/70 cursor-pointer rounded-md px-4 py-2 text-sm transition-colors"
+                className="text-muted-foreground hover:text-foreground cursor-pointer rounded-md px-4 py-2 text-sm transition-colors"
               >
                 Refuser
               </button>

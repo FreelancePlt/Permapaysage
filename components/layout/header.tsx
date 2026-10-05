@@ -74,18 +74,18 @@ export function Header() {
   };
 
   return (
-    <header onKeyDown={handleKeyDown} className="border-border/70 bg-background/95 sticky top-0 z-40 border-b backdrop-blur">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-2 px-4 py-3 md:px-6">
+    <header onKeyDown={handleKeyDown} className="border-border/70 bg-background/95 sticky top-0 z-40 border-b backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-2 px-4 py-3.5 md:px-6">
         <Link href="/" className="group inline-flex items-center gap-3 rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
           <Image
-            src="/Logo.png"
+            src="/logo.webp"
             alt="Logo Permapaysage"
-            width={132}
+            width={40}
             height={40}
-            className="h-9 w-auto max-[400px]:h-auto max-[400px]:w-14 transition-opacity group-hover:opacity-90"
+            className="h-10 w-10 transition-opacity group-hover:opacity-90"
             priority
           />
-          <span className="hidden text-xs tracking-[0.18em] uppercase text-muted-foreground 2xl:inline">Permapaysage</span>
+          <span className="hidden text-[11px] font-semibold tracking-[0.18em] uppercase text-primary sm:inline">Permapaysage</span>
         </Link>
 
         <nav aria-label="Navigation principale" className="hidden items-center gap-2 xl:flex">
@@ -151,11 +151,11 @@ export function Header() {
           <a href="tel:+33752620818" className="whitespace-nowrap rounded-sm text-sm font-semibold text-foreground hover:text-cta-terracotta-hover">
             07 52 62 08 18
           </a>
-          <CtaButton action="call" compact />
+          <CtaButton emplacement="header" action="call" compact />
         </div>
 
         <div className="flex items-center gap-2 xl:hidden">
-          <CtaButton action="call" compact className="px-2 sm:px-4" />
+          <CtaButton emplacement="header" action="call" compact className="px-2 sm:px-4" />
           <button
             type="button"
             ref={menuTrigger}
@@ -215,7 +215,7 @@ export function Header() {
               </Link>
             ))}
 
-            <CtaButton action="call" compact onClick={() => setIsMenuOpen(false)} className="mt-2" />
+            <CtaButton emplacement="header" action="call" compact onClick={() => setIsMenuOpen(false)} className="mt-2" />
           </div>
         </nav>
       ) : null}

@@ -1,5 +1,5 @@
 export const metadata = {
-	title: "Permapaysage — Studio",
+	title: "Permapaysage : Studio",
 	description: "Back-office Permapaysage",
 	robots: { index: false, follow: false },
 }

@@ -25,7 +25,7 @@ const CATEGORIES: Record<string, string> = {
 };
 
 export const metadata = buildPageMetadata({
-	title: "Blog — Conseils jardinage et permaculture | Permapaysage",
+	title: "Blog : Conseils jardinage et permaculture | Permapaysage",
 	description:
 		"Retrouvez les conseils Permapaysage sur la conception de jardin, l'aménagement durable et l'entretien écologique.",
 	path: "/blog",
@@ -44,7 +44,7 @@ export default async function BlogPage() {
 
 	const schemas = [
 		buildWebPageSchema({
-			title: "Blog — Conseils jardinage et permaculture | Permapaysage",
+			title: "Blog : Conseils jardinage et permaculture | Permapaysage",
 			description:
 				"Retrouvez les conseils Permapaysage sur la conception de jardin, l'aménagement durable et l'entretien écologique.",
 			path: "/blog",
@@ -66,15 +66,11 @@ export default async function BlogPage() {
 		<>
 			<StructuredData data={schemas} />
 
-			<section className="relative overflow-hidden bg-primary py-16 md:py-24">
-				<div className="pointer-events-none absolute inset-0">
-					<div className="absolute right-0 top-0 h-96 w-96 translate-x-1/4 -translate-y-1/4 rounded-full bg-white/5 blur-3xl" />
-					<div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-				</div>
+			<section className="dark-section relative overflow-hidden py-16 md:py-24">
 				<Container>
 					<Reveal>
 						<div className="relative mx-auto max-w-2xl text-center">
-							<div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+							<div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
 								Blog
 							</div>
 							<h1 className="mt-4 text-4xl leading-tight tracking-tight text-white md:text-5xl">
@@ -99,14 +95,14 @@ export default async function BlogPage() {
 							{articles.map((article, idx) => (
 								<Reveal key={article._id} delay={idx * 100}>
 									<Link href={`/blog/${article.slug.current}`} className="group block h-full">
-										<article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+										<article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 											<div className="relative overflow-hidden">
 												<Image
 													src={urlFor(article.imagePrincipale).width(900).height(600).url()}
 													alt={article.imagePrincipale.alt}
 													width={900}
 													height={600}
-													className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+													className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
 												/>
 												<div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 												<span className="absolute left-4 top-4 rounded-full bg-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">

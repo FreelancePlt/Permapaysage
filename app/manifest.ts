@@ -10,15 +10,15 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: "#f6f1e8",
-    theme_color: "#254239",
+    background_color: "#FAF9F6",
+    theme_color: "#2B4D3B",
     lang: "fr-FR",
     orientation: "portrait",
     icons: [
       {
-        src: "/Logo.png",
-        sizes: "512x512",
-        type: "image/png",
+        src: "/logo.webp",
+        sizes: "192x192",
+        type: "image/webp",
       },
       {
         src: "/favicon.ico",

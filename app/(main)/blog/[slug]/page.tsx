@@ -6,12 +6,14 @@ import { Container } from "@/components/shared/container";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
 	buildBreadcrumbSchema,
+	buildBlogPostingSchema,
 	buildPageMetadata,
 	buildWebPageSchema,
 } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity/image";
 import { getArticleBySlug, getArticleSlugs } from "@/lib/sanity/queries";
 import type { Article } from "@/lib/sanity/types";
+import { formatArticleDate, getArticleModifiedTime } from "@/lib/article-dates";
 import { company } from "@/lib/site-data";
 import { portableTextComponents } from "@/lib/sanity/portable-text";
 
@@ -41,7 +43,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps) {
 
 	if (!article) {
 		return buildPageMetadata({
-			title: "Article — Permapaysage",
+			title: "Article : Permapaysage",
 			description: "Article introuvable.",
 			path: `/blog/${slug}`,
 			noIndex: true,
@@ -51,14 +53,14 @@ export async function generateMetadata({ params }: BlogArticlePageProps) {
 	const categoryLabel = CATEGORIES[article.categorie] ?? article.categorie;
 
 	return buildPageMetadata({
-		title: `${article.titre} — Permapaysage`,
+		title: `${article.titre} : Permapaysage`,
 		description: article.resume,
 		path: `/blog/${article.slug.current}`,
 		image: urlFor(article.imagePrincipale).width(1200).height(630).url(),
 		type: "article",
 		category: categoryLabel,
 		publishedTime: article.datePublication,
-		modifiedTime: article.datePublication,
+		modifiedTime: getArticleModifiedTime(article),
 		keywords: [
 			`blog ${categoryLabel.toLowerCase()}`,
 			`${categoryLabel.toLowerCase()} Vallet`,
@@ -78,9 +80,19 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
 	const categoryLabel = CATEGORIES[article.categorie] ?? article.categorie;
 
+	const modifiedTime = getArticleModifiedTime(article);
 	const schemas = [
+		buildBlogPostingSchema({
+			slug: article.slug.current,
+			title: article.titre,
+			description: article.resume,
+			category: categoryLabel,
+			publishedTime: article.datePublication,
+			modifiedTime,
+			image: urlFor(article.imagePrincipale).width(1200).height(800).url(),
+		}),
 		buildWebPageSchema({
-			title: `${article.titre} — Permapaysage`,
+			title: `${article.titre} : Permapaysage`,
 			description: article.resume,
 			path: `/blog/${article.slug.current}`,
 		}),
@@ -96,10 +108,18 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 			<StructuredData data={schemas} />
 			<article className="py-16 md:py-24">
 				<Container className="max-w-3xl">
-					<p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">{categoryLabel}</p>
+					<p className="section-eyebrow">{categoryLabel}</p>
 					<h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">{article.titre}</h1>
 					<p className="text-muted-foreground mt-3 text-sm">
-						{new Date(article.datePublication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+						{formatArticleDate(article.datePublication) && (
+							<>Publié le <time dateTime={article.datePublication}>{formatArticleDate(article.datePublication)}</time></>
+						)}
+						{modifiedTime && (
+							<>
+								<span className="mx-2" aria-hidden="true">·</span>
+								Mis à jour le <time dateTime={modifiedTime}>{formatArticleDate(modifiedTime)}</time>
+							</>
+						)}
 					</p>
 
 					<Image

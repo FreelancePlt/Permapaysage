@@ -30,4 +30,12 @@ export const structure: StructureResolver = (S) =>
             .title('Questions fréquentes')
             .defaultOrdering([{field: 'ordre', direction: 'asc'}]),
         ),
+      S.divider(),
+      S.listItem()
+        .title('Formules d’entretien')
+        .schemaType('entretienFormules')
+        .child(S.document().schemaType('entretienFormules').documentId('entretien-formules')),
+      S.divider(),
+      S.listItem().title('Pages communes').schemaType('pageVille')
+        .child(S.documentTypeList('pageVille').title('Pages communes')),
     ])

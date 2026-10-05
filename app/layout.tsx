@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
-import Script from "next/script";
+import { DM_Sans, Lora } from "next/font/google";
 
 import { Analytics } from "@vercel/analytics/next";
 
@@ -9,66 +8,69 @@ import { company } from "@/lib/site-data";
 
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
+const lora = Lora({
+	subsets: ["latin"],
+	variable: "--font-lora",
+	display: "swap",
 });
 
 const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
+	subsets: ["latin"],
+	variable: "--font-dm-sans",
+	display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
-  ...buildPageMetadata({
-    title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
-    description: company.description,
-    path: "/",
-    keywords: [
-      "paysagiste Clisson",
-      "paysagiste Vertou",
-      "amenagement exterieur Vallet",
-      "devis paysagiste Vallet",
-    ],
-  }),
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/Logo.png", type: "image/png" },
-    ],
-    apple: [{ url: "/Logo.png" }],
-    shortcut: ["/favicon.ico"],
-  },
-  manifest: "/manifest.webmanifest",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  appleWebApp: {
-    capable: true,
-    title: "Permapaysage",
-    statusBarStyle: "default",
-  },
+	metadataBase: new URL(BASE_URL),
+	...buildPageMetadata({
+		title:
+			"Permapaysage : Éco-paysagiste à Vallet | Conception, aménagement et entretien",
+		description: company.description,
+		path: "/",
+		keywords: [
+			"paysagiste Clisson",
+			"paysagiste Vertou",
+			"amenagement exterieur Vallet",
+			"devis paysagiste Vallet",
+		],
+	}),
+	icons: {
+		icon: [
+			{ url: "/favicon.ico", sizes: "any" },
+			{ url: "/logo.webp", type: "image/webp" },
+		],
+		apple: [{ url: "/logo-apple.png", sizes: "192x192", type: "image/png" }],
+		shortcut: ["/favicon.ico"],
+	},
+	manifest: "/manifest.webmanifest",
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
+	appleWebApp: {
+		capable: true,
+		title: "Permapaysage",
+		statusBarStyle: "default",
+	},
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#1A531A",
-  colorScheme: "light",
+	width: "device-width",
+	initialScale: 1,
+	themeColor: "#2B4D3B",
+	colorScheme: "light",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="fr" className={`${fraunces.variable} ${dmSans.variable}`}>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+export default function RootLayout({
+	children,
+}: Readonly<{ children: React.ReactNode }>) {
+	return (
+		<html lang="fr" className={`${lora.variable} ${dmSans.variable}`}>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('consent', 'default', {
@@ -78,27 +80,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 ad_personalization: 'denied',
               });
             `,
-          }}
-        />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-Z6SF5771E1"
-          strategy="afterInteractive"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-Z6SF5771E1');
-            `,
-          }}
-        />
-      </head>
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  );
+					}}
+				/>
+			</head>
+			<body>
+				{children}
+				<Analytics />
+			</body>
+		</html>
+	);
 }

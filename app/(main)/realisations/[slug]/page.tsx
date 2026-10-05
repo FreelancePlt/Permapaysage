@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   const realisation: Realisation | null = await getRealisationBySlug(slug);
   if (!realisation) {
     return buildPageMetadata({
-      title: "Projet — Permapaysage",
+      title: "Projet : Permapaysage",
       description: "Projet introuvable.",
       path: `/realisations/${slug}`,
       noIndex: true,
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 
   return buildPageMetadata({
-    title: `${realisation.titre} — Permapaysage`,
+    title: `${realisation.titre} : Permapaysage`,
     description: realisation.resume || realisation.description,
     path: `/realisations/${realisation.slug.current}`,
     image: realisation.images?.[0]
@@ -96,7 +96,7 @@ export default async function ProjectDetailPage({
 
   const schemas = [
     buildWebPageSchema({
-      title: `${r.titre} — Permapaysage`,
+      title: `${r.titre} : Permapaysage`,
       description: r.resume || r.description,
       path: `/realisations/${r.slug.current}`,
     }),
@@ -147,7 +147,7 @@ export default async function ProjectDetailPage({
                     <Image
                       key={img.asset._ref}
                       src={urlFor(img).width(400).height(400).url()}
-                      alt={img.alt || `${r.titre} — vue ${i + 2}`}
+                      alt={img.alt || `${r.titre} : vue ${i + 2}`}
                       width={400}
                       height={400}
                       className="aspect-square w-full rounded-md object-cover"
@@ -158,7 +158,7 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className="lg:sticky lg:top-24">
-              <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
+              <p className="section-eyebrow">
                 {category}
               </p>
               <h1 className="mt-4 text-4xl leading-tight tracking-tight md:text-5xl">
@@ -186,7 +186,7 @@ export default async function ProjectDetailPage({
                 </div>
               )}
 
-              <CtaButton action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
+              <CtaButton emplacement="project" action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
             </div>
           </div>
         </Container>
@@ -240,12 +240,12 @@ export default async function ProjectDetailPage({
                         alt={other.images[0].alt || other.titre}
                         width={400}
                         height={300}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.025]"
                       />
                     )}
                   </div>
                   <div className="flex flex-col justify-center gap-2 p-5">
-                    <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
+                    <p className="section-eyebrow">
                       {categorieLabels[other.categorie] || other.categorie}
                     </p>
                     <h3 className="text-lg font-semibold leading-tight">

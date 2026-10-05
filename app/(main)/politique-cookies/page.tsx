@@ -3,7 +3,7 @@ import { StructuredData } from "@/components/shared/structured-data";
 import { buildBreadcrumbSchema, buildPageMetadata, buildWebPageSchema } from "@/lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: "Politique de cookies — Permapaysage",
+  title: "Politique de cookies : Permapaysage",
   description: "Politique de cookies et gestion du consentement sur le site Permapaysage.",
   path: "/politique-cookies",
   noIndex: true,
@@ -15,7 +15,7 @@ export default function CookiesPage() {
       <StructuredData
         data={[
           buildWebPageSchema({
-            title: "Politique de cookies — Permapaysage",
+            title: "Politique de cookies : Permapaysage",
             description: "Politique de cookies et gestion du consentement sur le site Permapaysage.",
             path: "/politique-cookies",
           }),
@@ -63,6 +63,10 @@ export default function CookiesPage() {
           <section className="space-y-3 text-sm leading-relaxed">
             <h2 className="text-2xl">Droit d&apos;accès</h2>
             <p>Pour toute question concernant vos données personnelles ou la gestion des cookies, contactez permapaysage.jl@gmail.com.</p>
+          </section>
+          <section className="space-y-3 text-sm leading-relaxed">
+            <h2 className="text-2xl">Confidentialité des avis Google Maps</h2>
+            <p>Les notes et les avis publics sont demandés côté serveur à l’API Google Places. La clé d’accès reste sur le serveur. Le nom public de l’auteur, sa photo, son profil, le texte et les dates fournis par Google peuvent être affichés. Les réponses de l’API ne sont pas conservées dans un cache persistant. Les photos d’auteurs sont chargées directement depuis le service tiers par votre navigateur ; les liens vers les avis et profils vous conduisent sur Google Maps. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary underline">Consulter la politique de confidentialité de Google</a>.</p>
           </section>
         </Container>
       </section>

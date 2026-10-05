@@ -16,7 +16,7 @@ import { getRealisations } from "@/lib/sanity/queries";
 import type { Realisation } from "@/lib/sanity/types";
 
 export const metadata = buildPageMetadata({
-  title: "Réalisations jardin — Permapaysage",
+  title: "Réalisations jardin : Permapaysage",
   description:
     "Découvrez des réalisations paysagères à Vallet, Clisson et dans le Vignoble Nantais: conception, aménagement et entretien.",
   path: "/realisations",
@@ -56,7 +56,7 @@ export default async function RealisationsPage() {
 
   const schemas = [
     buildWebPageSchema({
-      title: "Réalisations jardin — Permapaysage",
+      title: "Réalisations jardin : Permapaysage",
       description:
         "Découvrez des réalisations paysagères à Vallet, Clisson et dans le Vignoble Nantais: conception, aménagement et entretien.",
       path: "/realisations",
@@ -100,11 +100,11 @@ export default async function RealisationsPage() {
                       alt={item.imageAlt}
                       width={900}
                       height={600}
-                      className="aspect-4/3 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="aspect-4/3 w-full object-cover transition-transform duration-300 group-hover:scale-[1.025]"
                     />
                   </div>
                   <div className="space-y-3 p-5">
-                    <p className="text-secondary text-xs font-semibold tracking-[0.16em] uppercase">
+                    <p className="section-eyebrow">
                       {item.category}
                     </p>
                     <h2 className="text-2xl leading-tight">{item.title}</h2>

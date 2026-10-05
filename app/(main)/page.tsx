@@ -1,439 +1,648 @@
 import {
-  ArrowRightIcon,
-  CompassIcon,
-  GlobeIcon,
-  HandsClappingIcon,
-  HeartIcon,
-  LeafIcon,
-  NavigationArrowIcon,
-  RecycleIcon,
-  StarIcon,
+	ArrowRightIcon,
+	CalendarBlankIcon,
+	ClockIcon,
+	CompassIcon,
+	GlobeIcon,
+	HandsClappingIcon,
+	HeartIcon,
+	LeafIcon,
+	MapPinIcon,
+	PhoneCallIcon,
+	PlantIcon,
+	RecycleIcon,
+	StarIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
-import { CtaSection } from "@/components/sections/cta";
-import { GoogleReviews } from "@/components/shared/google-reviews";
-import { CtaButton, ctaButtonVariants } from "@/components/shared/cta-button";
+import { BeforeAfterSlider } from "@/components/shared/before-after-slider";
 import { Container } from "@/components/shared/container";
+import { CtaButton } from "@/components/shared/cta-button";
+import { FaqAccordion } from "@/components/shared/faq-accordion";
+import { GoogleReviews } from "@/components/shared/google-reviews";
 import { HeroCarousel } from "@/components/shared/hero-carousel";
-import { Reveal } from "@/components/shared/reveal";
 import { StructuredData } from "@/components/shared/structured-data";
 import { ZoneIntervention } from "@/components/shared/zone-intervention";
+import { getGoogleReviewSummary } from "@/lib/google-review-summary";
 import {
-  BASE_URL,
-  buildItemListSchema,
-  buildLocalBusinessSchema,
-  buildOrganizationSchema,
-  buildPageMetadata,
-  buildWebPageSchema,
-  buildWebsiteSchema,
+	buildFaqSchema,
+	buildItemListSchema,
+	buildOrganizationSchema,
+	buildPageMetadata,
+	buildWebPageSchema,
+	buildWebsiteSchema,
 } from "@/lib/seo";
 import { urlFor } from "@/lib/sanity/image";
-import { getArticles } from "@/lib/sanity/queries";
-import type { Article } from "@/lib/sanity/types";
-import { company, metrics, projects, services, testimonials } from "@/lib/site-data";
+import { getFaq, getRealisations } from "@/lib/sanity/queries";
+import type { Faq, Realisation } from "@/lib/sanity/types";
+import { company, interventionCityLinks, projects, services } from "@/lib/site-data";
 
+const title = "Paysagiste écologique à Vallet et Clisson | Permapaysage";
+const description =
+	"Paysagiste écologique à Vallet : création et entretien de jardins à Clisson, Le Loroux-Bottereau, La Chapelle-Heulin, Le Pallet et alentours. Visite offerte.";
 export const metadata = buildPageMetadata({
-  title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
-  description:
-    "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet, Clisson, Vertou et dans tout le Vignoble Nantais.",
-  path: "/",
-  keywords: [
-    "paysagiste Vallet",
-    "amenagement jardin Vallet",
-    "jardin durable Clisson",
-    "entretien jardin Vertou",
-  ],
+	title,
+	description,
+	path: "/",
+	keywords: ["paysagiste Vallet", "jardin durable Clisson", "entretien jardin"],
 });
 
-const reviewSchema = {
-  "@context": "https://schema.org",
-  "@type": "Review",
-  itemReviewed: {
-    "@id": `${BASE_URL}/#localbusiness`,
-  },
-  reviewRating: {
-    "@type": "Rating",
-    ratingValue: "5",
-    bestRating: "5",
-  },
-  author: {
-    "@type": "Person",
-    name: testimonials[0]?.author,
-  },
-  reviewBody: testimonials[0]?.content,
+const categorieLabels: Record<string, string> = {
+	conception: "Conception",
+	amenagement: "Aménagement",
+	terrasse: "Terrasse",
+	cloture: "Clôture",
+	massif: "Massif",
+	entretien: "Entretien",
 };
 
-const serviceIcons = [CompassIcon, RecycleIcon, LeafIcon];
-const serviceImages: Record<string, string> = {
-  conception: "/services/conception-jardin.png",
-  amenagement: "/services/entretien-espaces-verts.png",
-  entretien: "/services/amenagements-exterieurs.png",
+const orderedServices = ["entretien", "conception", "amenagement"] as const;
+const serviceIcons = {
+	entretien: RecycleIcon,
+	conception: CompassIcon,
+	amenagement: PlantIcon,
 };
+const process = [
+	{
+		title: "Appel de 15 minutes",
+		text: "Un premier échange pour parler de votre jardin et de vos envies.",
+		icon: PhoneCallIcon,
+	},
+	{
+		title: "Visite terrain offerte",
+		text: "Nous découvrons le lieu, ses contraintes et ses possibilités.",
+		icon: MapPinIcon,
+	},
+	{
+		title: "Proposition sous 48 h",
+		text: "Vous recevez une proposition adaptée à votre projet.",
+		icon: ClockIcon,
+	},
+	{
+		title: "Intervention",
+		text: "Votre jardin prend forme, avec soin et dans le respect du vivant.",
+		icon: PlantIcon,
+	},
+];
+const values = [
+	{
+		title: "Prendre soin de la terre",
+		text: "Préserver les sols et la biodiversité avec des végétaux adaptés et une gestion raisonnée.",
+		icon: GlobeIcon,
+	},
+	{
+		title: "Prendre soin des hommes",
+		text: "Écouter vos besoins et prendre soin des personnes qui façonnent votre jardin.",
+		icon: HeartIcon,
+	},
+	{
+		title: "Partager équitablement",
+		text: "Créer des jardins nourriciers qui offrent des récoltes et un refuge à la biodiversité.",
+		icon: HandsClappingIcon,
+	},
+];
+const faqQuestions = [
+	"Comment fonctionne le crédit d'impôt de 50 % ?",
+	"Quel budget prévoir ?",
+	"Sous quel délai intervenez-vous ?",
+	"Intervenez-vous dans ma commune ?",
+];
+const normalizeQuestion = (question: string) =>
+	question
+		.normalize("NFKC")
+		.replace(/[’‘]/g, "'")
+		.replace(/\s+/g, " ")
+		.trim()
+		.toLocaleLowerCase("fr");
+// TODO CONTENU: recevoir et valider les réponses exactes des quatre questions, dont le budget.
+const faqPlaceholder =
+	"Réponse à venir. Jessy peut vous renseigner lors d'un premier échange.";
+// Asset verified in the existing Clisson project, used only as a fallback when its CMS gallery is unavailable.
+const clissonPhoto =
+	"https://cdn.sanity.io/images/ecfagc9w/production/9f29e2f8a9fc7b2b44ffb14c4ed91909b521d374-3264x1836.jpg";
 
 export default async function HomePage() {
-  const articles: Article[] = await getArticles();
+	const [cmsProjects, cmsFaq]: [Realisation[], Faq[]] = await Promise.all([
+		getRealisations(),
+		getFaq(),
+	]);
+	const reviews = await getGoogleReviewSummary();
+	const faqItems = faqQuestions.map((question) => {
+		const source = cmsFaq.find(
+			(item) =>
+				normalizeQuestion(item.question) === normalizeQuestion(question) &&
+				item.reponse?.trim(),
+		);
+		return {
+			question,
+			answer: source?.reponse ?? faqPlaceholder,
+			complete: Boolean(source),
+		};
+	});
+	const clisson = cmsProjects.find(
+		(project) =>
+			project.ville?.toLocaleLowerCase("fr") === "clisson" ||
+			project.slug.current.includes("clisson"),
+	);
+	const conceptionPhoto = clisson?.images.find(
+		(image) =>
+			image.asset?._ref ===
+			"image-9f29e2f8a9fc7b2b44ffb14c4ed91909b521d374-3264x1836-jpg",
+	);
+	const serviceImages = {
+		entretien: {
+			src: "/photos-entretien/apres/haie-de-jardin-apres-taille.jpg",
+			alt: "Haie taillée et jardin entretenu autour d'une terrasse",
+		},
+		conception: {
+			src: conceptionPhoto
+				? urlFor(conceptionPhoto).width(900).url()
+				: clissonPhoto,
+			alt: "Jardin de Clisson avec pelouse et claustras en bois",
+		},
+		amenagement: {
+			src: "/photos-entretien/illustrations/terrasse-travertin.jpg",
+			alt: "Terrasse en travertin devant une maison en pierre",
+		},
+	};
+	// TODO CONTENU: photos de chantier dédiées aux trois services, fournies par Jessy.
+	// Prefer a pair belonging to the same published project; local pair 05 verified by the parent: matching houses, hedge and curved edging.
+	const comparedProject = cmsProjects.find(
+		(project) => project.avant?.asset?._ref && project.apres?.asset?._ref,
+	);
+	const pair =
+		comparedProject?.avant && comparedProject?.apres
+			? {
+					before: urlFor(comparedProject.avant).width(1500).url(),
+					after: urlFor(comparedProject.apres).width(1500).url(),
+					beforeAlt:
+						comparedProject.avant.alt ||
+						`Avant l'intervention : ${comparedProject.titre}`,
+					afterAlt:
+						comparedProject.apres.alt ||
+						`Après l'intervention : ${comparedProject.titre}`,
+				}
+			: {
+					before: "/photos-entretien/avant/pelouse-entre-haies-avant-tonte.jpg",
+					after: "/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg",
+					beforeAlt: "Pelouse avant la tonte, bordée de massifs et d’une haie",
+					afterAlt:
+						"Même pelouse après la tonte, bordée de massifs et d’une haie",
+				};
+	// TODO CONTENU: nouvelles paires avant/après avec localisation et légendes validées par Jessy.
+	const displayedProjects = cmsProjects.length
+		? cmsProjects.slice(0, 3).map((project) => {
+				const knownClisson = project.slug.current === clisson?.slug.current;
+				const image = knownClisson
+					? (conceptionPhoto ?? project.images[3] ?? project.images[0])
+					: project.images[0];
+				return {
+					slug: project.slug.current,
+					title: project.titre,
+					summary: project.resume,
+					category: categorieLabels[project.categorie] || project.categorie,
+					image: image ? urlFor(image).width(900).url() : undefined,
+					alt: image?.alt || project.titre,
+				};
+			})
+		: projects.slice(0, 3).map((project) => ({
+				...project,
+				image: project.city === "Clisson" ? clissonPhoto : project.image,
+				alt: project.title,
+			}));
+	// TODO CONTENU: remplacer la photo actuelle du projet de Clisson par la nouvelle sélection de Jessy.
+	const schemas = [
+		buildWebsiteSchema(),
+		buildOrganizationSchema(),
+		buildWebPageSchema({ title, description, path: "/" }),
+		buildItemListSchema(
+			orderedServices.map((slug) => ({
+				name: services.find((service) => service.slug === slug)!.title,
+				path: `/${slug}`,
+			})),
+		),
+		...(faqItems.every((item) => item.complete)
+			? [buildFaqSchema(faqItems)]
+			: []),
+	];
 
-  const homepageSchemas = [
-    buildWebsiteSchema(),
-    buildOrganizationSchema(),
-    buildLocalBusinessSchema("/"),
-    buildWebPageSchema({
-      title: "Permapaysage — Éco-paysagiste à Vallet | Conception, aménagement et entretien",
-      description:
-        "Permapaysage conçoit, aménage et entretient des jardins écologiques à Vallet, Clisson, Vertou et dans tout le Vignoble Nantais.",
-      path: "/",
-    }),
-    buildItemListSchema(
-      services.map((service) => ({
-        name: service.title,
-        path: `/${service.slug}`,
-      })),
-    ),
-    reviewSchema,
-  ];
+	return (
+		<>
+			<StructuredData data={schemas} />
+			<section className="dark-section botanical-background py-12 md:py-20">
+				<Container>
+					<div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+						<div>
+							<p className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.12em] text-cream/80">
+								<LeafIcon size={16} aria-hidden />
+								VIGNOBLE NANTAIS · 25 KM AUTOUR DE VALLET
+							</p>
+							<h1 className="mt-6 max-w-3xl text-[2.35rem] leading-[1.1] tracking-[-0.025em] text-cream sm:text-5xl xl:text-[3.6rem]">
+								Paysagiste écologique à Vallet : un beau jardin, moins de temps
+								à y passer
+							</h1>
+							<p className="mt-6 max-w-xl text-base leading-relaxed text-cream/85 md:text-lg">
+								Création et entretien de jardins vivants, pensés pour durer et
+								demander peu d&apos;entretien.
+							</p>
+							<div className="mt-8 flex flex-col gap-3 sm:flex-row">
+								<CtaButton emplacement="hero"
+									action="call"
+									compactOnNarrowDesktop
+									variant="primary-dark"
+									icon={<CalendarBlankIcon size={20} aria-hidden />}
+									className="w-full px-3 sm:w-auto"
+								/>
+								<CtaButton emplacement="hero"
+									action="visit"
+									variant="secondary-dark"
+									icon={<ArrowRightIcon size={18} aria-hidden />}
+									iconPosition="right"
+									className="w-full px-3 sm:w-auto"
+								/>
+							</div>
+							<p className="mt-4 text-sm leading-relaxed text-cream/80">
+								Appel gratuit et sans engagement · Réponse sous 48 h
+							</p>
+							<ul className="mt-7 space-y-3 text-sm text-cream/90">
+								<li>
+									<Link
+										href={reviews.googleMapsUri}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="inline-flex items-center gap-2 underline decoration-cream/35 underline-offset-4 hover:decoration-cream"
+									>
+										<StarIcon
+											size={18}
+											weight="fill"
+											className="text-cta-ochre"
+											aria-hidden
+										/>
+										<span>
+											{reviews.rating}/5 sur <span translate="no" className="whitespace-nowrap font-sans font-normal not-italic tracking-normal text-white">Google Maps</span> · {reviews.reviewCount} avis
+										</span>
+									</Link>
+								</li>
+								<li>
+									<Link
+										href="/entretien"
+										className="inline-flex items-center gap-2 underline decoration-cream/35 underline-offset-4 hover:decoration-cream"
+									>
+										<LeafIcon size={18} aria-hidden />
+										Entretien : 50 % de crédit d&apos;impôt
+									</Link>
+								</li>
+								<li className="flex items-center gap-2">
+									<ClockIcon size={18} aria-hidden />
+									Réponse sous 48 h
+								</li>
+							</ul>
+						</div>
+						<HeroCarousel />
+					</div>
+				</Container>
+			</section>
 
-  return (
-    <>
-      <StructuredData data={homepageSchemas} />
+			<section className="botanical-background py-16 md:py-24" aria-labelledby="services-title">
+				<Container>
+					<div className="max-w-2xl">
+						<p className="section-eyebrow">Nos services</p>
+						<h2 id="services-title" className="mt-3 text-3xl md:text-4xl">
+							Un jardin qui vous ressemble, à chaque étape
+						</h2>
+						<p className="mt-4 text-base leading-relaxed text-muted-foreground">
+							Entretenir, imaginer, aménager : choisissez l&apos;accompagnement
+							dont votre jardin a besoin.
+						</p>
+					</div>
+					<div className="mt-10 grid gap-6 md:grid-cols-3">
+						{orderedServices.map((slug, index) => {
+							const service = services.find((item) => item.slug === slug)!;
+							const Icon = serviceIcons[slug];
+							const photo = serviceImages[slug];
+							return (
+								<article
+									key={slug}
+									className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card"
+								>
+									<Link
+										href={`/${slug}`}
+										className="group relative block overflow-hidden"
+									>
+										<Image
+											src={photo.src}
+											alt={photo.alt}
+											width={900}
+											height={600}
+											sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1279px) calc((100vw - 96px) / 3 - 2px), 393px"
+											className="aspect-4/3 w-full object-cover transition-transform duration-300 group-hover:scale-[1.025]"
+										/>
+										{slug === "entretien" && (
+											<span className="absolute bottom-4 left-4 rounded-full bg-cream px-3 py-2 text-xs font-semibold text-primary">
+												-50 % crédit d&apos;impôt
+											</span>
+										)}
+									</Link>
+									<div className="flex flex-1 flex-col p-6 lg:p-7">
+										<div className="mb-5 flex items-center justify-between text-secondary">
+											<Icon size={25} weight="duotone" aria-hidden />
+											<span className="font-serif text-xl">0{index + 1}</span>
+										</div>
+										<h3 className="text-2xl">
+											<Link href={`/${slug}`} className="hover:underline">
+												{service.title}
+											</Link>
+										</h3>
+										<p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+											{service.shortDescription}
+										</p>
+										{slug === "entretien" && (
+											<p className="mt-4 text-sm font-semibold text-primary">
+												200 € de prestation = 100 € pour vous
+											</p>
+										)}
+										<Link
+											href={`/${slug}`}
+											className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+										>
+											Découvrir ce service
+											<ArrowRightIcon size={16} aria-hidden />
+										</Link>
+										<CtaButton emplacement="services"
+											action="visit"
+											projectType={slug}
+											variant="secondary-light"
+											className="mt-5 w-full whitespace-normal px-2 text-center leading-tight"
+										/>
+									</div>
+								</article>
+							);
+						})}
+					</div>
+				</Container>
+			</section>
 
-      {/* ── BLOC 1 : HERO ── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-32">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-0 left-1/2 h-150 w-150 -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/5 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-100 w-100 translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-          <div className="absolute top-1/2 left-0 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/3 blur-2xl" />
-        </div>
+			<section
+				className="bg-card py-16 md:py-24"
+				aria-labelledby="projects-title"
+			>
+				<Container>
+					<div className="grid items-center gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+						<div>
+							<p className="section-eyebrow">Avant / après</p>
+							<h2 id="projects-title" className="mt-3 text-3xl md:text-4xl">
+								Le soin se voit
+							</h2>
+							<p className="mt-5 text-base leading-relaxed text-muted-foreground">
+								Un même jardin, avant et après l&apos;entretien. Faites glisser
+								le curseur pour découvrir la différence.
+							</p>
+							<p className="mt-3 text-sm text-muted-foreground">
+								Au clavier : flèches gauche et droite, Début et Fin.
+							</p>
+						</div>
+						<BeforeAfterSlider
+							beforeSrc={pair.before}
+							afterSrc={pair.after}
+							beforeAlt={pair.beforeAlt}
+							afterAlt={pair.afterAlt}
+							sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc((100vw - 80px) * 0.65), 780px"
+						/>
+					</div>
+					<div className="mt-14 pt-2">
+						<p className="section-eyebrow">Réalisations</p>
+						<h3 className="mt-3 text-2xl md:text-3xl">
+							Des projets différents, une même attention
+						</h3>
+					</div>
+					<div className="mt-8 grid gap-6 md:grid-cols-3">
+						{displayedProjects.map((project) => (
+							<Link
+								key={project.slug}
+								href={`/realisations/${project.slug}`}
+								className="group block overflow-hidden rounded-2xl border border-border bg-background"
+							>
+								{project.image ? (
+									<Image
+										src={project.image}
+										alt={project.alt}
+										width={900}
+										height={600}
+										sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1279px) calc((100vw - 96px) / 3 - 2px), 393px"
+										className="aspect-4/3 w-full object-cover"
+									/>
+								) : (
+									<div className="flex aspect-4/3 items-center justify-center bg-surface-sage text-sm text-muted-foreground">
+										Photo du projet à venir
+									</div>
+								)}
+								<div className="p-6">
+									<p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+										{project.category}
+									</p>
+									<h4 className="mt-2 text-xl group-hover:underline">
+										{project.title}
+									</h4>
+									<p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+										{project.summary}
+									</p>
+									<span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+										Voir le projet
+										<ArrowRightIcon size={16} aria-hidden />
+									</span>
+								</div>
+							</Link>
+						))}
+					</div>
+					<div className="mt-8 text-right">
+						<Link
+							href="/realisations"
+							className="inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+						>
+							Voir toutes les réalisations
+							<ArrowRightIcon size={18} aria-hidden />
+						</Link>
+					</div>
+				</Container>
+			</section>
 
-        <Container>
-          <div className="relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-8 text-center lg:text-left appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
-                <LeafIcon size={14} weight="fill" />
-                Éco-paysagiste à Vallet
-              </div>
-              <h1 className="text-4xl leading-[1.08] tracking-tight text-white md:text-6xl">
-                Des jardins vivants et résilients dans le Vignoble Nantais.
-              </h1>
-              <p className="mx-auto max-w-xl text-base leading-relaxed text-white/80 md:text-lg lg:mx-0">
-                Conception, aménagements et entretien durable et écologique. Valorisez votre patrimoine naturel et réduisez votre temps de travail dans votre jardin.
-              </p>
-              <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
-                <CtaButton action="visit" variant="secondary-dark" className="w-full sm:w-auto" />
-              </div>
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:justify-start">
-                <Link
-                  href={company.googleReviewsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm transition-colors hover:bg-white/20"
-                >
-                  <StarIcon size={20} weight="fill" className="text-yellow-400" />
-                  <span className="text-base font-bold text-white">{company.rating}</span>
-                  <span className="text-sm text-white/70">sur Google · {company.reviewCount} avis vérifiés</span>
-                </Link>
-                <Link
-                  href="#zone-intervention"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm transition-colors hover:bg-white/20"
-                >
-                  <NavigationArrowIcon size={20} className="text-white/80" />
-                  <span className="text-base font-bold text-white">25 km</span>
-                  <span className="text-sm text-white/70">autour de Vallet</span>
-                </Link>
-              </div>
-            </div>
+			<GoogleReviews data={reviews} />
 
-            <div className="relative appearance-animation animate-in fade-in zoom-in-95 duration-300">
-              <HeroCarousel />
-              <div className="absolute -bottom-4 -left-4 z-10 hidden rounded-xl border border-white/20 bg-primary/90 px-5 py-3 shadow-xl backdrop-blur-md md:block">
-                <div className="flex items-center gap-3 text-white">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                    <LeafIcon size={20} weight="fill" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-white/70">Approche</p>
-                    <p className="text-sm font-semibold">100 % écologique</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+			<section className="py-16 md:py-24" aria-labelledby="process-title">
+				<Container>
+					<div className="max-w-2xl">
+						<p className="section-eyebrow">Comment ça se passe</p>
+						<h2 id="process-title" className="mt-3 text-3xl md:text-4xl">
+							Un premier échange, puis du concret
+						</h2>
+					</div>
+					<ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+						{process.map((step, index) => (
+							<li key={step.title} className="h-full rounded-2xl bg-card p-6">
+								<div className="flex items-center justify-between">
+									<step.icon
+										size={30}
+										weight="duotone"
+										className="text-secondary"
+										aria-hidden
+									/>
+									<span aria-hidden="true" className="font-serif text-3xl text-primary/80">
+										0{index + 1}
+									</span>
+								</div>
+								<h3 className="mt-5 text-xl">{step.title}</h3>
+								<p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+									{step.text}
+								</p>
+							</li>
+						))}
+					</ol>
+					<CtaButton emplacement="process"
+						action="call"
+						responsiveLabel={false}
+						className="mt-9 w-full whitespace-normal px-3 text-center sm:w-auto"
+					/>
+				</Container>
+			</section>
 
-      {/* ── BLOC 2 : NOS SERVICES ── */}
-      <section className="py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Nos services</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                Trois expertises pour un jardin cohérent
-              </h2>
-              <p className="text-muted-foreground mt-4 text-base md:text-lg">
-                De la première idée jusqu&apos;au suivi dans le temps, chaque intervention est pensée pour la durabilité et le confort d&apos;usage.
-              </p>
-            </div>
-          </Reveal>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {services.map((service, idx) => {
-              const Icon = serviceIcons[idx];
-              return (
-                <Reveal key={service.slug} delay={idx * 100}>
-                  <Link href={`/${service.slug}`} className="group block h-full">
-                    <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-xl">
-                      <div className="relative overflow-hidden bg-[#F7F5F0]">
-                        <Image
-                          src={serviceImages[service.slug]}
-                          alt={`Illustration ${service.title}`}
-                          width={600}
-                          height={400}
-                          className="aspect-4/3 w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                      </div>
-                      <div className="relative flex flex-1 flex-col p-8">
-                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                          {Icon && <Icon size={24} weight="duotone" />}
-                        </div>
-                        <h3 className="text-2xl leading-tight">{service.title}</h3>
-                        <p className="text-muted-foreground mt-3 flex-1 text-sm leading-relaxed">{service.shortDescription}</p>
-                        <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors group-hover:gap-2.5">
-                          Découvrir
-                          <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                        </span>
-                      </div>
-                    </article>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
+			<section
+				className="bg-surface-sage py-16 md:py-24"
+				aria-labelledby="about-title"
+			>
+				<Container>
+					<div className="grid items-center gap-10 lg:grid-cols-2">
+						{/* TODO CONTENU: photo de Jessy et de l'équipe sur un chantier. */}
+						<div className="photo-frame">
+							<div className="flex aspect-4/3 flex-col items-center justify-center gap-4 rounded-xl border border-primary/10 bg-cream px-6 text-center">
+								<LeafIcon
+									size={48}
+									weight="duotone"
+									className="text-primary/60"
+									aria-hidden
+								/>
+								<p className="font-serif text-2xl text-primary">
+									Jessy, sur le terrain
+								</p>
+								<p className="text-sm text-muted-foreground">
+									Photo de Jessy et de l&apos;équipe à venir
+								</p>
+							</div>
+						</div>
+						<div>
+							<p className="section-eyebrow">Qui est derrière Permapaysage</p>
+							<h2 id="about-title" className="mt-3 text-3xl md:text-4xl">
+								Jessy, à l&apos;écoute de votre jardin
+							</h2>
+							<div className="mt-5 space-y-3 text-base leading-relaxed text-muted-foreground">
+								<p>
+									Jessy Laderriere est le fondateur de Permapaysage, à Vallet.
+								</p>
+								<p>
+									Il vous accompagne dans la conception, l&apos;aménagement et
+									l&apos;entretien de votre jardin.
+								</p>
+								<p>
+									Son approche écologique s&apos;appuie sur l&apos;observation
+									du lieu, vos usages et les éthiques de la permaculture.
+								</p>
+							</div>
+							<Link
+								href="/a-propos"
+								className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+							>
+								Découvrir notre démarche
+								<ArrowRightIcon size={18} aria-hidden />
+							</Link>
+						</div>
+					</div>
+					<div className="mt-12 grid gap-7 pt-4 md:grid-cols-3">
+						{values.map((value) => (
+							<article key={value.title}>
+								<value.icon
+									size={25}
+									weight="duotone"
+									className="text-secondary"
+									aria-hidden
+								/>
+								<h3 className="mt-3 text-xl">{value.title}</h3>
+								<p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+									{value.text}
+								</p>
+							</article>
+						))}
+					</div>
+				</Container>
+			</section>
 
-      {/* ── BLOC 3 : AVIS GOOGLE ── */}
-      <GoogleReviews />
+			<ZoneIntervention
+				cities={interventionCityLinks}
+				texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais."
+			/>
 
-      {/* ── BLOC 4 : NOS RÉALISATIONS ── */}
-      <section className="bg-card py-20 md:py-28">
-        <Container>
-          <Reveal>
-            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Réalisations</p>
-                <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
-                  Des projets différents, une même exigence
-                </h2>
-                <p className="text-muted-foreground text-base md:text-lg">
-                  Chaque jardin est pensé pour son contexte : terrain, usages et relation à la maison.
-                </p>
-              </div>
-              <Link href="/realisations" className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
-                Toutes les réalisations
-                <ArrowRightIcon size={14} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {projects.slice(0, 3).map((project, idx) => (
-              <Reveal key={project.slug} delay={idx * 100}>
-                <Link href={`/realisations/${project.slug}`} className="group block h-full">
-                  <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div className="relative overflow-hidden">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        width={900}
-                        height={600}
-                        className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                      <span className="absolute left-4 top-4 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                        {project.category}
-                      </span>
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <h3 className="text-xl leading-tight line-clamp-1">{project.title}</h3>
-                      <p className="text-muted-foreground mt-2 flex-1 text-sm line-clamp-2">{project.summary}</p>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
-                        Voir le projet
-                        <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </article>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={300}>
-            <div className="mt-10 text-center">
-              <Link
-                href="/realisations"
-                className={ctaButtonVariants({ variant: "secondary-light" })}
-              >
-                Découvrir les autres projets
-                <ArrowRightIcon size={16} weight="bold" />
-              </Link>
-            </div>
-          </Reveal>
-        </Container>
-      </section>
+			<section className="bg-card py-16 md:py-24" aria-labelledby="faq-title">
+				<Container>
+					<div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+						<div>
+							<p className="section-eyebrow">Questions fréquentes</p>
+							<h2 id="faq-title" className="mt-3 text-3xl md:text-4xl">
+								Avant de se rencontrer
+							</h2>
+							<Link
+								href="/faq"
+								className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+							>
+								Toutes les questions
+								<ArrowRightIcon size={18} aria-hidden />
+							</Link>
+						</div>
+						<FaqAccordion items={faqItems} />
+					</div>
+				</Container>
+			</section>
 
-      {/* ── BLOC 5 : CHIFFRES CLÉS ── */}
-      <section className="relative overflow-hidden bg-background py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/3 top-0 h-80 w-80 -translate-y-1/2 rounded-full bg-primary/6 blur-3xl" />
-        </div>
-        <Container>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Chiffres clés</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
-                Des résultats concrets sur le terrain
-              </h2>
-            </div>
-          </Reveal>
-          <div className="relative mt-14 grid gap-6 grid-cols-2 sm:grid-cols-4">
-            {metrics.map((metric, idx) => (
-              <Reveal key={metric.label} delay={idx * 80}>
-                <article className="group flex flex-col items-center rounded-2xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
-                  <p className="text-3xl font-semibold tracking-tight text-primary lg:text-4xl">{metric.value}</p>
-                  <p className="mt-2 text-sm font-medium">{metric.label}</p>
-                  <p className="text-muted-foreground mt-1 text-xs">{metric.subtext}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── BLOC 6 : ZONE D'INTERVENTION ── */}
-      <ZoneIntervention texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais." />
-
-      {/* ── BLOC 7 : NOS VALEURS ── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/[0.04] blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
-        </div>
-
-        <Container>
-          <Reveal>
-            <div className="relative mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold tracking-[0.18em] uppercase text-white/60">Nos valeurs</p>
-              <h2 className="mt-3 text-3xl leading-tight tracking-tight text-white md:text-4xl">
-                Nos valeurs
-              </h2>
-              <p className="mt-4 text-base text-white/70 md:text-lg">
-                Chaque projet s&apos;appuie sur les trois éthiques fondamentales de la permaculture.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="relative mt-14 grid gap-6 md:grid-cols-3 md:gap-8">
-            {[
-              {
-                icon: GlobeIcon,
-                title: "Prendre soin de la terre",
-                description: "Au contact quotidien du vivant, nous ne nous contentons pas d\u2019aménager : nous agissons. En sélectionnant des végétaux et en pratiquant une gestion raisonnée, nous devenons les gardiens de votre écosystème. S\u2019occuper de votre jardin avec conscience, c\u2019est préserver activement la biodiversité terrestre du vignoble nantais.",
-              },
-              {
-                icon: HeartIcon,
-                title: "Prendre soin des hommes",
-                description: "Un projet réussi repose sur l\u2019équilibre humain. Pour nos clients, cela signifie une écoute réelle et la suppression de toute charge mentale liée au jardin. Pour mes salariés, c\u2019est garantir des conditions de travail dignes, du matériel performant et une sécurité totale sur le terrain. Respecter ceux qui façonnent la terre, c\u2019est vous assurer un chantier serein et un résultat d\u2019excellence.",
-              },
-              {
-                icon: HandsClappingIcon,
-                title: "Partager équitablement",
-                description: "Nous concevons des jardins qui se mangent et qui se partagent. En intégrant des fruitiers et des végétaux nourriciers, nous créons un équilibre entre vos besoins et ceux de la biodiversité locale. C\u2019est notre vision de l\u2019équité : une terre généreuse qui offre des récoltes aux hommes et un refuge aux pollinisateurs de Loire Atlantique.",
-              },
-            ].map((pillar, idx) => {
-              const Icon = pillar.icon;
-              return (
-                <Reveal key={pillar.title} delay={idx * 120}>
-                  <article className="group flex h-full flex-col items-center rounded-3xl bg-white/6 px-8 py-10 text-center ring-1 ring-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/10">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 bg-white/10 text-white transition-colors group-hover:border-white/30 group-hover:bg-white/15">
-                      <Icon size={30} weight="duotone" />
-                    </div>
-                    <h3 className="text-xl font-semibold leading-snug text-white">{pillar.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/75 md:text-base">
-                      {pillar.description}
-                    </p>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* ── BLOC 8 : BLOG ── */}
-      {articles.length > 0 && (
-        <section className="py-20 md:py-28">
-          <Container>
-            <Reveal>
-              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                <div className="max-w-2xl space-y-3">
-                  <p className="text-secondary text-xs font-semibold tracking-[0.18em] uppercase">Blog</p>
-                  <h2 className="text-3xl leading-tight tracking-tight md:text-4xl">
-                    Conseils jardinage et permaculture
-                  </h2>
-                  <p className="text-muted-foreground text-base md:text-lg">
-                    Des contenus pratiques pour concevoir et entretenir un jardin résilient.
-                  </p>
-                </div>
-                <Link href="/blog" className="text-primary inline-flex items-center gap-1.5 text-sm font-semibold hover:underline">
-                  Tous les articles
-                  <ArrowRightIcon size={14} weight="bold" />
-                </Link>
-              </div>
-            </Reveal>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {articles.slice(0, 3).map((article, idx) => (
-                <Reveal key={article._id} delay={idx * 100}>
-                  <Link href={`/blog/${article.slug.current}`} className="group block h-full">
-                    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                      <div className="relative overflow-hidden">
-                        <Image
-                          src={urlFor(article.imagePrincipale).width(900).height(600).url()}
-                          alt={article.imagePrincipale.alt}
-                          width={900}
-                          height={600}
-                          className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                        <span className="absolute left-4 top-4 rounded-full bg-secondary/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                          {article.categorie}
-                        </span>
-                      </div>
-                      <div className="flex flex-1 flex-col p-6">
-                        <div className="text-muted-foreground mb-3 flex items-center gap-3 text-xs">
-                          <span>{new Date(article.datePublication).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
-                        </div>
-                        <h3 className="text-lg leading-snug">{article.titre}</h3>
-                        <p className="text-muted-foreground mt-2 flex-1 text-sm leading-relaxed">{article.resume}</p>
-                        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5">
-                          Lire l&apos;article
-                          <ArrowRightIcon size={14} weight="bold" className="transition-transform group-hover:translate-x-1" />
-                        </span>
-                      </div>
-                    </article>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* ── BLOC 9 : CTA FINAL ── */}
-      <CtaSection
-        title="Votre jardin ne devrait pas être une contrainte."
-        description="Redécouvrez le plaisir d'un extérieur qui vous ressemble, sans la fatigue ni les doutes techniques. Que vous rêviez d'une terrasse chaleureuse ou d'un verger nourricier, nous transformons votre terrain en un véritable sanctuaire."
-      />
-    </>
-  );
+			<section
+				className="dark-section botanical-background py-16 md:py-24"
+				aria-labelledby="final-title"
+			>
+				<Container>
+					<div className="mx-auto max-w-3xl text-center">
+						<p className="text-xs font-semibold uppercase tracking-widest text-cream/80">
+							Faisons le premier pas
+						</p>
+						<h2
+							id="final-title"
+							className="mt-5 text-3xl leading-tight text-cream md:text-5xl"
+						>
+							Votre jardin ne devrait pas être une contrainte
+						</h2>
+						<p className="mt-6 text-base leading-relaxed text-cream/80">
+							Appel gratuit · Visite terrain offerte · Réponse sous 48 h
+						</p>
+						<div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+							<CtaButton emplacement="final"
+								action="call"
+								variant="primary-dark"
+								icon={<CalendarBlankIcon size={20} aria-hidden />}
+							/>
+							<CtaButton emplacement="final"
+								action="visit"
+								variant="secondary-dark"
+								icon={<ArrowRightIcon size={18} aria-hidden />}
+								iconPosition="right"
+								className="px-3"
+							/>
+						</div>
+						<a
+							href="tel:+33752620818"
+							className="mt-6 inline-flex items-center gap-2 text-lg font-semibold text-cream hover:underline"
+						>
+							<PhoneCallIcon size={20} aria-hidden />
+							{company.phone}
+						</a>
+					</div>
+				</Container>
+			</section>
+		</>
+	);
 }

@@ -17,17 +17,10 @@ export function CtaSection({
   points,
 }: CtaSectionProps) {
   return (
-    <section className="relative overflow-hidden bg-[#1A531A] py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-16 -top-16 h-96 w-96 rounded-full bg-white/6 blur-3xl" />
-        <div className="absolute -bottom-12 -left-12 h-64 w-64 rounded-full bg-secondary/15 blur-3xl" />
-        <div className="absolute right-1/3 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-white/4 blur-2xl" />
-        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/3 rounded-full bg-white/3 blur-3xl" />
-      </div>
-
+    <section className="dark-section botanical-background py-20 md:py-24">
       <Container>
         <div className="relative mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
             <LeafIcon size={14} weight="fill" />
             {eyebrow}
           </div>
@@ -44,8 +37,8 @@ export function CtaSection({
             </ul>
           )}
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <CtaButton action="call" variant="primary-dark" />
-            <CtaButton action="visit" variant="secondary-dark" />
+            <CtaButton emplacement="final" action="call" variant="primary-dark" />
+            <CtaButton emplacement="final" action="visit" variant="secondary-dark" />
           </div>
         </div>
       </Container>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { getFallbackGoogleReviewSummary, type GoogleReviewSummary } from "@/lib/google-reviews";
 
-import { type BlogPost, company, type Project } from "@/lib/site-data";
+import { COMPANY_COORDINATES, INTERVENTION_RADIUS_METERS } from "@/lib/geo";
+import { type BlogPost, company, interventionCities, type Project, services } from "@/lib/site-data";
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://www.permapaysage.fr";
@@ -210,7 +212,7 @@ export function buildOrganizationSchema() {
     name: company.legalName,
     alternateName: SITE_NAME,
     url: BASE_URL,
-    logo: getAbsoluteUrl("/Logo.png"),
+    logo: getAbsoluteUrl("/logo.webp"),
     email: company.email,
     telephone: company.phone,
     sameAs: company.sameAs,
@@ -221,7 +223,7 @@ export function buildOrganizationSchema() {
   };
 }
 
-export function buildLocalBusinessSchema(path = "/", areaServed?: string | string[]) {
+export function buildLocalBusinessSchema(path = "/", areaServed?: string | string[], reviews: GoogleReviewSummary = getFallbackGoogleReviewSummary()) {
   return {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
@@ -231,11 +233,42 @@ export function buildLocalBusinessSchema(path = "/", areaServed?: string | strin
     description: company.description,
     url: getAbsoluteUrl(path),
     image: getAbsoluteUrl(DEFAULT_OG_IMAGE_PATH),
-    logo: getAbsoluteUrl("/Logo.png"),
+    logo: getAbsoluteUrl("/logo.webp"),
     telephone: company.phone,
     email: company.email,
-    priceRange: "$$",
-    areaServed: areaServed ?? "Vignoble Nantais",
+    priceRange: "€€",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: COMPANY_COORDINATES[0],
+      longitude: COMPANY_COORDINATES[1],
+    },
+    hasMap: reviews.googleMapsUri,
+    areaServed: areaServed ?? [
+      ...interventionCities.map((city) => ({ "@type": "City", name: city })),
+      {
+        "@type": "GeoCircle",
+        geoMidpoint: {
+          "@type": "GeoCoordinates",
+          latitude: COMPANY_COORDINATES[0],
+          longitude: COMPANY_COORDINATES[1],
+        },
+        geoRadius: INTERVENTION_RADIUS_METERS,
+      },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services de paysagisme",
+      itemListElement: services.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.shortDescription,
+          url: getAbsoluteUrl(`/${service.slug}`),
+          provider: { "@id": `${BASE_URL}/#localbusiness` },
+        },
+      })),
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: company.streetAddress,
@@ -260,8 +293,8 @@ export function buildLocalBusinessSchema(path = "/", areaServed?: string | strin
     ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: company.rating.replace(",", ".").replace("/5", ""),
-      reviewCount: company.reviewCount,
+      ratingValue: reviews.ratingValue,
+      reviewCount: reviews.reviewCount,
       bestRating: "5",
       worstRating: "1",
     },
@@ -323,7 +356,17 @@ export function buildFaqSchema(
   };
 }
 
-export function buildBlogPostingSchema(post: BlogPost) {
+type BlogPostingInput = {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  publishedTime: string;
+  modifiedTime?: string;
+  image: string;
+};
+
+export function buildBlogPostingSchema(post: BlogPostingInput) {
   const articleUrl = getAbsoluteUrl(`/blog/${post.slug}`);
 
   return {
@@ -332,13 +375,12 @@ export function buildBlogPostingSchema(post: BlogPost) {
     "@id": `${articleUrl}#article`,
     mainEntityOfPage: articleUrl,
     headline: post.title,
-    description: post.excerpt,
+    description: post.description,
     articleSection: post.category,
-    datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
+    datePublished: post.publishedTime,
+    dateModified: post.modifiedTime,
     inLanguage: "fr-FR",
     image: [getAbsoluteUrl(post.image)],
-    wordCount: post.content.join(" ").split(/\s+/).filter(Boolean).length,
     author: {
       "@type": "Person",
       name: company.founder,
