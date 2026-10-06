@@ -67,18 +67,18 @@ export function CookieBanner() {
               </Link>
             </p>
 
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <div className="grid shrink-0 grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => saveConsent("refused")}
-                className="text-muted-foreground hover:text-foreground cursor-pointer rounded-md px-4 py-2 text-sm transition-colors"
+                className={ctaButtonVariants({ variant: "secondary-light", className: "h-11 px-6 text-base" })}
               >
                 Refuser
               </button>
               <button
                 type="button"
                 onClick={() => saveConsent("accepted")}
-                className={ctaButtonVariants({ variant: "primary-light" })}
+                className={ctaButtonVariants({ variant: "secondary-light", className: "h-11 px-6 text-base" })}
               >
                 Accepter
               </button>

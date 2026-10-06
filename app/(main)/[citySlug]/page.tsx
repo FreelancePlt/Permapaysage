@@ -157,7 +157,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			<StructuredData data={schemas} />
 
 			{/* ── HERO ── */}
-			<section className="dark-section relative overflow-hidden py-20 md:py-28">
+			<section className="dark-section decor decor-branch py-20 md:py-28">
 				<Container>
 					<div className="relative max-w-3xl space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
 						<div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">
@@ -196,7 +196,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			<section className="py-20 md:py-28">
 				<Container>
 					<Reveal>
-						<div className="mx-auto max-w-2xl text-center">
+						<div className="max-w-2xl">
 							<p className="section-eyebrow">Nos services {location}</p>
 							<h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
 								Trois expertises pour votre jardin
@@ -228,14 +228,8 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 												/>
 											</div>
 											<div className="relative flex flex-1 flex-col p-8">
-												<div className="mb-5 flex items-center justify-between border-b border-border pb-5 text-secondary">
-													{Icon && <Icon size={24} weight="duotone" />}
-													<span
-														aria-hidden="true"
-														className="font-serif text-xl text-primary/80"
-													>
-														0{idx + 1}
-													</span>
+												<div className="mb-5 border-b border-border pb-5 text-secondary">
+													{Icon && <Icon size={24} weight="duotone" aria-hidden />}
 												</div>
 												<h3 className="text-2xl leading-tight">
 													{service.title}
@@ -266,7 +260,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 				<section className="bg-card py-20 md:py-28">
 					<Container>
 						<Reveal>
-							<div className="mx-auto max-w-2xl text-center">
+							<div className="max-w-2xl">
 								<p className="section-eyebrow">Réalisations {location}</p>
 								<h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
 									Nos projets {location}
@@ -377,7 +371,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			<section className="py-20 md:py-28">
 				<Container>
 					<Reveal>
-						<div className="mx-auto max-w-2xl text-center">
+						<div className="max-w-2xl">
 							<p className="section-eyebrow">Zone d&apos;intervention</p>
 							<h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
 								Intervention {location} et alentours

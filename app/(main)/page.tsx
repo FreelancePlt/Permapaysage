@@ -22,6 +22,7 @@ import { CtaButton } from "@/components/shared/cta-button";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { GoogleReviews } from "@/components/shared/google-reviews";
 import { HeroCarousel } from "@/components/shared/hero-carousel";
+import { SectionEdge } from "@/components/shared/section-edge";
 import { StructuredData } from "@/components/shared/structured-data";
 import { ZoneIntervention } from "@/components/shared/zone-intervention";
 import { getGoogleReviewSummary } from "@/lib/google-review-summary";
@@ -230,7 +231,7 @@ export default async function HomePage() {
 	return (
 		<>
 			<StructuredData data={schemas} />
-			<section className="dark-section botanical-background py-12 md:py-20">
+			<section className="dark-section decor decor-branch pt-12 pb-16 md:pt-20 md:pb-28">
 				<Container>
 					<div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[1.1fr_0.9fr] lg:gap-12">
 						<div>
@@ -294,17 +295,18 @@ export default async function HomePage() {
 									</Link>
 								</li>
 								<li className="flex items-center gap-2">
-									<ClockIcon size={18} aria-hidden />
-									Réponse sous 48 h
+									<MapPinIcon size={18} aria-hidden />
+									Visite terrain offerte
 								</li>
 							</ul>
 						</div>
 						<HeroCarousel />
 					</div>
 				</Container>
+				<SectionEdge className="text-background" />
 			</section>
 
-			<section className="botanical-background py-16 md:py-24" aria-labelledby="services-title">
+			<section className="py-16 md:py-24" aria-labelledby="services-title">
 				<Container>
 					<div className="max-w-2xl">
 						<p className="section-eyebrow">Nos services</p>
@@ -317,7 +319,7 @@ export default async function HomePage() {
 						</p>
 					</div>
 					<div className="mt-10 grid gap-6 md:grid-cols-3">
-						{orderedServices.map((slug, index) => {
+						{orderedServices.map((slug) => {
 							const service = services.find((item) => item.slug === slug)!;
 							const Icon = serviceIcons[slug];
 							const photo = serviceImages[slug];
@@ -345,10 +347,12 @@ export default async function HomePage() {
 										)}
 									</Link>
 									<div className="flex flex-1 flex-col p-6 lg:p-7">
-										<div className="mb-5 flex items-center justify-between text-secondary">
-											<Icon size={25} weight="duotone" aria-hidden />
-											<span className="font-serif text-xl">0{index + 1}</span>
-										</div>
+										<Icon
+											size={26}
+											weight="duotone"
+											className="mb-5 text-secondary"
+											aria-hidden
+										/>
 										<h3 className="text-2xl">
 											<Link href={`/${slug}`} className="hover:underline">
 												{service.title}
@@ -397,9 +401,6 @@ export default async function HomePage() {
 							<p className="mt-5 text-base leading-relaxed text-muted-foreground">
 								Un même jardin, avant et après l&apos;entretien. Faites glisser
 								le curseur pour découvrir la différence.
-							</p>
-							<p className="mt-3 text-sm text-muted-foreground">
-								Au clavier : flèches gauche et droite, Début et Fin.
 							</p>
 						</div>
 						<BeforeAfterSlider
@@ -469,30 +470,37 @@ export default async function HomePage() {
 
 			<GoogleReviews data={reviews} />
 
-			<section className="py-16 md:py-24" aria-labelledby="process-title">
+			<section
+				className="dark-section decor decor-branch-left pt-20 pb-16 md:pt-32 md:pb-24"
+				aria-labelledby="process-title"
+			>
+				<SectionEdge position="top" className="text-surface-sage" />
 				<Container>
 					<div className="max-w-2xl">
 						<p className="section-eyebrow">Comment ça se passe</p>
-						<h2 id="process-title" className="mt-3 text-3xl md:text-4xl">
+						<h2 id="process-title" className="mt-3 text-3xl text-cream md:text-4xl">
 							Un premier échange, puis du concret
 						</h2>
 					</div>
 					<ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 						{process.map((step, index) => (
-							<li key={step.title} className="h-full rounded-2xl bg-card p-6">
+							<li
+								key={step.title}
+								className="h-full rounded-2xl border border-cream/15 bg-cream/[0.06] p-6"
+							>
 								<div className="flex items-center justify-between">
 									<step.icon
 										size={30}
 										weight="duotone"
-										className="text-secondary"
+										className="text-cta-ochre"
 										aria-hidden
 									/>
-									<span aria-hidden="true" className="font-serif text-3xl text-primary/80">
+									<span aria-hidden="true" className="font-serif text-3xl text-cream/60">
 										0{index + 1}
 									</span>
 								</div>
-								<h3 className="mt-5 text-xl">{step.title}</h3>
-								<p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+								<h3 className="mt-5 text-xl text-cream">{step.title}</h3>
+								<p className="mt-3 text-sm leading-relaxed text-cream/75">
 									{step.text}
 								</p>
 							</li>
@@ -500,6 +508,8 @@ export default async function HomePage() {
 					</ol>
 					<CtaButton emplacement="process"
 						action="call"
+						variant="primary-dark"
+						icon={<CalendarBlankIcon size={20} aria-hidden />}
 						responsiveLabel={false}
 						className="mt-9 w-full whitespace-normal px-3 text-center sm:w-auto"
 					/>
@@ -507,27 +517,21 @@ export default async function HomePage() {
 			</section>
 
 			<section
-				className="bg-surface-sage py-16 md:py-24"
+				className="bg-card py-16 md:py-24"
 				aria-labelledby="about-title"
 			>
 				<Container>
 					<div className="grid items-center gap-10 lg:grid-cols-2">
-						{/* TODO CONTENU: photo de Jessy et de l'équipe sur un chantier. */}
+						{/* TODO CONTENU: remplacer le croquis par une photo de Jessy et de l'équipe sur un chantier. */}
 						<div className="photo-frame">
-							<div className="flex aspect-4/3 flex-col items-center justify-center gap-4 rounded-xl border border-primary/10 bg-cream px-6 text-center">
-								<LeafIcon
-									size={48}
-									weight="duotone"
-									className="text-primary/60"
-									aria-hidden
-								/>
-								<p className="font-serif text-2xl text-primary">
-									Jessy, sur le terrain
-								</p>
-								<p className="text-sm text-muted-foreground">
-									Photo de Jessy et de l&apos;équipe à venir
-								</p>
-							</div>
+							<Image
+								src="/photos-entretien/illustrations/croquis-ambiance.jpg"
+								alt="Croquis d'ambiance paysager réalisé par Permapaysage"
+								width={1500}
+								height={1061}
+								sizes="(max-width: 1023px) calc(100vw - 32px), 600px"
+								className="aspect-4/3 w-full rounded-xl object-cover"
+							/>
 						</div>
 						<div>
 							<p className="section-eyebrow">Qui est derrière Permapaysage</p>
@@ -580,7 +584,10 @@ export default async function HomePage() {
 				texte="Nous intervenons dans un rayon de 25 km autour de Vallet pour la conception, l'aménagement et l'entretien de jardins dans le Vignoble Nantais."
 			/>
 
-			<section className="bg-card py-16 md:py-24" aria-labelledby="faq-title">
+			<section
+				className="decor decor-contours-left bg-surface-sage py-16 md:py-24"
+				aria-labelledby="faq-title"
+			>
 				<Container>
 					<div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
 						<div>
@@ -602,9 +609,10 @@ export default async function HomePage() {
 			</section>
 
 			<section
-				className="dark-section botanical-background py-16 md:py-24"
+				className="dark-section decor decor-branch pt-20 pb-16 md:pt-32 md:pb-24"
 				aria-labelledby="final-title"
 			>
+				<SectionEdge position="top" className="text-surface-sage" />
 				<Container>
 					<div className="mx-auto max-w-3xl text-center">
 						<p className="text-xs font-semibold uppercase tracking-widest text-cream/80">

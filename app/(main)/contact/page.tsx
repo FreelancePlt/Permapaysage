@@ -77,7 +77,7 @@ export default function ContactPage() {
 		<>
 			<StructuredData data={schemas} />
 
-			<section className="botanical-background bg-surface-sage/40 py-10 md:py-16">
+			<section className="decor decor-contours bg-surface-sage/40 py-10 md:py-16">
 				<Container>
 					<div className="max-w-3xl">
 						<p className="section-eyebrow">

@@ -737,3 +737,34 @@ Validation : lint ciblé, build avec TypeScript et `git diff --check` réussis. 
 À la demande du propriétaire, les quatre étapes de « Comment ça se passe » reçoivent un fond crème (`bg-card`), des coins arrondis et 24 px d’espace intérieur, sans bordure ni trait décoratif supplémentaire. Espacement de grille ajusté pour conserver la lisibilité des colonnes. La photo de Jessy et de l’équipe sur le terrain est bien demandée dans le brief initial (étape 5, point 6) ; son emplacement reste en attente du média fourni.
 
 Validation : lint ciblé, build avec TypeScript et `git diff --check` réussis. Fonds, absence de bordure et absence de débordement contrôlés à 1440, 1024 et 390 px ; captures ordinateur/mobile inspectées. Aperçu local relancé, aucun push.
+
+### Reprise du 6 octobre : bilan, préproduction et présentation client
+
+État vérifié : branche `refonte-site-octobre-2026`, commit `3bb2bfc`, poussée sur GitHub le 5 octobre. Vercel a automatiquement créé un déploiement Preview réussi de ce commit. La production déclarée par GitHub est toujours au commit `9a3ae01` (étape 2, nouveaux boutons/en-tête), et le site public conserve effectivement l’ancien H1 et l’ancien ordre des sections. La refonte complète n’a pas remplacé la production.
+
+- Production : `https://www.permapaysage.fr/`, HTTP 200, ancien accueil, corrections techniques et étape 2 déjà publiées.
+- Preview : `https://permapaysage-6krzz6h09-raphplts-projects.vercel.app/`, déploiement réussi, accès anonyme redirigé vers la connexion Vercel. Ce lien seul n’est donc pas prêt à envoyer au client ; créer un lien « Anyone with the link » dans Share et vérifier l’accès en navigation privée. Aucun token Vercel disponible dans cette session ; seuls les statuts GitHub et la navigation publique ont été consultés.
+
+Les deux environnements sont bien distincts : la préproduction convient à la revue de Jessy, puis les changements validés pourront être publiés. Documentation officielle : https://vercel.com/docs/deployments/environments et https://vercel.com/docs/deployments/sharing-deployments.
+
+#### Reste à compléter
+
+Contenus client : réponses/validation des quatre FAQ d’accueil (crédit d’impôt, budget, délais, commune) ; photo de Jessy et de l’équipe ; deux ou trois formules d’entretien avec prestations et tarifs ; trois photos dédiées aux services ou validation de la sélection actuelle ; nouvelle image de Clisson ; paires avant/après avec attribution vérifiée, notamment La Chapelle-Heulin ; contenu local et FAQ des communes. Les cinq photos du hero sont déjà intégrées et les vrais avis Google ont été vérifiés localement.
+
+Configuration et recette distante : renseigner `GOOGLE_PLACES_API_KEY` dans l’environnement Preview puis Production au moment voulu ; contrôler `NEXT_PUBLIC_WEB3FORMS_KEY` et, avec autorisation explicite, l’envoi et la réception d’une vraie demande ; vérifier les réglages de calendrier et notifications Cal ; déployer les modèles Sanity nécessaires et publier les contenus ; valider GA4 et ses événements clés, les redirections/domaines, puis Search Console et les performances après publication. L’absence de Web3Forms dans `.env.local` ne démontre pas son absence dans Vercel ; les variables distantes ne sont pas vérifiées ici.
+
+#### Retour au rendu de production précédent, préparé séparément
+
+Préparation locale dans `/tmp/permapaysage-retour-production`, branche `retour-production-version-validee`, basée sur `origin/main`. Annulation de `9a3ae01` préparée sans commit : retour aux anciens boutons/styles tout en conservant les corrections techniques de l’étape 1. Le résultat correspond exactement à l’arbre du commit `d8c7176`. La branche de refonte et ses changements sont conservés ; aucun changement de production n’a été effectué. Le choix entre ce retour visuel et l’ancienne version exacte du mois de mai est demandé au propriétaire.
+
+Mail client préparé dans `doc/mail-avancement-jessy.txt`, avec FAQ, portrait, formules et photos manquantes. Le lien de partage reste à insérer après vérification. Aucun email ni invitation n’a été envoyé.
+
+Validation de la préparation de retour : dépendances installées dans le worktree isolé ; lint strict et compilation de production avec TypeScript réussis, 39 pages générées. L’installation initiale avait omis les dépendances de développement via la configuration npm locale ; installation complète avec `--include=dev`, puis nouvelle compilation réussie. Aucun changement du code de la refonte ni de la production. L’annulation reste préparée localement sans commit ni push, dans l’attente du choix de version.
+
+### Retour de production explicite du 6 octobre
+
+Le propriétaire a demandé de remettre la version publiée avant la refonte d'octobre. La préparation limitée aux boutons est remplacée par la restauration du code du commit `e2af080`, dernière version publiée avant le chantier. Documents conservés, code identique à ce commit. Nouveau commit `ff84523` créé puis poussé sur `main`, sans réécriture d'historique. La refonte `3bb2bfc` reste sur sa branche et sa Preview.
+
+Build de production et TypeScript réussis (39 pages). Le lint de cette version historique échoue avant analyse, car son Studio importe une configuration absente des dépendances racine ; ce défaut préexistant est conservé dans ce retour exact. `git diff --cached --check` et comparaison du code avec `e2af080` réussis.
+
+Déploiement Vercel confirmé réussi, commit `ff84523`, environnement Production, identifiant GitHub `6880811301`. Vérification réelle de `https://www.permapaysage.fr/` : ancien bouton « Obtenir un devis » revenu, nouveau « Réserver un appel » absent. Huit routes en HTTP 200 : accueil, contact, entretien, conception, aménagement, réalisations, Vallet et sitemap. La branche distante de refonte reste au commit `3bb2bfc`. Aucun email, invitation, rendez-vous ni envoi de formulaire effectué.

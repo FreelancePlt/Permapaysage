@@ -108,7 +108,13 @@ button {
 
 .dark-section {
   background-color: var(--primary);
-  background-image: linear-gradient(115deg, var(--primary), var(--primary-deep));
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2 0 0 0 -0.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    linear-gradient(115deg, var(--primary), var(--primary-deep));
+}
+
+.dark-section .section-eyebrow {
+  color: rgb(245 239 227 / 0.8);
 }
 
 .section-eyebrow {
@@ -122,41 +128,85 @@ button {
   text-transform: uppercase;
 }
 
-.botanical-background {
+.decor {
   position: relative;
   isolation: isolate;
   overflow: hidden;
 }
 
-.botanical-background::before {
+.decor::before {
   content: "";
   position: absolute;
   z-index: -1;
   pointer-events: none;
+}
+
+.decor-branch::before,
+.decor-branch-left::before {
+  width: clamp(22rem, 40vw, 42rem);
+  height: min(calc(100% + 12rem), 56rem);
+  background: var(--cream);
+  opacity: 0.06;
+  mask: url("/motifs/feuillage.svg") center / contain no-repeat;
+}
+
+.decor-branch::before {
   top: -6rem;
   right: -5rem;
-  width: clamp(22rem, 40vw, 42rem);
-  height: calc(100% + 12rem);
-  background: var(--primary);
-  opacity: 0.035;
-  mask: url("/motifs/feuillage.svg") center / contain no-repeat;
   transform: rotate(-24deg);
 }
 
-.dark-section.botanical-background::before {
+.decor-branch-left::before {
+  bottom: -9rem;
+  left: -7rem;
+  transform: scaleX(-1) rotate(-38deg);
+}
+
+.decor-contours::before,
+.decor-contours-left::before {
+  width: clamp(30rem, 58vw, 58rem);
+  aspect-ratio: 1;
+  background: var(--primary);
+  opacity: 0.09;
+  mask: url("/motifs/courbes-niveau.svg") center / contain no-repeat;
+}
+
+.decor-contours::before {
+  top: -14rem;
+  right: -16rem;
+}
+
+.decor-contours-left::before {
+  bottom: -18rem;
+  left: -18rem;
+  transform: rotate(140deg);
+}
+
+.dark-section.decor-contours::before,
+.dark-section.decor-contours-left::before {
   background: var(--cream);
-  opacity: 0.055;
+  opacity: 0.08;
 }
 
 @media (max-width: 767px) {
-  .botanical-background::before {
+  .decor-branch::before {
     right: -12rem;
     top: -5rem;
     height: 36rem;
-    opacity: 0.025;
   }
-  .dark-section.botanical-background::before {
-    opacity: 0.04;
+  .decor-branch-left::before {
+    left: -13rem;
+    height: 36rem;
+  }
+  .decor-branch::before,
+  .decor-branch-left::before {
+    opacity: 0.045;
+  }
+  .decor-contours::before {
+    right: -20rem;
+  }
+  .decor-contours-left::before {
+    left: -22rem;
   }
 }
 

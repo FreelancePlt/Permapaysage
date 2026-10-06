@@ -1,11 +1,19 @@
 import {
+	BroomIcon,
 	CheckCircleIcon,
 	ClockIcon,
+	FlowerTulipIcon,
+	GrainsIcon,
+	HandGrabbingIcon,
 	LeafIcon,
 	PercentIcon,
+	PlantIcon,
+	RecycleIcon,
+	ScissorsIcon,
 	ShieldCheckIcon,
 	StarIcon,
 	WalletIcon,
+	WindIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,6 +51,17 @@ import {
 	testimonials,
 	company,
 } from "@/lib/site-data";
+
+const prestationIcons: Record<string, typeof LeafIcon> = {
+	"Tonte de pelouse en mulching": RecycleIcon,
+	Débroussaillage: GrainsIcon,
+	"Taille de haies, arbustes & fruitiers": ScissorsIcon,
+	"Désherbage manuel et écoresponsable": HandGrabbingIcon,
+	"Entretien des massifs vivaces et fleuris": FlowerTulipIcon,
+	"Soufflage & ramassage des feuilles": WindIcon,
+	"Nettoyage des allées et terrasses": BroomIcon,
+	Scarification: PlantIcon,
+};
 
 const avantApresGallery = [
 	{
@@ -165,7 +184,7 @@ export default async function EntretienPage() {
 			<StructuredData data={schemas} />
 
 			{/* ── HERO ── */}
-			<section className="dark-section relative overflow-hidden py-20 md:py-28">
+			<section className="dark-section decor decor-branch py-20 md:py-28">
 				<Container>
 					<div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
 						<div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -178,8 +197,8 @@ export default async function EntretienPage() {
 							</h1>
               <p className="text-xs text-white/70">Mis à jour le <time dateTime={SERVICE_UPDATED_AT}>5 octobre 2026</time></p>
 							<p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
-								Avec Le Jardinier du Vignoble, votre jardin reste net, vivant et
-								cohérent tout au long de l&apos;année.
+								Votre jardin reste net, vivant et cohérent tout au long de
+								l&apos;année, avec des gestes respectueux du vivant.
 							</p>
 							<div className="flex flex-wrap gap-3">
 								<CtaButton
@@ -230,7 +249,7 @@ export default async function EntretienPage() {
 			<section className="py-20 md:py-28">
 				<Container>
 					<Reveal>
-						<div className="mx-auto max-w-3xl text-center">
+						<div className="max-w-3xl">
 							<p className="section-eyebrow">Nos prestations</p>
 							<h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
 								Un jardinier pour l’entretien écologique de votre jardin
@@ -242,15 +261,14 @@ export default async function EntretienPage() {
 						</div>
 					</Reveal>
 					<div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-						{entretienPrestations.map((prestation, idx) => (
+						{entretienPrestations.map((prestation, idx) => {
+							const PrestationIcon = prestationIcons[prestation.title] ?? LeafIcon;
+							return (
 							<Reveal key={prestation.title} delay={idx * 80}>
 								<article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md">
 									<div className="absolute inset-y-0 left-0 w-1 bg-primary opacity-0 transition-all duration-300 group-hover:opacity-100" />
-									<span aria-hidden="true" className="absolute right-6 top-5 font-serif text-[40px] font-bold leading-none text-primary/80">
-										{String(idx + 1).padStart(2, "0")}
-									</span>
 									<div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-										<LeafIcon size={22} weight="duotone" />
+										<PrestationIcon size={22} weight="duotone" aria-hidden />
 									</div>
 									<h3 className="text-lg font-semibold leading-snug">
 										{prestation.title}
@@ -260,7 +278,8 @@ export default async function EntretienPage() {
 									</p>
 								</article>
 							</Reveal>
-						))}
+							);
+						})}
 						<Reveal delay={entretienPrestations.length * 80}>
 							<article className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-7">
 								<div>
@@ -329,7 +348,7 @@ export default async function EntretienPage() {
 			</section>
 
 			{/* ── CRÉDIT D'IMPÔT ── */}
-			<section className="dark-section relative overflow-hidden py-20 md:py-28">
+			<section className="dark-section decor decor-contours py-20 md:py-28">
 				<Container>
 					<Reveal>
 						<div className="relative mx-auto max-w-3xl text-center">
@@ -350,10 +369,10 @@ export default async function EntretienPage() {
 							<div className="mt-8 flex flex-wrap items-stretch justify-center gap-4">
 								<div className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 px-5 py-3 backdrop-blur-sm">
 									<Image
-										src="/logos/unipros.png"
+										src="/logos/unipros.webp"
 										alt="Membre UNIPROS"
-										width={48}
-										height={48}
+										width={240}
+										height={240}
 										className="h-8 w-auto shrink-0"
 									/>
 									<span className="text-sm font-medium text-white/90">
@@ -578,7 +597,7 @@ export default async function EntretienPage() {
 			<section className="py-20 md:py-28">
 				<Container>
 					<Reveal>
-						<div className="mx-auto max-w-2xl text-center">
+						<div className="max-w-2xl">
 							<p className="section-eyebrow">Transformations</p>
 							<h2 className="mt-3 text-3xl font-semibold tracking-tight">
 								Avant / Après

@@ -120,18 +120,18 @@ export function Footer() {
             <div className="h-5 w-px bg-white/20" />
             <div className="flex items-center gap-5">
               <Image
-                src="/logos/unipros.png"
+                src="/logos/unipros.webp"
                 alt="Membre Unipros : Union Nationale des Intégrateurs Professionnels"
-                width={120}
-                height={48}
-                className="h-12 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
+                width={240}
+                height={240}
+                className="h-9 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
               />
               <Image
-                src="/logos/unep.png"
+                src="/logos/unep.webp"
                 alt="Membre UNEP : Union Nationale des Entreprises du Paysage"
-                width={120}
-                height={48}
-                className="h-12 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
+                width={774}
+                height={240}
+                className="h-9 w-auto brightness-0 invert opacity-80 transition-opacity hover:opacity-100"
               />
             </div>
           </div>

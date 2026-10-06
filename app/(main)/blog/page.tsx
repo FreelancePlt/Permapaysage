@@ -66,7 +66,7 @@ export default async function BlogPage() {
 		<>
 			<StructuredData data={schemas} />
 
-			<section className="dark-section relative overflow-hidden py-16 md:py-24">
+			<section className="dark-section decor decor-branch py-16 md:py-24">
 				<Container>
 					<Reveal>
 						<div className="relative mx-auto max-w-2xl text-center">

@@ -23,7 +23,7 @@ export function ZoneIntervention({
 		<section id="zone-intervention" className="py-20 md:py-28">
 			<Container>
 				<Reveal>
-					<div className="mx-auto max-w-2xl text-center">
+					<div className="max-w-2xl">
 						<p className="section-eyebrow">Zone d&apos;intervention</p>
 						<h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
 							À votre service dans un rayon de 25 km

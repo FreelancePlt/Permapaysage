@@ -17,7 +17,7 @@ export function CtaSection({
   points,
 }: CtaSectionProps) {
   return (
-    <section className="dark-section botanical-background py-20 md:py-24">
+    <section className="dark-section decor decor-branch-left py-20 md:py-24">
       <Container>
         <div className="relative mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 type BeforeAfterSliderProps = {
 	beforeSrc: string;
@@ -25,6 +25,7 @@ export function BeforeAfterSlider({
 	sizes = "(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 45vw",
 }: BeforeAfterSliderProps) {
 	const [position, setPosition] = useState(50);
+	const hintId = useId();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const isDragging = useRef(false);
 
@@ -105,6 +106,7 @@ export function BeforeAfterSlider({
 				aria-valuemax={100}
 				aria-valuenow={Math.round(position)}
 				aria-valuetext={`${Math.round(position)} % de la photo avant visible`}
+				aria-describedby={hintId}
 				className="absolute top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize touch-none items-center justify-center gap-1 rounded-full border border-white/70 bg-white shadow-md transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 				style={{ left: `clamp(20px, ${position}%, calc(100% - 20px))` }}
 				onPointerDown={(event) => {
@@ -131,6 +133,9 @@ export function BeforeAfterSlider({
 				<span className="h-4 w-0.5 rounded-full bg-primary/80" />
 				<span className="h-4 w-0.5 rounded-full bg-primary/80" />
 			</button>
+			<span id={hintId} className="sr-only">
+				Flèches gauche et droite pour déplacer le curseur, Début et Fin pour aller aux extrémités.
+			</span>
 		</div>
 	);
 }

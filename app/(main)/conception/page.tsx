@@ -105,7 +105,7 @@ export default async function ConceptionPage() {
       <StructuredData data={schemas} />
 
       {/* ── BLOC 1 : HERO ── */}
-      <section className="dark-section relative overflow-hidden py-20 md:py-28">
+      <section className="dark-section decor decor-branch py-20 md:py-28">
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
@@ -146,7 +146,7 @@ export default async function ConceptionPage() {
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <p className="section-eyebrow">Nos offres</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">
                 Choisissez la formule adaptée à votre projet
@@ -236,7 +236,7 @@ export default async function ConceptionPage() {
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <p className="section-eyebrow">Exemples</p>
               <h2 className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl">Plans & Croquis</h2>
               <p className="text-muted-foreground mt-4 md:text-lg">

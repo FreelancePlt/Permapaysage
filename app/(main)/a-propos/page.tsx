@@ -41,7 +41,7 @@ export default function AboutPage() {
 					]),
 				]}
 			/>
-			<section className="dark-section py-16 md:py-24">
+			<section className="dark-section decor decor-branch py-16 md:py-24">
 				<Container>
 					<div className="max-w-3xl">
 						<p className="text-xs font-semibold uppercase tracking-widest text-cream/80">

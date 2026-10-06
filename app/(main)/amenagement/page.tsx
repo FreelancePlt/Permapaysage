@@ -162,7 +162,7 @@ export default async function AmenagementPage() {
       <StructuredData data={schemas} />
 
       {/* ── BLOC 1 : HERO ── */}
-      <section className="dark-section relative overflow-hidden py-20 md:py-28">
+      <section className="dark-section decor decor-branch py-20 md:py-28">
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
@@ -211,7 +211,7 @@ export default async function AmenagementPage() {
       <section className="py-20 md:py-28">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <p className="section-eyebrow">
                 Nos solutions
               </p>
@@ -249,7 +249,7 @@ export default async function AmenagementPage() {
       <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <p className="section-eyebrow">
                 Notre méthode
               </p>
@@ -300,7 +300,7 @@ export default async function AmenagementPage() {
       <section className="bg-card py-20 md:py-28">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <p className="section-eyebrow">
                 Réalisations
               </p>

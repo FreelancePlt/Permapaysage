@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import { CtaButton } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
+import { ReviewAvatar } from "@/components/shared/review-avatar";
 import {
 	getGoogleReviewSummary,
 	type GoogleReviewSummary,
@@ -51,7 +52,7 @@ export async function GoogleReviews({
 	const data = suppliedData ?? (await getGoogleReviewSummary());
 	return (
 		<section
-			className="bg-surface-sage py-16 md:py-24"
+			className="decor decor-contours bg-surface-sage py-16 md:py-24"
 			aria-labelledby="trust-title"
 		>
 			<Container>
@@ -90,24 +91,10 @@ export async function GoogleReviews({
 									className="h-full min-w-0 rounded-2xl border border-primary/10 bg-background p-6 md:p-7"
 								>
 									<figcaption className="mb-4 flex items-center gap-3">
-										{review.photoUri ? (
-											// Direct image: no persistent Next.js image cache of Google content.
-											<Image
-												unoptimized
-												src={review.photoUri}
-												alt={`Photo de ${review.author}`}
-												width={40}
-												height={40}
-												className="h-10 w-10 shrink-0 rounded-full object-cover"
-											/>
-										) : (
-											<span
-												aria-hidden
-												className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-cream"
-											>
-												{review.author.charAt(0)}
-											</span>
-										)}
+										<ReviewAvatar
+											author={review.author}
+											photoUri={review.photoUri}
+										/>
 										<div className="min-w-0">
 											<div className="flex items-center gap-2">
 												{review.authorUri ? (
@@ -250,18 +237,18 @@ export async function GoogleReviews({
 							Membre de
 						</p>
 						<Image
-							src="/logos/unep.png"
+							src="/logos/unep.webp"
 							alt="UNEP, Les Entreprises du Paysage"
-							width={120}
-							height={48}
-							className="h-12 w-auto max-w-32 object-contain"
+							width={774}
+							height={240}
+							className="h-11 w-auto brightness-0 opacity-70"
 						/>
 						<Image
-							src="/logos/unipros.png"
+							src="/logos/unipros.webp"
 							alt="Unipros"
-							width={120}
-							height={48}
-							className="h-12 w-auto max-w-32 object-contain"
+							width={240}
+							height={240}
+							className="h-11 w-auto brightness-0 opacity-70"
 						/>
 					</div>
 					<CtaButton

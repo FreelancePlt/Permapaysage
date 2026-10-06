@@ -48,7 +48,7 @@ export default async function FaqPage() {
     <>
       <StructuredData data={schemas} />
 
-      <section className="dark-section relative overflow-hidden py-16 md:py-24">
+      <section className="dark-section decor decor-branch py-16 md:py-24">
         <Container>
           <div className="relative mx-auto max-w-2xl text-center appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
             <div className="inline-flex items-center gap-2 border-b border-cream/25 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-cream/80">

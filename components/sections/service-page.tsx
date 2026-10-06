@@ -25,7 +25,7 @@ export function ServicePageSection({
 }: ServicePageProps) {
   return (
     <>
-      <section className="dark-section relative overflow-hidden py-20 md:py-28">
+      <section className="dark-section decor decor-branch py-20 md:py-28">
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
