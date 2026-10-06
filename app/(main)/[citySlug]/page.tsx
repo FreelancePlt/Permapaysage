@@ -71,11 +71,19 @@ export async function generateMetadata({ params }: CityPageProps) {
 }
 
 const serviceIcons = [CompassIcon, RecycleIcon, LeafIcon];
-// Asset filenames are reversed: visually verified terrace = entretien-espaces-verts, pruning = amenagements-exterieurs.
-const serviceImages: Record<string, string> = {
-	conception: "/services/conception-jardin.webp",
-	amenagement: "/services/entretien-espaces-verts.webp",
-	entretien: "/services/amenagements-exterieurs.webp",
+const serviceImages: Record<string, { src: string; alt: string }> = {
+	conception: {
+		src: "/photos-entretien/illustrations/plan-global-2d.png",
+		alt: "Plan d'aménagement paysager 2D réalisé par Permapaysage",
+	},
+	amenagement: {
+		src: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
+		alt: "Aménagement paysager réalisé par Permapaysage à Vallet",
+	},
+	entretien: {
+		src: "/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg",
+		alt: "Jardin entretenu par Permapaysage : pelouse tondue et haies taillées",
+	},
 };
 
 export default async function CitySeoPage({ params }: CityPageProps) {
@@ -219,12 +227,12 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 										<article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
 											<div className="relative overflow-hidden bg-card">
 												<Image
-													src={serviceImages[service.slug]}
-													alt={`Illustration : ${service.title}`}
+													src={serviceImages[service.slug].src}
+													alt={serviceImages[service.slug].alt}
 													sizes="(min-width: 1280px) 395px, (min-width: 768px) calc((100vw - 96px) / 3), calc(100vw - 32px)"
 													width={600}
 													height={400}
-													className="aspect-4/3 w-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.025]"
+													className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
 												/>
 											</div>
 											<div className="relative flex flex-1 flex-col p-8">
