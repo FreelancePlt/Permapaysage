@@ -54,7 +54,7 @@ export default async function FaqPage() {
           <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
         </div>
         <Container>
-          <div className="relative mx-auto max-w-2xl text-center appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="relative mx-auto max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
               FAQ
             </div>

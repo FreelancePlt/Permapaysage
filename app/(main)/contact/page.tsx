@@ -68,7 +68,7 @@ export default function ContactPage() {
           <div className="absolute bottom-0 left-1/4 h-64 w-64 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
         </div>
         <Container>
-          <div className="relative mx-auto max-w-2xl text-center appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="relative mx-auto max-w-2xl text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
             <h1 className="text-3xl leading-tight tracking-tight text-white md:text-4xl">
               Parlons de votre projet paysager
             </h1>

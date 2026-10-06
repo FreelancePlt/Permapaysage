@@ -1,8 +1,7 @@
-import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
-import { CtaButton, ctaButtonVariants } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import type { Service } from "@/lib/site-data";
 
@@ -33,23 +32,29 @@ export function ServicePageSection({
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
-            <div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
                 {eyebrow}
               </div>
               <h1 className="text-4xl leading-tight tracking-tight text-white md:text-5xl">{service.title}</h1>
               <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">{subtitle}</p>
               <div className="flex flex-wrap gap-3">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
+                <Link
+                  href="/contact"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-7 text-sm font-semibold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+                >
+                  Obtenir un devis
+                  <ArrowRightIcon size={16} weight="bold" />
+                </Link>
                 <Link
                   href="/realisations"
-                  className={ctaButtonVariants({ variant: "secondary-dark", className: "w-full sm:w-auto" })}
+                  className="inline-flex h-12 items-center justify-center rounded-lg border border-white/30 px-7 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/50"
                 >
                   Voir les projets
                 </Link>
               </div>
             </div>
-            <div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
+            <div className="animate-in fade-in zoom-in-95 duration-700 delay-200">
               <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
                 <Image
                   src={image}
@@ -93,7 +98,13 @@ export function ServicePageSection({
                   </li>
                 ))}
               </ul>
-              <CtaButton action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
+              <Link
+                href="/contact"
+                className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-7 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg"
+              >
+                Parler de votre projet
+                <ArrowRightIcon size={16} weight="bold" />
+              </Link>
             </article>
           </div>
         </Container>

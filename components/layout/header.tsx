@@ -5,9 +5,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-
-import { CtaButton } from "@/components/shared/cta-button";
+import { useRef, useState } from "react";
 
 const serviceLinks = [
   { href: "/conception", label: "Conception de jardin" },
@@ -27,13 +25,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
-  const menuTrigger = useRef<HTMLButtonElement>(null);
-  const servicesTrigger = useRef<HTMLButtonElement>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout>>(null);
-
-  useEffect(() => () => {
-    if (closeTimeout.current) clearTimeout(closeTimeout.current);
-  }, []);
 
   const isServicePage = serviceLinks.some((s) => pathname === s.href);
 
@@ -57,38 +49,22 @@ export function Header() {
     }, 150);
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key !== "Escape") return;
-
-    if (isServicesOpen && servicesTrigger.current?.getClientRects().length) {
-      event.preventDefault();
-      if (closeTimeout.current) clearTimeout(closeTimeout.current);
-      setIsServicesOpen(false);
-      servicesTrigger.current.focus();
-    } else if (isMenuOpen) {
-      event.preventDefault();
-      setIsMenuOpen(false);
-      setIsMobileServicesOpen(false);
-      menuTrigger.current?.focus();
-    }
-  };
-
   return (
-    <header onKeyDown={handleKeyDown} className="border-border/70 bg-background/95 sticky top-0 z-40 border-b backdrop-blur">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-2 px-4 py-3 md:px-6">
+    <header className="border-border/70 bg-background/95 sticky top-0 z-40 border-b backdrop-blur">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between px-4 py-3 md:px-6">
         <Link href="/" className="group inline-flex items-center gap-3 rounded-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none">
           <Image
             src="/Logo.png"
             alt="Logo Permapaysage"
             width={132}
             height={40}
-            className="h-9 w-auto max-[400px]:h-auto max-[400px]:w-14 transition-opacity group-hover:opacity-90"
+            className="h-9 w-auto transition-opacity group-hover:opacity-90"
             priority
           />
-          <span className="hidden text-xs tracking-[0.18em] uppercase text-muted-foreground 2xl:inline">Permapaysage</span>
+          <span className="hidden text-xs tracking-[0.18em] uppercase text-muted-foreground lg:inline">Permapaysage</span>
         </Link>
 
-        <nav aria-label="Navigation principale" className="hidden items-center gap-2 xl:flex">
+        <nav aria-label="Navigation principale" className="hidden items-center gap-2 md:flex">
           <Link href="/" className={linkClassName("/")}>
             Accueil
           </Link>
@@ -100,7 +76,6 @@ export function Header() {
           >
             <button
               type="button"
-              ref={servicesTrigger}
               aria-expanded={isServicesOpen}
               aria-haspopup="true"
               onClick={() => setIsServicesOpen((v) => !v)}
@@ -119,7 +94,7 @@ export function Header() {
 
             {isServicesOpen && (
               <div className="absolute left-0 top-full z-50 pt-1">
-                <div className="bg-popover ring-foreground/10 min-w-[240px] rounded-lg p-1 shadow-md ring-1 appearance-animation animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-300">
+                <div className="bg-popover ring-foreground/10 min-w-[240px] rounded-lg p-1 shadow-md ring-1 animate-in fade-in zoom-in-95 slide-in-from-top-2 duration-100">
                   {serviceLinks.map((item) => (
                     <Link
                       key={item.href}
@@ -147,20 +122,18 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
-          <a href="tel:+33752620818" className="whitespace-nowrap rounded-sm text-sm font-semibold text-foreground hover:text-cta-terracotta-hover">
-            07 52 62 08 18
-          </a>
-          <CtaButton action="call" compact />
+        <div className="hidden items-center gap-3 md:flex">
+          <Link
+            href="/contact"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-sm px-5 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+          >
+            Obtenir un devis
+          </Link>
         </div>
 
-        <div className="flex items-center gap-2 xl:hidden">
-          <CtaButton action="call" compact className="px-2 sm:px-4" />
+        <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
-            ref={menuTrigger}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             onClick={() => setIsMenuOpen((current) => !current)}
             className="border-border bg-card inline-flex h-10 w-10 items-center justify-center rounded-sm border transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
@@ -171,7 +144,7 @@ export function Header() {
       </div>
 
       {isMenuOpen ? (
-        <nav id="mobile-navigation" aria-label="Navigation mobile" className="border-border/70 bg-card border-t xl:hidden">
+        <nav aria-label="Navigation mobile" className="border-border/70 bg-card border-t md:hidden">
           <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-1 px-4 py-4">
             <Link href="/" className={linkClassName("/")} onClick={() => setIsMenuOpen(false)}>
               Accueil
@@ -215,7 +188,13 @@ export function Header() {
               </Link>
             ))}
 
-            <CtaButton action="call" compact onClick={() => setIsMenuOpen(false)} className="mt-2" />
+            <Link
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="bg-primary text-primary-foreground mt-2 inline-flex h-10 items-center justify-center rounded-sm text-sm font-semibold"
+            >
+              Obtenir un devis
+            </Link>
           </div>
         </nav>
       ) : null}

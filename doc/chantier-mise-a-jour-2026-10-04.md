@@ -228,3 +228,11 @@ Fichiers effectivement modifiés dans ce lot (23, nouveau composant compris) :
 #### Passage à l'étape 3
 
 Les étapes 3 à 12 restent à faire. Les destinations sont centralisées dans `ctaDestinations` de `components/shared/cta-button.tsx` : l'appel utilise actuellement un lien HTTPS normal vers `https://cal.com/permapaysage/appel-15-min`, et la visite utilise `/contact?objet=visite-conseil` jusqu'à l'ajout de l'alias `objet=visite` à l'étape 3. Aucun test de réservation Cal.com n'a été effectué dans ce lot. L'étape 3 doit intégrer l'embed différé, contrôler l'événement officiel de confirmation, le focus et la fermeture, puis instrumenter les clics et confirmations GA4 sans doublon selon le brief.
+
+### Retour de production demandé le 6 octobre 2026
+
+À la demande explicite du propriétaire, restauration du code de la dernière version publiée avant le chantier d'octobre : commit `e2af080`. L'arbre correspond exactement à ce commit, sauf les documents de travail (`doc/` et `claude.md`) conservés pour le suivi. Les étapes 0, 1 et 2 sont donc annulées dans le code de production ; la refonte complète reste sauvegardée sur `refonte-site-octobre-2026`, commit `3bb2bfc`, et possède son déploiement Preview distinct.
+
+Vérifications avant publication : dépendances du verrou historique installées, compilation de production et TypeScript réussis (39 pages), différence du code avec `e2af080` nulle hors documentation, `git diff --cached --check` réussi, aucune clé Google/Stripe détectée dans les fichiers versionnés. Le lint global de la version historique ne démarre pas : son Studio imbriqué référence `@sanity/eslint-config-studio`, absent des dépendances racine. Cette limitation préexistante n'a pas été corrigée afin de conserver le code demandé.
+
+Publication par nouveau commit sur `main`, sans réécriture de l'historique. Pour remettre ensuite la refonte en production, rétablir les changements annulés avant l'intégration de la branche de refonte, puis refaire la recette. Le présent retour ne modifie ni les contenus Sanity ni les variables Vercel.

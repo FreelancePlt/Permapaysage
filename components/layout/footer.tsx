@@ -1,13 +1,12 @@
-import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, FacebookLogoIcon, InstagramLogoIcon, LeafIcon, LinkedinLogoIcon, MapPinLineIcon, PhoneCallIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 
-import { cityLocation } from "@/lib/cities";
 import { cityPages, company, legalLinks, navigation } from "@/lib/site-data";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0 border-t border-border text-white" style={{ backgroundColor: "#0F3A0F" }}>
+    <footer className="relative overflow-hidden border-t border-border text-white" style={{ backgroundColor: "#0F3A0F" }}>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-white/3 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/4 rounded-full bg-secondary/10 blur-3xl" />
@@ -108,7 +107,7 @@ export function Footer() {
               <li key={city.slug}>
                 <Link href={`/${city.slug}`} className="inline-flex items-center gap-1.5 text-white/60 transition-colors hover:text-white">
                   <ArrowRightIcon size={12} className="text-white/30" />
-                  Paysagiste {cityLocation(city.city)}
+                  Paysagiste à {city.city}
                 </Link>
               </li>
             ))}

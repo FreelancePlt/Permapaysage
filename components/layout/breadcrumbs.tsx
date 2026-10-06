@@ -3,17 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { cityLocation } from "@/lib/cities";
-import { cityPages, navigation } from "@/lib/site-data";
+import { navigation } from "@/lib/site-data";
 
 const labelMap = new Map(navigation.map((item) => [item.href.replace("/", "") || "accueil", item.label]));
 
 function formatSegment(segment: string): string {
   if (segment.startsWith("paysagiste-")) {
-    const cityPage = cityPages.find((city) => city.slug === segment);
-    if (cityPage) {
-      return `Paysagiste ${cityLocation(cityPage.city)}`;
-    }
+    const cityName = segment.replace("paysagiste-", "").split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
+    return `Paysagiste à ${cityName}`;
   }
 
   const mapped = labelMap.get(segment);

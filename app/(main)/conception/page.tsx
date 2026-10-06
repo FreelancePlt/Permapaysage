@@ -1,11 +1,13 @@
 import {
+  ArrowRightIcon,
   CheckCircleIcon,
+  StarIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CtaSection } from "@/components/sections/cta";
-import { CtaButton } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { Reveal } from "@/components/shared/reveal";
@@ -45,6 +47,8 @@ const pricingOffers = [
       "Des propositions concrètes et inspirantes",
     ],
     price: "150 € TTC",
+    cta: "Réserver ma visite conseil",
+    href: "/contact?objet=visite-conseil",
     highlighted: false,
   },
   {
@@ -56,6 +60,8 @@ const pricingOffers = [
       "La possibilité de modifier le projet",
     ],
     price: "À partir de 1 000 €",
+    cta: "Démarrer mon projet",
+    href: "/contact?objet=conception",
     highlighted: true,
   },
   {
@@ -65,6 +71,8 @@ const pricingOffers = [
       "Livret d'accompagnement de A à Z pour réaliser vous-même votre projet",
     ],
     price: "À partir de 2 500 €",
+    cta: "Demander un devis",
+    href: "/contact?objet=conception",
     highlighted: false,
   },
 ];
@@ -113,7 +121,7 @@ export default async function ConceptionPage() {
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
-            <div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
                 Conception
               </div>
@@ -124,11 +132,22 @@ export default async function ConceptionPage() {
                 Spécialiste de l&apos;aménagement paysager dans le Vignoble Nantais (44), nous créons votre jardin sur mesure. Alliez esthétique et biodiversité grâce à des solutions durables inspirées de la permaculture pour valoriser votre extérieur en Loire-Atlantique.
               </p>
               <div className="flex flex-wrap gap-3">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
-                <CtaButton action="visit" variant="secondary-dark" className="w-full sm:w-auto" />
+                <Link
+                  href="/contact?objet=visite-conseil"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
+                >
+                  Je veux des conseils
+                  <ArrowRightIcon size={18} weight="bold" />
+                </Link>
+                <Link
+                  href="/contact?objet=conception"
+                  className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/40 px-8 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/60"
+                >
+                  Mon jardin sur mesure
+                </Link>
               </div>
             </div>
-            <div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
+            <div className="animate-in fade-in zoom-in-95 duration-700 delay-200">
               <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
                 <Image
                   src="/photos-entretien/illustrations/plan-global-2d.png"
@@ -156,7 +175,7 @@ export default async function ConceptionPage() {
             </div>
           </Reveal>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
             {pricingOffers.map((offer, idx) => (
               <Reveal key={offer.title} delay={idx * 100}>
                 <article
@@ -182,7 +201,17 @@ export default async function ConceptionPage() {
                   </ul>
                   <div className="mt-8">
                     <p className="text-2xl font-bold text-primary">{offer.price}</p>
-                    <CtaButton action="call" compact variant={offer.highlighted ? "primary-light" : "secondary-light"} className="mt-4 w-full" />
+                    <Link
+                      href={offer.href}
+                      className={`mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition-all hover:shadow-lg ${
+                        offer.highlighted
+                          ? "bg-primary text-white hover:bg-primary/90"
+                          : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
+                      }`}
+                    >
+                      {offer.cta}
+                      <ArrowRightIcon size={16} weight="bold" />
+                    </Link>
                   </div>
                 </article>
               </Reveal>
@@ -227,7 +256,13 @@ export default async function ConceptionPage() {
                     </li>
                   ))}
                 </ul>
-                <CtaButton action="call" variant="primary-light" className="mt-8 w-full sm:w-auto" />
+                <Link
+                  href="/contact?objet=conception"
+                  className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-7 text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg"
+                >
+                  Parler de votre projet
+                  <ArrowRightIcon size={16} weight="bold" />
+                </Link>
               </article>
             </Reveal>
           </div>
@@ -295,6 +330,7 @@ export default async function ConceptionPage() {
         eyebrow="Lancer votre projet"
         title="Prêt à transformer votre extérieur ?"
         description="Discutons de votre projet d'aménagement paysager dans le vignoble nantais. Bénéficiez d'un diagnostic expert pour valider la faisabilité technique et budgétaire de votre jardin. Nous transformons vos idées en un plan d'action concret, durable et chiffré."
+        ctaText="Demander mon étude personnalisée"
       />
     </>
   );

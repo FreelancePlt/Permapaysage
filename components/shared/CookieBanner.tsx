@@ -1,9 +1,7 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-
-import { ctaButtonVariants } from "@/components/shared/cta-button";
 
 import { GoogleAnalytics } from "./GoogleAnalytics";
 
@@ -21,45 +19,44 @@ function setCookie(name: string, value: string, days: number) {
 
 const COOKIE_NAME = "cookie_consent";
 const COOKIE_DAYS = 395; // ~13 mois
-const CONSENT_CHANGE_EVENT = "cookie-consent-change";
-
-function getConsent(): ConsentStatus {
-  const stored = getCookie(COOKIE_NAME);
-  return stored === "accepted" || stored === "refused" ? stored : null;
-}
-
-function getServerConsent(): undefined {
-  return undefined;
-}
-
-function subscribeToConsent(onChange: () => void) {
-  window.addEventListener(CONSENT_CHANGE_EVENT, onChange);
-  return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onChange);
-}
-
-function saveConsent(consent: Exclude<ConsentStatus, null>) {
-  setCookie(COOKIE_NAME, consent, COOKIE_DAYS);
-  window.dispatchEvent(new Event(CONSENT_CHANGE_EVENT));
-}
 
 export function CookieBanner() {
-  const consent = useSyncExternalStore(
-    subscribeToConsent,
-    getConsent,
-    getServerConsent,
-  );
+  const [consent, setConsent] = useState<ConsentStatus>(undefined as unknown as ConsentStatus);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const stored = getCookie(COOKIE_NAME);
+    if (stored === "accepted" || stored === "refused") {
+      setConsent(stored);
+    } else {
+      setConsent(null);
+      setVisible(true);
+    }
+  }, []);
+
+  const accept = useCallback(() => {
+    setCookie(COOKIE_NAME, "accepted", COOKIE_DAYS);
+    setConsent("accepted");
+    setVisible(false);
+  }, []);
+
+  const refuse = useCallback(() => {
+    setCookie(COOKIE_NAME, "refused", COOKIE_DAYS);
+    setConsent("refused");
+    setVisible(false);
+  }, []);
 
   return (
     <>
       <GoogleAnalytics consent={consent === "accepted"} />
 
-      {consent === null && (
+      {visible && (
         <div
           role="dialog"
           aria-label="Gestion des cookies"
-          className="appearance-animation animate-in slide-in-from-bottom fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card shadow-[0_-2px_12px_rgba(0,0,0,0.08)] duration-300"
+          className="animate-in slide-in-from-bottom fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card shadow-[0_-2px_12px_rgba(0,0,0,0.08)] duration-300"
         >
-          <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
+          <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6">
             <p className="text-foreground/80 text-sm leading-relaxed">
               Ce site utilise des cookies pour mesurer l&apos;audience. Vous pouvez accepter ou refuser.{" "}
               <Link href="/politique-cookies" className="text-primary underline underline-offset-2 hover:no-underline">
@@ -70,15 +67,15 @@ export function CookieBanner() {
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               <button
                 type="button"
-                onClick={() => saveConsent("refused")}
+                onClick={refuse}
                 className="text-foreground/50 hover:text-foreground/70 cursor-pointer rounded-md px-4 py-2 text-sm transition-colors"
               >
                 Refuser
               </button>
               <button
                 type="button"
-                onClick={() => saveConsent("accepted")}
-                className={ctaButtonVariants({ variant: "primary-light" })}
+                onClick={accept}
+                className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer rounded-md px-5 py-2 text-sm font-medium transition-colors"
               >
                 Accepter
               </button>

@@ -80,9 +80,8 @@ export default async function RealisationsPage() {
       <section className="py-16 md:py-24">
         <Container>
           <SectionHeading
-            as="h1"
             eyebrow="Réalisations"
-            title="Nos réalisations de jardins dans le Vignoble Nantais"
+            title="Projets de jardins réalisés"
             description="Une sélection de chantiers représentatifs, du premier croquis jusqu'au rendu final."
           />
 
@@ -146,6 +145,7 @@ export default async function RealisationsPage() {
           "Priorisation de vos besoins (vie, jeu, détente).",
           "Zéro stress : nous gérons la complexité, vous gardez le plaisir.",
         ]}
+        ctaText="Je lance ma transformation avec Permapaysage"
       />
     </>
   );

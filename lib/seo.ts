@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { type BlogPost, company, type Project } from "@/lib/site-data";
 
 export const BASE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://www.permapaysage.fr";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.permapaysage.com";
 export const SITE_NAME = company.name;
 export const DEFAULT_OG_IMAGE_PATH = "/opengraph-image";
 

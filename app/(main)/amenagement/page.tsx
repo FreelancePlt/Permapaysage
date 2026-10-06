@@ -7,6 +7,7 @@ import {
   HammerIcon,
   PlantIcon,
   SquareIcon,
+  StarIcon,
   TreeEvergreenIcon,
   WallIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -14,7 +15,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
-import { CtaButton, ctaButtonVariants } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { GoogleReviews } from "@/components/shared/google-reviews";
@@ -170,7 +170,7 @@ export default async function AmenagementPage() {
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
-            <div className="space-y-6 appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
                 Aménagement
               </div>
@@ -184,16 +184,22 @@ export default async function AmenagementPage() {
                 proches.
               </p>
               <div className="flex flex-wrap gap-3">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
+                <Link
+                  href="/contact?objet=amenagement"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
+                >
+                  Embellir mon jardin
+                  <ArrowRightIcon size={18} weight="bold" />
+                </Link>
                 <Link
                   href="/realisations"
-                  className={ctaButtonVariants({ variant: "secondary-dark", className: "w-full sm:w-auto" })}
+                  className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/40 px-8 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/60"
                 >
                   Voir les projets
                 </Link>
               </div>
             </div>
-            <div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
+            <div className="animate-in fade-in zoom-in-95 duration-700 delay-200">
               <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-2xl backdrop-blur-sm">
                 <Image
                   src="/photos-entretien/apres/ap-09.jpg"
@@ -385,6 +391,7 @@ export default async function AmenagementPage() {
         eyebrow="Lancer votre projet"
         title="Prêt à redéfinir votre extérieur ?"
         description="Échangeons sur vos envies et les spécificités de votre terrain lors d'un premier rendez-vous à Vallet."
+        ctaText="Lancer mon étude personnalisée sous 48h"
       />
     </>
   );

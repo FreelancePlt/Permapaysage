@@ -2,10 +2,7 @@
 
 import { CheckCircleIcon } from "@phosphor-icons/react";
 import { useSearchParams } from "next/navigation";
-import { useState, type FormEvent } from "react";
-
-import { ctaButtonVariants } from "@/components/shared/cta-button";
-import { cn } from "@/lib/utils";
+import { useState, useEffect, type FormEvent } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -38,21 +35,15 @@ const inputClassName =
 
 export function ContactForm() {
   const searchParams = useSearchParams();
-  const objet = searchParams.get("objet");
-  const requestedProjectType = projectTypeOptions.find((option) => option.value === objet)?.value;
-  const [previousObjet, setPreviousObjet] = useState(objet);
-  const [formData, setFormData] = useState<FormData>(() => ({
-    ...initialFormData,
-    projectType: requestedProjectType ?? "",
-  }));
+  const [formData, setFormData] = useState<FormData>(initialFormData);
   const [status, setStatus] = useState<FormStatus>("idle");
 
-  if (objet !== previousObjet) {
-    setPreviousObjet(objet);
-    if (requestedProjectType) {
-      setFormData({ ...formData, projectType: requestedProjectType });
+  useEffect(() => {
+    const objet = searchParams.get("objet");
+    if (objet && projectTypeOptions.some((opt) => opt.value === objet)) {
+      setFormData((prev) => ({ ...prev, projectType: objet }));
     }
-  }
+  }, [searchParams]);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -71,7 +62,7 @@ export function ContactForm() {
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           subject: `Nouveau message de ${formData.name} — Permapaysage`,
-          from_name: "Permapaysage",
+          from_name: "Permapaysage.com",
           ...formData,
           botcheck: "",
         }),
@@ -103,7 +94,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="text-sm font-semibold text-cta-terracotta-hover hover:underline"
+          className="text-sm font-semibold text-primary hover:underline"
         >
           Envoyer un autre message
         </button>
@@ -201,7 +192,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className={cn(ctaButtonVariants({ variant: "primary-light" }), "mt-6 w-full sm:w-auto")}
+        className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-lg bg-primary text-sm font-semibold text-white transition-all hover:bg-primary/90 hover:shadow-lg disabled:opacity-50 sm:w-auto sm:px-8"
       >
         {status === "loading" ? "Envoi en cours..." : "Envoyer la demande"}
       </button>

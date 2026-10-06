@@ -35,8 +35,8 @@ export function FaqAccordion({ items, variant = "light" }: { items: FaqItem[]; v
               <div className={clsx(
                 "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all",
                 isOpen
-                  ? isDark ? "bg-cream text-primary rotate-180" : "bg-cta-terracotta text-cta-white rotate-180"
-                  : isDark ? "bg-white/10 text-white/70" : "bg-cta-terracotta/10 text-cta-terracotta-hover",
+                  ? isDark ? "bg-white text-primary rotate-180" : "bg-primary text-white rotate-180"
+                  : isDark ? "bg-white/10 text-white/70" : "bg-primary/10 text-primary",
               )}>
                 <CaretDownIcon size={16} weight="bold" />
               </div>

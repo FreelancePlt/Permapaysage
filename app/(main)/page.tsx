@@ -14,7 +14,6 @@ import Link from "next/link";
 
 import { CtaSection } from "@/components/sections/cta";
 import { GoogleReviews } from "@/components/shared/google-reviews";
-import { CtaButton, ctaButtonVariants } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { HeroCarousel } from "@/components/shared/hero-carousel";
 import { Reveal } from "@/components/shared/reveal";
@@ -108,7 +107,7 @@ export default async function HomePage() {
 
         <Container>
           <div className="relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-8 text-center lg:text-left appearance-animation animate-in fade-in slide-in-from-bottom-4 duration-300">
+            <div className="space-y-8 text-center lg:text-left animate-in fade-in slide-in-from-bottom-4 duration-700">
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-[0.16em] uppercase text-white/90 backdrop-blur-sm">
                 <LeafIcon size={14} weight="fill" />
                 Éco-paysagiste à Vallet
@@ -119,9 +118,20 @@ export default async function HomePage() {
               <p className="mx-auto max-w-xl text-base leading-relaxed text-white/80 md:text-lg lg:mx-0">
                 Conception, aménagements et entretien durable et écologique. Valorisez votre patrimoine naturel et réduisez votre temps de travail dans votre jardin.
               </p>
-              <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
-                <CtaButton action="call" variant="primary-dark" className="w-full sm:w-auto" />
-                <CtaButton action="visit" variant="secondary-dark" className="w-full sm:w-auto" />
+              <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+                <Link
+                  href="/contact?objet=conception"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-white px-8 text-base font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl hover:scale-[1.02]"
+                >
+                  Demander une étude de projet
+                  <ArrowRightIcon size={18} weight="bold" />
+                </Link>
+                <Link
+                  href="/entretien"
+                  className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/40 px-8 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/60"
+                >
+                  Bénéficiez du crédit d&apos;impôt de 50%
+                </Link>
               </div>
               <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:justify-start">
                 <Link
@@ -145,7 +155,7 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="relative appearance-animation animate-in fade-in zoom-in-95 duration-300">
+            <div className="relative animate-in fade-in zoom-in-95 duration-700 delay-200">
               <HeroCarousel />
               <div className="absolute -bottom-4 -left-4 z-10 hidden rounded-xl border border-white/20 bg-primary/90 px-5 py-3 shadow-xl backdrop-blur-md md:block">
                 <div className="flex items-center gap-3 text-white">
@@ -245,7 +255,7 @@ export default async function HomePage() {
                     <div className="relative overflow-hidden">
                       <Image
                         src={project.image}
-                        alt={project.title}
+                        alt={`Projet ${project.title} à ${project.city}`}
                         width={900}
                         height={600}
                         className="aspect-4/3 w-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -272,7 +282,7 @@ export default async function HomePage() {
             <div className="mt-10 text-center">
               <Link
                 href="/realisations"
-                className={ctaButtonVariants({ variant: "secondary-light" })}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border-2 border-primary px-8 text-sm font-semibold text-primary transition-all hover:bg-primary hover:text-white"
               >
                 Découvrir les autres projets
                 <ArrowRightIcon size={16} weight="bold" />
@@ -433,6 +443,7 @@ export default async function HomePage() {
       <CtaSection
         title="Votre jardin ne devrait pas être une contrainte."
         description="Redécouvrez le plaisir d'un extérieur qui vous ressemble, sans la fatigue ni les doutes techniques. Que vous rêviez d'une terrasse chaleureuse ou d'un verger nourricier, nous transformons votre terrain en un véritable sanctuaire."
+        ctaText="Lancer mon étude personnalisée sous 48h"
       />
     </>
   );
