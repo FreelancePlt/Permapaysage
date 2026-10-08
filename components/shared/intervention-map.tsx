@@ -93,7 +93,7 @@ export function InterventionMap({
 				center={VALLET}
 				radius={RADIUS_M}
 				pathOptions={{
-					color: "#4A7C59",
+					color: "#4F7A52",
 					fillColor: "#8BA87E",
 					fillOpacity: 0.12,
 					weight: 2,
@@ -106,7 +106,7 @@ export function InterventionMap({
 				center={VALLET}
 				radius={RADIUS_M}
 				pathOptions={{
-					color: "#4A7C59",
+					color: "#4F7A52",
 					fillColor: "transparent",
 					fillOpacity: 0,
 					weight: 1,
@@ -121,7 +121,7 @@ export function InterventionMap({
 				radius={6}
 				pathOptions={{
 					color: "#FEFDFB",
-					fillColor: "#4A7C59",
+					fillColor: "#4F7A52",
 					fillOpacity: 1,
 					weight: 2.5,
 				}}

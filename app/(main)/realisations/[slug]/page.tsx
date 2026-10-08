@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CtaSection } from "@/components/sections/cta";
 import { CtaButton } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
+import { ProjectGallery } from "@/components/shared/project-gallery";
 import { StructuredData } from "@/components/shared/structured-data";
 import {
   buildBreadcrumbSchema,
@@ -86,7 +87,6 @@ export default async function ProjectDetailPage({
 
   const r = realisation;
   const mainImage = r.images?.[0];
-  const galleryImages = r.images?.slice(1) || [];
   const category = categorieLabels[r.categorie] || r.categorie;
 
   const allRealisations: Realisation[] = await getRealisations();
@@ -130,32 +130,16 @@ export default async function ProjectDetailPage({
       <section className="py-16 md:py-24">
         <Container>
           <div className="grid items-start gap-10 lg:grid-cols-2">
-            <div className="space-y-4">
-              {mainImage && (
-                <Image
-                  src={urlFor(mainImage).width(1200).height(900).url()}
-                  alt={mainImage.alt || r.titre}
-                  width={1200}
-                  height={900}
-                  priority
-                  className="aspect-4/3 w-full rounded-lg object-cover"
-                />
-              )}
-              {galleryImages.length > 0 && (
-                <div className="grid grid-cols-3 gap-3">
-                  {galleryImages.map((img, i) => (
-                    <Image
-                      key={img.asset._ref}
-                      src={urlFor(img).width(400).height(400).url()}
-                      alt={img.alt || `${r.titre} : vue ${i + 2}`}
-                      width={400}
-                      height={400}
-                      className="aspect-square w-full rounded-md object-cover"
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProjectGallery
+              title={r.titre}
+              images={(r.images || []).map((img, i) => ({
+                key: img.asset._ref,
+                src: urlFor(img).width(1200).height(900).url(),
+                thumbnail: urlFor(img).width(400).height(400).url(),
+                fullSize: urlFor(img).width(2000).fit("max").url(),
+                alt: img.alt || (i === 0 ? r.titre : `${r.titre} : vue ${i + 1}`),
+              }))}
+            />
 
             <div className="lg:sticky lg:top-24">
               <p className="section-eyebrow">

@@ -38,11 +38,11 @@ export const revalidate = 60;
 
 const pricingOffers = [
   {
-    title: "Visite conseil",
+    title: "Coaching de jardin",
     features: [
-      "1 diagnostic pour comprendre votre jardin",
+      "Des conseils personnalisés, directement dans votre jardin",
+      "Pour l'entretenir ou le faire évoluer vous-même",
       "1h d'échanges sur l'entretien, les plantes, l'aménagement...",
-      "Des propositions concrètes et inspirantes",
     ],
     price: "150 € TTC",
     highlighted: false,
@@ -50,7 +50,7 @@ const pricingOffers = [
   {
     title: "Votre jardin de rêve",
     features: [
-      "Tout de l'offre Visite conseil",
+      "1 diagnostic pour comprendre votre jardin",
       "1 plan paysager 2D",
       "1 plan de plantation",
       "La possibilité de modifier le projet",

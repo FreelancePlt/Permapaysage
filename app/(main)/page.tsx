@@ -16,7 +16,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-import { BeforeAfterSlider } from "@/components/shared/before-after-slider";
 import { Container } from "@/components/shared/container";
 import { CtaButton } from "@/components/shared/cta-button";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
@@ -103,11 +102,27 @@ const values = [
 		icon: HandsClappingIcon,
 	},
 ];
-const faqQuestions = [
-	"Comment fonctionne le crédit d'impôt de 50 % ?",
-	"Quel budget prévoir ?",
-	"Sous quel délai intervenez-vous ?",
-	"Intervenez-vous dans ma commune ?",
+const homeFaq = [
+	{
+		question: "Comment fonctionne le crédit d'impôt de 50 % ?",
+		answer:
+			"L'entretien de votre jardin (tonte, taille de haies et d'arbustes, désherbage, débroussaillage, ramassage des feuilles) ouvre droit à un crédit d'impôt de 50 % des sommes versées, que vous soyez imposable ou non. Une intervention de 200 € vous revient donc à 100 €. Avec l'avance immédiate de l'Urssaf, vous ne réglez que la moitié dès la facture. Le plafond est de 5 000 € de dépenses par an et par foyer. La conception, les terrasses et les clôtures n'y ouvrent pas droit.",
+	},
+	{
+		question: "Quel budget prévoir ?",
+		answer:
+			"La visite de votre jardin et le devis sont toujours offerts, sans engagement. Pour l'entretien, le prix dépend de la surface et de la fréquence des passages, et le crédit d'impôt divise la facture par deux. Pour la conception, la formule « Votre jardin de rêve » (plan 2D et plan de plantation) démarre à 1 000 €, et l'étude complète avec livret pour réaliser vous-même à 2 500 €. Vous préférez faire vous-même avec de bons conseils ? Le coaching de jardin, à 150 € TTC, vous accompagne directement dans votre jardin. Les aménagements (plantations, clôtures, allées, terrasses) sont chiffrés sur devis après la visite.",
+	},
+	{
+		question: "Sous quel délai intervenez-vous ?",
+		answer:
+			"Nous vous répondons sous 48 h pour fixer un premier échange. La date d'intervention vous est donnée dans la proposition : elle dépend de la saison et de la nature du chantier. Bon à savoir : l'automne et l'hiver sont les meilleures saisons pour planter et pour concevoir votre jardin avant le printemps.",
+	},
+	{
+		question: "Intervenez-vous dans ma commune ?",
+		answer:
+			"Nous intervenons dans un rayon de 25 km autour de Vallet : Clisson, Le Loroux-Bottereau, La Chapelle-Heulin, Le Pallet, Mouzillon, Saint-Julien-de-Concelles, Divatte-sur-Loire, Haute-Goulaine, Gorges, Aigrefeuille-sur-Maine, Gétigné, Le Landreau et Vertou. Vous êtes un peu plus loin ? Contactez-nous, nous vous dirons si nous pouvons venir.",
+	},
 ];
 const normalizeQuestion = (question: string) =>
 	question
@@ -116,9 +131,6 @@ const normalizeQuestion = (question: string) =>
 		.replace(/\s+/g, " ")
 		.trim()
 		.toLocaleLowerCase("fr");
-// TODO CONTENU: recevoir et valider les réponses exactes des quatre questions, dont le budget.
-const faqPlaceholder =
-	"Réponse à venir. Jessy peut vous renseigner lors d'un premier échange.";
 // Asset verified in the existing Clisson project, used only as a fallback when its CMS gallery is unavailable.
 const clissonPhoto =
 	"https://cdn.sanity.io/images/ecfagc9w/production/9f29e2f8a9fc7b2b44ffb14c4ed91909b521d374-3264x1836.jpg";
@@ -129,17 +141,13 @@ export default async function HomePage() {
 		getFaq(),
 	]);
 	const reviews = await getGoogleReviewSummary();
-	const faqItems = faqQuestions.map((question) => {
+	const faqItems = homeFaq.map(({ question, answer }) => {
 		const source = cmsFaq.find(
 			(item) =>
 				normalizeQuestion(item.question) === normalizeQuestion(question) &&
 				item.reponse?.trim(),
 		);
-		return {
-			question,
-			answer: source?.reponse ?? faqPlaceholder,
-			complete: Boolean(source),
-		};
+		return { question, answer: source?.reponse ?? answer };
 	});
 	const clisson = cmsProjects.find(
 		(project) =>
@@ -153,45 +161,18 @@ export default async function HomePage() {
 	);
 	const serviceImages = {
 		entretien: {
-			src: "/photos-entretien/apres/haie-de-jardin-apres-taille.jpg",
-			alt: "Haie taillée et jardin entretenu autour d'une terrasse",
+			src: "/photos-site/entretien-jardin-glycine-pas-japonais-paysagiste-saint-julien-de-concelles.webp",
+			alt: "Jardin entretenu à Saint-Julien-de-Concelles : glycine en fleurs, pelouse et pas japonais",
 		},
 		conception: {
-			src: conceptionPhoto
-				? urlFor(conceptionPhoto).width(900).url()
-				: clissonPhoto,
-			alt: "Jardin de Clisson avec pelouse et claustras en bois",
+			src: "/photos-site/vignette-plan-conception-jardin-paysagiste-haute-goulaine.webp",
+			alt: "Plan de conception d'un jardin à Haute-Goulaine avec potager, mare et massifs",
 		},
 		amenagement: {
 			src: "/photos-entretien/illustrations/terrasse-travertin.jpg",
 			alt: "Terrasse en travertin devant une maison en pierre",
 		},
 	};
-	// TODO CONTENU: photos de chantier dédiées aux trois services, fournies par Jessy.
-	// Prefer a pair belonging to the same published project; local pair 05 verified by the parent: matching houses, hedge and curved edging.
-	const comparedProject = cmsProjects.find(
-		(project) => project.avant?.asset?._ref && project.apres?.asset?._ref,
-	);
-	const pair =
-		comparedProject?.avant && comparedProject?.apres
-			? {
-					before: urlFor(comparedProject.avant).width(1500).url(),
-					after: urlFor(comparedProject.apres).width(1500).url(),
-					beforeAlt:
-						comparedProject.avant.alt ||
-						`Avant l'intervention : ${comparedProject.titre}`,
-					afterAlt:
-						comparedProject.apres.alt ||
-						`Après l'intervention : ${comparedProject.titre}`,
-				}
-			: {
-					before: "/photos-entretien/avant/pelouse-entre-haies-avant-tonte.jpg",
-					after: "/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg",
-					beforeAlt: "Pelouse avant la tonte, bordée de massifs et d’une haie",
-					afterAlt:
-						"Même pelouse après la tonte, bordée de massifs et d’une haie",
-				};
-	// TODO CONTENU: nouvelles paires avant/après avec localisation et légendes validées par Jessy.
 	const displayedProjects = cmsProjects.length
 		? cmsProjects.slice(0, 3).map((project) => {
 				const knownClisson = project.slug.current === clisson?.slug.current;
@@ -223,9 +204,7 @@ export default async function HomePage() {
 				path: `/${slug}`,
 			})),
 		),
-		...(faqItems.every((item) => item.complete)
-			? [buildFaqSchema(faqItems)]
-			: []),
+		buildFaqSchema(faqItems),
 	];
 
 	return (
@@ -296,7 +275,7 @@ export default async function HomePage() {
 								</li>
 								<li className="flex items-center gap-2">
 									<MapPinIcon size={18} aria-hidden />
-									Visite terrain offerte
+									Visite et devis offerts
 								</li>
 							</ul>
 						</div>
@@ -387,35 +366,18 @@ export default async function HomePage() {
 				</Container>
 			</section>
 
+			<GoogleReviews data={reviews} />
+
 			<section
 				className="bg-card py-16 md:py-24"
 				aria-labelledby="projects-title"
 			>
 				<Container>
-					<div className="grid items-center gap-8 lg:grid-cols-[0.7fr_1.3fr]">
-						<div>
-							<p className="section-eyebrow">Avant / après</p>
-							<h2 id="projects-title" className="mt-3 text-3xl md:text-4xl">
-								Le soin se voit
-							</h2>
-							<p className="mt-5 text-base leading-relaxed text-muted-foreground">
-								Un même jardin, avant et après l&apos;entretien. Faites glisser
-								le curseur pour découvrir la différence.
-							</p>
-						</div>
-						<BeforeAfterSlider
-							beforeSrc={pair.before}
-							afterSrc={pair.after}
-							beforeAlt={pair.beforeAlt}
-							afterAlt={pair.afterAlt}
-							sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 48px), (max-width: 1279px) calc((100vw - 80px) * 0.65), 780px"
-						/>
-					</div>
-					<div className="mt-14 pt-2">
+					<div className="max-w-2xl">
 						<p className="section-eyebrow">Réalisations</p>
-						<h3 className="mt-3 text-2xl md:text-3xl">
+						<h2 id="projects-title" className="mt-3 text-3xl md:text-4xl">
 							Des projets différents, une même attention
-						</h3>
+						</h2>
 					</div>
 					<div className="mt-8 grid gap-6 md:grid-cols-3">
 						{displayedProjects.map((project) => (
@@ -439,12 +401,12 @@ export default async function HomePage() {
 									</div>
 								)}
 								<div className="p-6">
-									<p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+									<p className="text-xs font-semibold uppercase tracking-wide text-primary-light">
 										{project.category}
 									</p>
-									<h4 className="mt-2 text-xl group-hover:underline">
+									<h3 className="mt-2 text-xl group-hover:underline">
 										{project.title}
-									</h4>
+									</h3>
 									<p className="mt-3 text-sm leading-relaxed text-muted-foreground">
 										{project.summary}
 									</p>
@@ -468,13 +430,11 @@ export default async function HomePage() {
 				</Container>
 			</section>
 
-			<GoogleReviews data={reviews} />
-
 			<section
 				className="dark-section decor decor-branch-left pt-20 pb-16 md:pt-32 md:pb-24"
 				aria-labelledby="process-title"
 			>
-				<SectionEdge position="top" className="text-surface-sage" />
+				<SectionEdge position="top" className="text-card" />
 				<Container>
 					<div className="max-w-2xl">
 						<p className="section-eyebrow">Comment ça se passe</p>
@@ -522,13 +482,12 @@ export default async function HomePage() {
 			>
 				<Container>
 					<div className="grid items-center gap-10 lg:grid-cols-2">
-						{/* TODO CONTENU: remplacer le croquis par une photo de Jessy et de l'équipe sur un chantier. */}
 						<div className="photo-frame">
 							<Image
-								src="/photos-entretien/illustrations/croquis-ambiance.jpg"
-								alt="Croquis d'ambiance paysager réalisé par Permapaysage"
-								width={1500}
-								height={1061}
+								src="/photos-site/equipe-permapaysage-paysagiste-vallet.webp"
+								alt="Jessy et l'équipe Permapaysage devant le camion de l'entreprise à Vallet"
+								width={1600}
+								height={1200}
 								sizes="(max-width: 1023px) calc(100vw - 32px), 600px"
 								className="aspect-4/3 w-full rounded-xl object-cover"
 							/>
@@ -625,7 +584,7 @@ export default async function HomePage() {
 							Votre jardin ne devrait pas être une contrainte
 						</h2>
 						<p className="mt-6 text-base leading-relaxed text-cream/80">
-							Appel gratuit · Visite terrain offerte · Réponse sous 48 h
+							Appel gratuit · Visite et devis offerts · Réponse sous 48 h
 						</p>
 						<div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
 							<CtaButton emplacement="final"

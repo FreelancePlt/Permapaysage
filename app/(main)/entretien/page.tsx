@@ -141,7 +141,7 @@ export default async function EntretienPage() {
 		"puis je beneficier du credit d impot pour l entretien de mon jardin":
 			"Les petits travaux de jardinage réalisés dans le cadre des services à la personne peuvent ouvrir droit à un crédit d’impôt de 50 % des dépenses éligibles effectivement supportées, sous conditions. Le plafond spécifique est de 5 000 € de dépenses de jardinage par foyer et par an, inclus dans les plafonds généraux. La conception paysagère, les travaux d’aménagement, l’élagage et la vente de végétaux ne relèvent pas de ce dispositif. Vos droits disponibles et les aides déjà reçues doivent être pris en compte.",
 		"comment fonctionne concretement ce credit d impot":
-			"Après règlement et déclaration des dépenses éligibles, le crédit d’impôt peut réduire votre impôt ou vous être remboursé. L’avance immédiate Urssaf est un service optionnel : sa mise en place nécessite un prestataire habilité, l’activation de votre compte et des droits disponibles. Le CESU préfinancé est un moyen de paiement ; il ne remplace pas la vérification de l’éligibilité fiscale. Le plafond annuel spécifique au petit jardinage est de 5 000 € de dépenses, dans les plafonds généraux.",
+			"Après règlement et déclaration des dépenses éligibles, le crédit d’impôt peut réduire votre impôt ou vous être remboursé. L’avance immédiate Urssaf est un service optionnel : Permapaysage est inscrit à l’avance immédiate de l’Urssaf, vous ne réglez que 50 % dès la facture, une fois votre compte activé et dans la limite de vos droits disponibles. Le CESU préfinancé est un moyen de paiement ; il ne remplace pas la vérification de l’éligibilité fiscale. Le plafond annuel spécifique au petit jardinage est de 5 000 € de dépenses, dans les plafonds généraux.",
 	};
 	const faqItems = sanityFaqs.filter((faq) => faq.question?.trim() && faq.reponse?.trim()).map((faq) => {
 		const key = faq.question
@@ -418,8 +418,8 @@ export default async function EntretienPage() {
 								<p className="mt-2 text-sm leading-relaxed text-white/75">
 									Ce service optionnel permet de déduire le crédit au paiement
 									d&apos;une prestation éligible, dans la limite de vos droits.
-									Il nécessite un prestataire habilité et l&apos;activation
-									préalable de votre compte client.
+									Permapaysage est inscrit à l&apos;avance immédiate de
+									l&apos;Urssaf : vous ne réglez que 50 % dès la facture.
 								</p>
 							</article>
 						</Reveal>

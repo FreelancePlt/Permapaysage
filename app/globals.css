@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 
+@custom-variant tall (@media (min-width: 64rem) and (min-height: 72rem));
+
 @theme inline {
   --color-cream: var(--cream);
   --color-cta-ochre: var(--cta-ochre);
@@ -59,11 +61,11 @@
   --popover: var(--background);
   --popover-foreground: var(--foreground);
   --surface-sage: #EAF0E7;
-  --primary: #2B4D3B;
-  --primary-deep: #203C2F;
+  --primary: #1F4A2E;
+  --primary-deep: #163822;
   --primary-foreground: #FFFFFF;
-  --primary-light: #647B58;
-  --secondary: #566C51;
+  --primary-light: #46714A;
+  --secondary: #4F7A52;
   --secondary-foreground: #FFFFFF;
   --muted: #EDECE4;
   --muted-foreground: #606D61;
@@ -121,7 +123,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--secondary);
+  color: var(--primary-light);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -164,7 +166,9 @@ button {
 
 .decor-contours::before,
 .decor-contours-left::before {
-  width: clamp(30rem, 58vw, 58rem);
+  --contour-size: clamp(30rem, 58vw, 58rem);
+  --contour-bleed: calc(var(--contour-size) * 0.225);
+  width: calc(var(--contour-size) * 1.45);
   aspect-ratio: 1;
   background: var(--primary);
   opacity: 0.09;
@@ -172,13 +176,13 @@ button {
 }
 
 .decor-contours::before {
-  top: -14rem;
-  right: -16rem;
+  top: calc(-14rem - var(--contour-bleed));
+  right: calc(-16rem - var(--contour-bleed));
 }
 
 .decor-contours-left::before {
-  bottom: -18rem;
-  left: -18rem;
+  bottom: calc(-18rem - var(--contour-bleed));
+  left: calc(-18rem - var(--contour-bleed));
   transform: rotate(140deg);
 }
 
@@ -203,10 +207,10 @@ button {
     opacity: 0.045;
   }
   .decor-contours::before {
-    right: -20rem;
+    right: calc(-20rem - var(--contour-bleed));
   }
   .decor-contours-left::before {
-    left: -22rem;
+    left: calc(-22rem - var(--contour-bleed));
   }
 }
 
