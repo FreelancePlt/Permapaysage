@@ -134,7 +134,20 @@ export function Footer() {
               />
             </div>
           </div>
-          <p className="text-xs text-white/75">© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
+          <div className="flex flex-col items-center gap-1.5 text-xs text-white/75 md:items-end">
+            <p>© {new Date().getFullYear()} Permapaysage. Tous droits réservés.</p>
+            <p>
+              Site réalisé par{" "}
+              <a
+                href="https://atlas.raphael-plassart.com/"
+                target="_blank"
+                rel="noopener"
+                className="font-semibold text-white/90 underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                Atlas
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
