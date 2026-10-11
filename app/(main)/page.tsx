@@ -75,8 +75,8 @@ const process = [
 		icon: MapPinIcon,
 	},
 	{
-		title: "Proposition sous 48 h",
-		text: "Vous recevez une proposition adaptée à votre projet.",
+		title: "Votre devis en moins d’une semaine",
+		text: "Après la visite, vous recevez un devis détaillé, en général en moins d’une semaine.",
 		icon: ClockIcon,
 	},
 	{
@@ -116,7 +116,7 @@ const homeFaq = [
 	{
 		question: "Sous quel délai intervenez-vous ?",
 		answer:
-			"Nous vous répondons sous 48 h pour fixer un premier échange. La date d'intervention vous est donnée dans la proposition : elle dépend de la saison et de la nature du chantier. Bon à savoir : l'automne et l'hiver sont les meilleures saisons pour planter et pour concevoir votre jardin avant le printemps.",
+			"Nous vous rappelons ou vous répondons sous 48 h pour fixer la visite offerte. Après la visite, votre devis vous est envoyé en général en moins d’une semaine, avec la date d’intervention : elle dépend de la saison et de la nature du chantier. Bon à savoir : l’automne et l’hiver sont les meilleures saisons pour planter et pour concevoir votre jardin avant le printemps.",
 	},
 	{
 		question: "Intervenez-vous dans ma commune ?",
@@ -169,8 +169,8 @@ export default async function HomePage() {
 			alt: "Plan de conception d'un jardin à Haute-Goulaine avec potager, mare et massifs",
 		},
 		amenagement: {
-			src: "/photos-entretien/illustrations/terrasse-travertin.jpg",
-			alt: "Terrasse en travertin devant une maison en pierre",
+			src: "/photos-site/terrasse-dalles-cloture-bois-amenagement-jardin-paysagiste-le-loroux-bottereau.webp",
+			alt: "Terrasse en dalles et clôture en bois dans un jardin aménagé par Permapaysage",
 		},
 	};
 	const displayedProjects = cmsProjects.length
@@ -511,7 +511,7 @@ export default async function HomePage() {
 								</p>
 							</div>
 							<Link
-								href="/a-propos"
+								href="/contact#notre-approche"
 								className="mt-6 inline-flex items-center gap-2 font-semibold text-primary hover:underline"
 							>
 								Découvrir notre démarche

@@ -21,7 +21,10 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return legacyImageRedirects;
+    return [
+      ...legacyImageRedirects,
+      { source: "/a-propos", destination: "/contact", statusCode: 301 },
+    ];
   },
   async headers() {
     return [

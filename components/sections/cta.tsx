@@ -13,7 +13,7 @@ type CtaSectionProps = {
 export function CtaSection({
   eyebrow = "Lancer votre projet",
   title = "Parlons de votre jardin et de votre vision.",
-  description = "Un premier échange permet de cadrer rapidement la faisabilité, les priorités et les étapes.",
+  description = "La visite offerte permet de cadrer rapidement la faisabilité, les priorités et les étapes.",
   points,
 }: CtaSectionProps) {
   return (

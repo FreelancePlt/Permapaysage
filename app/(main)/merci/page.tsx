@@ -20,7 +20,11 @@ export default function MerciPage() {
 					Merci ! Jessy vous rappelle sous 48 h pour fixer la visite terrain
 					offerte.
 				</h1>
-				<p className="mt-6 text-muted-foreground">
+				<p className="mt-6 text-lg">
+					Après la visite, votre devis vous est envoyé en général en moins
+					d’une semaine.
+				</p>
+				<p className="mt-4 text-muted-foreground">
 					Vous pouvez continuer à découvrir nos jardins et nos services.
 				</p>
 				<Link

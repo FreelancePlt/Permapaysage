@@ -50,7 +50,6 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            <li><Link href="/a-propos" className="inline-flex items-center gap-1.5 text-white/75 transition-colors hover:text-white"><ArrowRightIcon size={12} className="text-white/75" />À propos</Link></li>
           </ul>
         </div>
 

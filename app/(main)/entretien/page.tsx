@@ -88,6 +88,28 @@ const avantApresGallery = [
 
 const garantieIcons = [StarIcon, WalletIcon, ClockIcon];
 
+const defaultFormules: {
+	key: string;
+	title: string;
+	text: string;
+	price: string;
+	note?: string;
+}[] = [
+	{
+		key: "remise-en-etat",
+		title: "Remise en état du jardin",
+		text: "Votre jardin repris en main en une intervention : taille des haies et arbustes, désherbage manuel des massifs, tonte, ramassage des feuilles et évacuation des déchets verts. Pour un jardin d’environ 500 m².",
+		price: "450 € TTC, soit 225 € après crédit d’impôt",
+	},
+	{
+		key: "suivi-annuel",
+		title: "Jardin suivi à l’année",
+		text: "Un passage par saison, programmé à l’avance : taille, désherbage, soin des massifs et de la pelouse, conseils pour faire évoluer le jardin. Vous n’avez plus à y penser.",
+		price: "Dès 1 500 € TTC par an, soit 750 € après crédit d’impôt",
+		note: "Paiement mensualisé possible : 125 € par mois, soit 62,50 € avec l’avance immédiate.",
+	},
+];
+
 export const metadata = buildPageMetadata({
 	title: "Entretien de jardin à Vallet : Crédit d'impôt 50 % | Permapaysage",
 	description:
@@ -130,11 +152,20 @@ export default async function EntretienPage() {
 	const valGasc = testimonials.find(
 		(testimonial) => testimonial.author === "Val Gasc",
 	);
-	const displayedFormules = Array.from(
-		{ length: Math.max(2, formules.length) },
-		(_, index) => formules[index],
-	);
-	// TODO CONTENU: renseigner les noms, prestations et prix validés dans le document Sanity Formules d’entretien.
+	const displayedFormules: typeof defaultFormules = formules.length
+		? formules.map((formule) => ({
+				key: formule._key,
+				title: formule.nom?.trim() || "Formule à préciser",
+				text: formule.description?.trim() || "Prestations et fréquence à venir.",
+				price:
+					typeof formule.prixDepart === "number" &&
+					Number.isFinite(formule.prixDepart) &&
+					formule.prixDepart >= 0 &&
+					Number.isSafeInteger(Math.round(formule.prixDepart * 100))
+						? `À partir de ${formatEuroCents(Math.round(formule.prixDepart * 100))}`
+						: "Prix indicatif à venir",
+			}))
+		: defaultFormules;
 	// TODO CONTENU: fournir les deux photos avant/après du chantier réel de La Chapelle-Heulin.
 	// Explicit editorial correction of two published FAQ answers; no production CMS mutation.
 	const fiscalAnswers: Record<string, string> = {
@@ -231,11 +262,11 @@ export default async function EntretienPage() {
 						<div className="appearance-animation animate-in fade-in zoom-in-95 duration-300">
 							<div className="photo-frame">
 								<Image
-									src="/photos-entretien/apres/pelouse-entre-haies-apres-tonte.jpg"
-									alt="Jardin entretenu par Permapaysage : pelouse tondue et haies taillées"
+									src="/photos-site/jardin-pelouse-haie-avant-entretien-paysagiste-gorges.webp"
+									alt="Jardin avec pelouse et haie avant l’entretien de Permapaysage"
 									sizes="(min-width: 1280px) 563px, (min-width: 1024px) calc(48.72vw - 60.77px), (min-width: 768px) calc(100vw - 62px), calc(100vw - 46px)"
-                  width={1024}
-									height={768}
+                  width={1600}
+									height={1200}
 									className="aspect-4/3 w-full rounded-xl object-cover"
 									priority
 								/>
@@ -312,29 +343,26 @@ export default async function EntretienPage() {
 					</h2>
 					<p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
 						Les prestations et la fréquence sont précisées selon votre jardin.
-						Les prix de départ sont indiqués avant tout éventuel crédit d’impôt.
+						Les prix sont indiqués TTC, avant et après crédit d’impôt.
 					</p>
 					<div className="mt-8 grid gap-5 md:grid-cols-2">
-						{displayedFormules.map((formule, index) => (
+						{displayedFormules.map((formule) => (
 							<article
-								key={formule?._key ?? index}
-								className="rounded-2xl border border-primary/10 bg-background p-6 md:p-7"
+								key={formule.key}
+								className="flex flex-col rounded-2xl border border-primary/10 bg-background p-6 md:p-7"
 							>
-								<h3 className="text-xl">
-									{formule?.nom?.trim() || "Formule à préciser"}
-								</h3>
-								<p className="mt-3 text-sm text-muted-foreground">
-									{formule?.description?.trim() ||
-										"Prestations et fréquence à venir."}
+								<h3 className="text-xl">{formule.title}</h3>
+								<p className="mt-3 flex-1 text-sm text-muted-foreground">
+									{formule.text}
 								</p>
 								<p className="mt-5 font-semibold text-primary">
-									{typeof formule?.prixDepart === "number" &&
-									Number.isFinite(formule.prixDepart) &&
-									formule.prixDepart >= 0 &&
-									Number.isSafeInteger(Math.round(formule.prixDepart * 100))
-										? `À partir de ${formatEuroCents(Math.round(formule.prixDepart * 100))}`
-										: "Prix indicatif à venir"}
+									{formule.price}
 								</p>
+								{formule.note && (
+									<p className="mt-2 text-sm text-muted-foreground">
+										{formule.note}
+									</p>
+								)}
 								<CtaButton
 									action="visit"
 									projectType="entretien"

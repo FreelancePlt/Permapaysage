@@ -52,7 +52,7 @@ const parcoursSteps = [
     number: "1",
     title: "Écoute & Vision",
     description:
-      "Nous nous rencontrons chez vous pour comprendre votre mode de vie. Ce diagnostic précis permet de valider la faisabilité de vos envies et de vous proposer un éventail de solutions durables, parfaitement adaptées à votre terre et à votre budget.",
+      "Nous venons chez vous, gratuitement, pour comprendre votre mode de vie. Cette visite offerte permet de valider la faisabilité de vos envies et de vous proposer des solutions durables, adaptées à votre terre et à votre budget.",
     icon: EarIcon,
   },
   {
@@ -119,7 +119,8 @@ const realisationCategories = [
   {
     title: "Clôtures et terrasses",
     subtitle: "Bois et composite",
-    image: "/photos-entretien/apres/terrasse-en-bois-apres-intervention.jpg",
+    image: "/photos-site/terrasse-bois-mare-naturelle-amenagement-paysagiste-vertou.webp",
+    alt: "Terrasse en bois bordée d’une mare naturelle et de galets",
   },
   {
     title: "Massifs, végétalisation et mise en scène",
@@ -321,7 +322,7 @@ export default async function AmenagementPage() {
                     <div className="relative aspect-4/3 w-full overflow-hidden">
                       <Image
                         src={cat.image}
-                        alt={cat.title}
+                        alt={cat.alt ?? cat.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
                       />
@@ -382,7 +383,7 @@ export default async function AmenagementPage() {
       <CtaSection
         eyebrow="Lancer votre projet"
         title="Prêt à redéfinir votre extérieur ?"
-        description="Échangeons sur vos envies et les spécificités de votre terrain lors d'un premier rendez-vous à Vallet."
+        description="Échangeons sur vos envies et les spécificités de votre terrain lors de la visite offerte de votre jardin."
       />
     </>
   );

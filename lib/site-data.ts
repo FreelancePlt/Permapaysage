@@ -54,6 +54,7 @@ export type CityPage = {
   postalCode: string;
   coordinates: [number, number];
   intro: string;
+  faq: { question: string; answer: string }[];
 };
 
 export const company = {
@@ -577,6 +578,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44330",
     coordinates: [47.1611, -1.2644],
     intro: "Basés au c\u0153ur de Vallet, nous concevons, aménageons et entretenons des jardins écologiques adaptés au terroir du Vignoble Nantais. Notre connaissance intime du climat et des sols locaux nous permet de créer des espaces extérieurs durables et harmonieux, à deux pas de chez vous.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Vallet ?",
+        answer: "Notre atelier est à Vallet, avenue du Général Heurtaux : nous sommes à quelques minutes de chez vous. Réservez un appel de 15 minutes ou demandez votre visite offerte en ligne, et nous vous rappelons sous 48 h pour fixer un créneau. La visite et le devis sont gratuits.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Vallet ?",
+        answer: "Vallet est notre point de départ : la plupart de nos chantiers sont à moins de 10 km, comme le jardin familial de Mouzillon, la terrasse en travertin du Pallet ou l'entretien suivi à La Chapelle-Heulin. Retrouvez-les en photos sur la page Réalisations. Nous vous montrons d'autres exemples lors de la visite.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Vallet ?",
+        answer: "Tonte en mulching, taille des haies et arbustes, désherbage manuel, soin des massifs et ramassage des feuilles, en passage ponctuel ou en contrat annuel. Nous proposons aussi une remise en état complète (450 € TTC pour environ 500 m²) et un suivi à l'année dès 1 500 € TTC, mensualisable. Avec l'avance immédiate, vous ne payez que la moitié.",
+      },
+    ],
   },
   {
     slug: "paysagiste-clisson",
@@ -585,6 +600,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44190",
     coordinates: [47.0872, -1.2817],
     intro: "Paysagiste intervenant à Clisson et ses environs, Permapaysage conçoit des jardins écologiques à seulement 10 km de notre siège à Vallet. Entre les bords de la Sèvre et le patrimoine italien de Clisson, nous créons des extérieurs qui s\u2019intègrent naturellement au caractère unique de votre commune.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Clisson ?",
+        answer: "À 10 km de notre atelier de Vallet, Clisson fait partie de nos secteurs les plus fréquents. Un appel de 15 minutes suffit pour cerner votre projet, puis nous passons voir votre jardin à la date qui vous arrange. Aucuns frais : visite et devis sont offerts.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Clisson ?",
+        answer: "Nous avons conçu et aménagé un jardin écologique à Clisson, visible sur notre page Réalisations. Plantes adaptées au sol, massifs de vivaces, circulation repensée : c'est un bon aperçu de ce que nous pouvons faire dans un jardin clissonnais.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Clisson ?",
+        answer: "Que votre jardin soit en centre-ville ou sur les coteaux de la Sèvre, nous assurons la taille, la tonte en mulching, le désherbage sans produits chimiques et le soin des massifs. Au choix : une intervention ponctuelle, une remise en état (450 € TTC pour environ 500 m²) ou un suivi saisonnier à l'année. 50 % de crédit d'impôt, déduit directement grâce à l'avance immédiate.",
+      },
+    ],
   },
   {
     slug: "paysagiste-le-loroux-bottereau",
@@ -593,6 +622,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44430",
     coordinates: [47.2333, -1.3500],
     intro: "Paysagiste au Loroux-Bottereau, à 12 km de notre siège. Nous intervenons régulièrement dans votre commune pour des projets de conception, d\u2019aménagement et d\u2019entretien de jardins, toujours dans une démarche écologique et durable.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain au Loroux-Bottereau ?",
+        answer: "Le Loroux-Bottereau est à 12 km de Vallet, dans notre zone d'intervention habituelle. Demandez votre visite offerte via le formulaire ou appelez le 07 52 62 08 18 : nous convenons ensemble d'un rendez-vous dans votre jardin, sans engagement.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter au Loroux-Bottereau ?",
+        answer: "Nos chantiers voisins, comme la clôture en bois posée à Basse-Goulaine ou le jardin entretenu à La Chapelle-Heulin, donnent une bonne idée de notre travail. Ils sont en photos sur la page Réalisations. Lors de la visite, nous vous montrons aussi des exemples proches de votre projet.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous au Loroux-Bottereau ?",
+        answer: "Entretien régulier ou ponctuel : tonte en mulching, taille des haies, désherbage manuel des allées et massifs, ramassage des feuilles à l'automne. Pour un jardin laissé de côté, la remise en état est à 450 € TTC pour environ 500 m². Le contrat à l'année, avec un passage par saison, démarre à 1 500 € TTC et peut être mensualisé.",
+      },
+    ],
   },
   {
     slug: "paysagiste-haute-goulaine",
@@ -601,6 +644,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44115",
     coordinates: [47.1975, -1.4286],
     intro: "Votre éco-paysagiste à Haute-Goulaine, à 15 km de Vallet. Entre marais et vignoble, nous concevons des espaces extérieurs qui respectent la richesse naturelle de votre commune tout en répondant à vos envies de jardin fonctionnel et esthétique.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Haute-Goulaine ?",
+        answer: "Nous intervenons à Haute-Goulaine, à 15 km de Vallet. Le plus simple : réserver un appel de 15 minutes pour nous présenter votre jardin, puis fixer la visite. Nous venons gratuitement, et le devis vous est remis après notre passage.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Haute-Goulaine ?",
+        answer: "Juste à côté, à Basse-Goulaine, nous avons posé une clôture en bois associée au végétal. Elle figure sur notre page Réalisations avec nos autres chantiers du Vignoble nantais. Nous pouvons aussi vous montrer des aménagements comparables pendant la visite.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Haute-Goulaine ?",
+        answer: "Taille douce des arbustes, entretien des haies, tonte en mulching, désherbage écologique et paillage des massifs : nous gardons votre jardin propre et vivant toute l'année. Formule ponctuelle, remise en état à 450 € TTC (environ 500 m²) ou suivi à l'année dès 1 500 € TTC. Avec l'avance immédiate, la moitié du montant est déduite dès la facture.",
+      },
+    ],
   },
   {
     slug: "paysagiste-saint-julien-de-concelles",
@@ -609,6 +666,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44450",
     coordinates: [47.2500, -1.3917],
     intro: "À Saint-Julien-de-Concelles, entre Loire et vignoble, Permapaysage intervient à 18 km de Vallet pour transformer vos extérieurs. Conception de jardin, terrasses, entretien écologique : nous adaptons chaque projet aux spécificités de votre terrain en bord de Loire.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Saint-Julien-de-Concelles ?",
+        answer: "Saint-Julien-de-Concelles est à 18 km de notre atelier, dans notre rayon de 25 km. Remplissez le formulaire « Demander ma visite offerte » : nous vous rappelons sous 48 h pour caler un passage. La visite est gratuite et sans engagement.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Saint-Julien-de-Concelles ?",
+        answer: "Notre page Réalisations présente des chantiers menés dans les communes voisines, dont la clôture en bois de Basse-Goulaine et le jardin écologique de Clisson. Ils montrent notre façon de travailler : plantes adaptées, matériaux naturels, jardins faciles à vivre.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Saint-Julien-de-Concelles ?",
+        answer: "Nous prenons en charge l'entretien courant (tonte, taille, désherbage, massifs) comme les gros nettoyages de saison. Votre jardin a pris le dessus ? La remise en état coûte 450 € TTC pour environ 500 m². Pour ne plus y penser, le suivi annuel avec un passage par saison démarre à 1 500 € TTC, payable chaque mois si vous le souhaitez.",
+      },
+    ],
   },
   {
     slug: "paysagiste-vertou",
@@ -617,6 +688,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44120",
     coordinates: [47.1681, -1.4711],
     intro: "Votre paysagiste à Vertou, à 20 km de notre base à Vallet. Que vous habitiez près des bords de Sèvre ou dans les quartiers résidentiels de Vertou, nous concevons des jardins écologiques adaptés à votre terrain et à votre mode de vie.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Vertou ?",
+        answer: "Vertou est à 20 km de Vallet, et nous nous y déplaçons sans frais pour la visite. Prenez rendez-vous au 07 52 62 08 18 ou réservez un appel de 15 minutes en ligne. Le devis suit la visite, gratuitement.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Vertou ?",
+        answer: "Nos réalisations du Vignoble nantais, à Clisson, au Pallet ou à Mouzillon, sont présentées en photos sur la page Réalisations : jardin écologique, terrasse, remise en état. Nous apportons d'autres exemples lors de notre visite à Vertou.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Vertou ?",
+        answer: "En ville comme en bord de Sèvre, nous assurons tonte en mulching, taille des haies et arbustes, désherbage manuel et ramassage des feuilles. Remise en état à 450 € TTC pour environ 500 m², ou contrat à l'année dès 1 500 € TTC, mensualisable. L'avance immédiate vous fait payer moitié prix dès la facture.",
+      },
+    ],
   },
   {
     slug: "paysagiste-gorges",
@@ -625,6 +710,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44190",
     coordinates: [47.1000, -1.3000],
     intro: "Intervenant à Gorges depuis notre siège à Vallet (8 km), nous créons des jardins écologiques qui tirent parti du cadre naturel exceptionnel de votre commune, entre vignes et vallée de la Sèvre.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Gorges ?",
+        answer: "À 8 km de Vallet, Gorges est tout proche de notre atelier. Réservez un appel de 15 minutes ou demandez votre visite en ligne : nous venons voir votre jardin gratuitement, puis vous remettons un devis détaillé.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Gorges ?",
+        answer: "Le jardin écologique que nous avons conçu à Clisson, à deux pas de Gorges, est visible sur notre page Réalisations. D'autres chantiers voisins y figurent, au Pallet et à Mouzillon.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Gorges ?",
+        answer: "Tonte, taille, désherbage sans produits chimiques, soin des vivaces, paillage : nous entretenons votre jardin à la demande ou toute l'année. La remise en état d'un jardin d'environ 500 m² est à 450 € TTC, le suivi saisonnier dès 1 500 € TTC par an. 50 % de crédit d'impôt, avec l'avance immédiate.",
+      },
+    ],
   },
   {
     slug: "paysagiste-le-pallet",
@@ -633,6 +732,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44330",
     coordinates: [47.1389, -1.3333],
     intro: "Paysagiste au Pallet, à 6 km de Vallet. Au c\u0153ur du Muscadet, nous concevons des aménagements paysagers qui respectent le caractère viticole et naturel de votre environnement. Terrasses, clôtures, massifs : chaque projet est pensé pour durer.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain au Pallet ?",
+        answer: "Le Pallet est à 6 km de notre atelier de Vallet. Contactez-nous par téléphone ou via le formulaire « Demander ma visite offerte », et nous fixons ensemble un rendez-vous dans votre jardin. La visite comme le devis sont gratuits.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter au Pallet ?",
+        answer: "Nous avons réalisé une terrasse en travertin au Pallet, intégrée au jardin et à ses plantations. Elle est présentée sur notre page Réalisations, avec nos autres chantiers des alentours.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous au Pallet ?",
+        answer: "Haies, arbustes, pelouse tondue en mulching, massifs, allées désherbées à la main : nous entretenons les jardins du Pallet. Choisissez une intervention ponctuelle, une remise en état (450 € TTC pour environ 500 m²) ou un contrat à l'année dès 1 500 € TTC, réglable chaque mois. Grâce à l'avance immédiate, vous ne réglez que la moitié.",
+      },
+    ],
   },
   {
     slug: "paysagiste-mouzillon",
@@ -641,6 +754,20 @@ export const cityPages: CityPage[] = [
     postalCode: "44330",
     coordinates: [47.1417, -1.2833],
     intro: "À seulement 4 km de notre siège, Mouzillon est au c\u0153ur de notre zone d\u2019intervention. Nous connaissons parfaitement les sols et le microclimat du vignoble pour créer des jardins qui s\u2019épanouissent naturellement dans votre commune.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Mouzillon ?",
+        answer: "Mouzillon est à 4 km de Vallet, l'une des communes les plus proches de notre atelier. Appelez-nous ou réservez un appel de 15 minutes, puis nous passons voir votre jardin. Visite et devis offerts.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Mouzillon ?",
+        answer: "Deux chantiers à Mouzillon figurent sur notre page Réalisations : l'aménagement d'un jardin familial et la remise en état complète d'un jardin. Le premier montre une création, le second la reprise d'un jardin laissé de côté.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Mouzillon ?",
+        answer: "Du simple passage de tonte à la taille des haies, en passant par le désherbage manuel et le soin des massifs, nous adaptons l'entretien à votre jardin. La remise en état coûte 450 € TTC pour environ 500 m² ; le suivi à l'année, avec un passage par saison, démarre à 1 500 € TTC, mensualisable. L'avance immédiate divise la facture par deux dès le paiement.",
+      },
+    ],
   },
   {
     slug: "paysagiste-la-chapelle-heulin",
@@ -649,23 +776,93 @@ export const cityPages: CityPage[] = [
     postalCode: "44330",
     coordinates: [47.1750, -1.3000],
     intro: "Votre paysagiste à La Chapelle-Heulin, à 5 km de Vallet. Au c\u0153ur du vignoble nantais, nous connaissons parfaitement les conditions locales pour créer des jardins résilients, beaux et faciles à entretenir.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à La Chapelle-Heulin ?",
+        answer: "La Chapelle-Heulin est à 5 km de notre atelier. Demandez votre visite offerte en ligne : nous vous rappelons sous 48 h pour choisir un créneau. Nous découvrons votre jardin sur place, puis vous envoyons notre proposition chiffrée.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à La Chapelle-Heulin ?",
+        answer: "Nous entretenons un jardin à La Chapelle-Heulin, présenté sur notre page Réalisations. Vous y verrez aussi nos chantiers voisins de Mouzillon et du Pallet.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à La Chapelle-Heulin ?",
+        answer: "Tonte en mulching, taille des haies et des arbustes, désherbage manuel, ramassage des feuilles : nous assurons l'entretien ponctuel ou régulier de votre jardin. Pour repartir sur de bonnes bases, la remise en état est à 450 € TTC (environ 500 m²). Le contrat annuel démarre à 1 500 € TTC et se règle au mois si vous le souhaitez.",
+      },
+    ],
   },
   // TODO CONTENU: compléter les informations locales, distances et délais vérifiés de ces quatre communes.
   {
     slug: "paysagiste-divatte-sur-loire", city: "Divatte-sur-Loire", postalCode: "44450", coordinates: [47.2789, -1.3386],
     intro: "À Divatte-sur-Loire, votre projet de jardin peut réunir un nouvel aménagement, des plantations et un entretien plus facile à organiser. Permapaysage vous accompagne depuis Vallet : nous commençons par vos usages et les éléments existants pour définir une intervention adaptée.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Divatte-sur-Loire ?",
+        answer: "Divatte-sur-Loire fait partie de notre zone d'intervention autour de Vallet. Réservez un appel de 15 minutes pour nous décrire votre jardin, à La Chapelle-Basse-Mer comme à Barbechat, puis nous organisons la visite. Elle est gratuite, tout comme le devis.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Divatte-sur-Loire ?",
+        answer: "Nos chantiers les plus proches, comme la clôture en bois de Basse-Goulaine, sont visibles sur notre page Réalisations avec nos aménagements du Vignoble nantais. Nous vous montrons d'autres exemples pendant la visite.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Divatte-sur-Loire ?",
+        answer: "En bord de Loire ou sur les hauteurs, nous entretenons votre jardin : tonte en mulching, taille, désherbage sans produits chimiques, paillage des massifs. Remise en état à 450 € TTC pour environ 500 m², ou suivi à l'année dès 1 500 € TTC avec paiement mensuel possible. 50 % de crédit d'impôt, déduit immédiatement.",
+      },
+    ],
   },
   {
     slug: "paysagiste-aigrefeuille-sur-maine", city: "Aigrefeuille-sur-Maine", postalCode: "44140", coordinates: [47.0735, -1.4121],
     intro: "À Aigrefeuille-sur-Maine, nous vous aidons à mettre en cohérence les différents espaces de votre jardin. Conception, terrasses, clôtures, plantations ou entretien écologique : la visite terrain permet de préciser les priorités de votre projet avant de proposer les travaux.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Aigrefeuille-sur-Maine ?",
+        answer: "Nous intervenons à Aigrefeuille-sur-Maine, dans notre rayon de 25 km autour de Vallet. Appelez le 07 52 62 08 18 ou remplissez le formulaire de visite : nous convenons d'un rendez-vous chez vous, sans frais ni engagement.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Aigrefeuille-sur-Maine ?",
+        answer: "Sur notre page Réalisations, vous trouverez nos chantiers de Clisson, du Pallet et de Mouzillon : jardin écologique, terrasse en travertin, remise en état. Lors de la visite, nous partageons aussi des photos de projets proches du vôtre.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Aigrefeuille-sur-Maine ?",
+        answer: "Nous proposons l'entretien complet de votre jardin : pelouse, haies, arbustes, massifs et allées. En passage ponctuel, en remise en état (450 € TTC pour environ 500 m²) ou en contrat à l'année dès 1 500 € TTC, mensualisable. Avec l'avance immédiate, vous ne payez que la moitié dès la facture.",
+      },
+    ],
   },
   {
     slug: "paysagiste-getigne", city: "Gétigné", postalCode: "44190", coordinates: [47.0771, -1.2196],
     intro: "À Gétigné, un projet paysager peut commencer par un plan de jardin ou par l’amélioration d’un espace déjà aménagé. Nous associons conception, réalisation et entretien écologique pour vous aider à choisir une première intervention cohérente avec les usages de votre extérieur.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain à Gétigné ?",
+        answer: "Gétigné, voisine de Clisson, est dans notre secteur d'intervention habituel. Commencez par un appel de 15 minutes, puis nous venons voir votre jardin pour vous conseiller. La visite et le devis ne vous coûtent rien.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter à Gétigné ?",
+        answer: "Le jardin écologique que nous avons aménagé à Clisson, juste à côté, est présenté sur notre page Réalisations. Il illustre bien notre approche : des plantes adaptées, un sol vivant et un entretien allégé.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous à Gétigné ?",
+        answer: "Taille des haies, tonte en mulching, désherbage écologique, entretien des massifs de vivaces : nous prenons soin de votre jardin au fil des saisons. Remise en état à 450 € TTC pour environ 500 m², suivi annuel dès 1 500 € TTC, réglable chaque mois. 50 % de crédit d'impôt avec l'avance immédiate.",
+      },
+    ],
   },
   {
     slug: "paysagiste-le-landreau", city: "Le Landreau", postalCode: "44430", coordinates: [47.2089, -1.3006],
     intro: "Au Landreau, nous proposons de relier le dessin du jardin à son entretien dans la durée. Votre besoin peut concerner une terrasse, une clôture, des plantations ou le suivi des espaces verts : nous précisons ensemble le périmètre lors d’une visite terrain.",
+    faq: [
+      {
+        question: "Comment organiser une visite terrain au Landreau ?",
+        answer: "Le Landreau est tout près de notre atelier de Vallet. Demandez votre visite offerte en ligne ou appelez-nous : nous vous rappelons sous 48 h pour fixer la date. Nous venons gratuitement, et le devis vous est envoyé après la visite.",
+      },
+      {
+        question: "Quelles réalisations pouvez-vous présenter au Landreau ?",
+        answer: "Nos chantiers voisins de La Chapelle-Heulin, du Pallet et de Mouzillon sont présentés en photos sur notre page Réalisations. Ils montrent notre travail en entretien, en terrasse et en aménagement de jardin.",
+      },
+      {
+        question: "Quels travaux d’entretien proposez-vous au Landreau ?",
+        answer: "Nous assurons l'entretien de votre jardin au Landreau : tonte, haies, arbustes, massifs, désherbage manuel et feuilles mortes. Pour un jardin à reprendre, comptez 450 € TTC la remise en état d'environ 500 m². Le suivi à l'année, un passage par saison, démarre à 1 500 € TTC et peut être mensualisé.",
+      },
+    ],
   },
 ];
 

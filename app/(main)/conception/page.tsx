@@ -2,10 +2,11 @@ import {
   CheckCircleIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CtaSection } from "@/components/sections/cta";
-import { CtaButton } from "@/components/shared/cta-button";
+import { CtaButton, ctaButtonVariants } from "@/components/shared/cta-button";
 import { Container } from "@/components/shared/container";
 import { FaqAccordion } from "@/components/shared/faq-accordion";
 import { Reveal } from "@/components/shared/reveal";
@@ -46,6 +47,7 @@ const pricingOffers = [
     ],
     price: "150 € TTC",
     highlighted: false,
+    coaching: true,
   },
   {
     title: "Votre jardin de rêve",
@@ -180,7 +182,18 @@ export default async function ConceptionPage() {
                   </ul>
                   <div className="mt-8">
                     <p className="text-2xl font-bold text-primary">{offer.price}</p>
-                    <CtaButton emplacement="service" action="call" compact variant={offer.highlighted ? "primary-light" : "secondary-light"} className="mt-4 w-full" />
+                    {offer.coaching ? (
+                      <Link
+                        href="/contact?objet=coaching"
+                        data-cta="visit"
+                        data-emplacement="service"
+                        className={ctaButtonVariants({ variant: "secondary-light", className: "mt-4 w-full" })}
+                      >
+                        Réserver mon coaching
+                      </Link>
+                    ) : (
+                      <CtaButton emplacement="service" action="call" compact variant={offer.highlighted ? "primary-light" : "secondary-light"} className="mt-4 w-full" />
+                    )}
                   </div>
                 </article>
               </Reveal>
@@ -247,7 +260,7 @@ export default async function ConceptionPage() {
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { label: "Croquis d'ambiance paysager réalisé par Permapaysage", image: "/photos-entretien/illustrations/croquis-ambiance.jpg" },
-              { label: "Plan paysager 2D détaillé avec zones fonctionnelles", image: "/photos-entretien/illustrations/plan-global-2d.png" },
+              { label: "Plan de masse d’un jardin écologique avec pelouse de micro-trèfle, massif sec et massif forestier", image: "/photos-site/plan-de-masse-conception-jardin-ecologique-paysagiste-clisson.webp" },
               { label: "Plan de plantation avec sélection d'essences locales", image: "/photos-entretien/illustrations/plan-plantation.png" },
             ].map((item, idx) => (
               <Reveal key={item.label} delay={idx * 100}>
@@ -292,7 +305,7 @@ export default async function ConceptionPage() {
       <CtaSection
         eyebrow="Lancer votre projet"
         title="Prêt à transformer votre extérieur ?"
-        description="Discutons de votre projet d'aménagement paysager dans le vignoble nantais. Bénéficiez d'un diagnostic expert pour valider la faisabilité technique et budgétaire de votre jardin. Nous transformons vos idées en un plan d'action concret, durable et chiffré."
+        description="Discutons de votre projet d'aménagement paysager dans le Vignoble nantais. Lors de la visite offerte, nous vérifions la faisabilité technique et le budget de votre jardin, puis vous recevez un devis détaillé."
       />
     </>
   );

@@ -2,6 +2,9 @@ import {
 	CheckCircleIcon,
 	ClockIcon,
 	EnvelopeIcon,
+	GlobeIcon,
+	HandsClappingIcon,
+	HeartIcon,
 	MapPinIcon,
 	PhoneIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -20,6 +23,7 @@ import {
 	buildWebPageSchema,
 } from "@/lib/seo";
 import { company, interventionCities } from "@/lib/site-data";
+import { companyValues } from "@/lib/values";
 
 export const metadata = buildPageMetadata({
 	title: "Contactez Permapaysage : Devis gratuit paysagiste Vallet",
@@ -50,6 +54,8 @@ const contactDetails = [
 	{ icon: MapPinIcon, label: "Adresse", value: company.address },
 	{ icon: ClockIcon, label: "Horaires", value: "Du lundi au vendredi, 8h–19h" },
 ];
+
+const valueIcons = [GlobeIcon, HeartIcon, HandsClappingIcon];
 
 export default function ContactPage() {
 	const schemas = [
@@ -186,6 +192,91 @@ export default function ContactPage() {
 								</div>
 							</div>
 						</aside>
+					</div>
+				</Container>
+			</section>
+
+			<section
+				id="notre-approche"
+				className="scroll-mt-24 py-16 md:py-24"
+				aria-labelledby="approche-title"
+			>
+				<Container>
+					<div className="max-w-3xl">
+						<p className="section-eyebrow">Notre approche</p>
+						<h2
+							id="approche-title"
+							className="mt-3 text-3xl leading-tight tracking-tight md:text-4xl"
+						>
+							Des jardins vivants, des valeurs qui nous guident
+						</h2>
+						<p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+							Chaque projet s&apos;appuie sur les trois éthiques fondamentales
+							de la permaculture.
+						</p>
+					</div>
+					<div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+						{companyValues.map((value, index) => {
+							const Icon = valueIcons[index];
+							return (
+								<article key={value.title}>
+									<Icon
+										size={32}
+										weight="duotone"
+										className="text-secondary"
+										aria-hidden
+									/>
+									<h3 className="mt-4 text-2xl">{value.title}</h3>
+									<p className="mt-4 text-base leading-relaxed text-muted-foreground">
+										{value.description}
+									</p>
+								</article>
+							);
+						})}
+					</div>
+				</Container>
+			</section>
+
+			<section
+				className="bg-card py-16 md:py-24"
+				aria-labelledby="jessy-title"
+			>
+				<Container>
+					<div className="grid items-center gap-10 lg:grid-cols-2">
+						<div className="photo-frame">
+							<Image
+								src="/photos-site/equipe-permapaysage-paysagiste-vallet.webp"
+								alt="Jessy et l'équipe Permapaysage devant le camion de l'entreprise à Vallet"
+								width={1600}
+								height={1200}
+								sizes="(max-width: 1023px) calc(100vw - 32px), 600px"
+								className="aspect-4/3 w-full rounded-xl object-cover"
+							/>
+						</div>
+						<div>
+							<p className="section-eyebrow">Le fondateur</p>
+							<h2 id="jessy-title" className="mt-3 text-3xl md:text-4xl">
+								Qui est Jessy ?
+							</h2>
+							<div className="mt-5 space-y-4 text-base leading-relaxed text-muted-foreground">
+								<p>
+									Avant de devenir paysagiste, j’ai travaillé dans plusieurs
+									secteurs d’activité. J’ai cherché pendant plus de six ans un
+									métier qui me ressemble, jusqu’à trouver le paysage.
+								</p>
+								<p>
+									En y entrant, j’ai découvert un paradoxe : pour moi, un
+									paysagiste est quelqu’un qui prend soin de la nature, mais ce
+									n’est pas toujours ce que l’on voit sur le terrain. C’est pour
+									montrer une autre façon de faire que j’ai créé Permapaysage.
+								</p>
+								<p>
+									J’ai aujourd’hui 8 ans d’expérience dans différentes
+									entreprises de Loire-Atlantique, et Permapaysage existe depuis
+									plus de 3 ans.
+								</p>
+							</div>
+						</div>
 					</div>
 				</Container>
 			</section>

@@ -19,7 +19,6 @@ export function GET() {
     "- /blog",
     "- /contact",
     "- /faq",
-    "- /a-propos",
     ...interventionCityLinks.map(({ href }) => `- ${href}`),
   ].join("\n");
 

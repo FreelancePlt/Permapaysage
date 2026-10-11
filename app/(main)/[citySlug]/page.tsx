@@ -118,22 +118,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			question: faq.question!.trim(),
 			answer: faq.reponse!.trim(),
 		}));
-	// TODO CONTENU: renseigner les trois réponses locales vérifiées dans Sanity pour chaque commune.
-	const placeholders = [
-		`Comment organiser une visite terrain ${location} ?`,
-		`Quelles réalisations pouvez-vous présenter ${location} ?`,
-		`Quels travaux d’entretien proposez-vous ${location} ?`,
-	].map((question) => ({
-		question,
-		answer:
-			"Réponse locale à venir. Contactez Jessy pour préciser votre projet.",
-	}));
-	const faqItems = [...realFaqItems, ...placeholders]
-		.filter(
-			(faq, index, items) =>
-				items.findIndex((item) => item.question === faq.question) === index,
-		)
-		.slice(0, 3);
+	const faqItems = realFaqItems.length ? realFaqItems : cityPage.faq;
 	const localReview =
 		content?.avisLocal?.auteur?.trim() && content.avisLocal.texte?.trim()
 			? content.avisLocal
@@ -157,7 +142,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			{ name: "Accueil", path: "/" },
 			{ name: `Paysagiste ${location}`, path: `/${cityPage.slug}` },
 		]),
-		...(realFaqItems.length ? [buildFaqSchema(realFaqItems)] : []),
+		...(faqItems.length ? [buildFaqSchema(faqItems)] : []),
 	];
 
 	return (
@@ -460,7 +445,7 @@ export default async function CitySeoPage({ params }: CityPageProps) {
 			{/* ── CTA FINAL ── */}
 			<CtaSection
 				title={`Votre jardin ${location} mérite un expert. Parlons-en.`}
-				description={`Échangeons sur votre projet paysager ${location}. Premier rendez-vous et diagnostic offerts.`}
+				description={`Échangeons sur votre projet paysager ${location}. Visite et devis offerts, sans engagement.`}
 			/>
 		</>
 	);
