@@ -10,8 +10,6 @@ import { Header } from "@/components/layout/header";
 import { CookieBanner } from "@/components/shared/CookieBanner";
 import { FloatingCallButton } from "@/components/shared/floating-call-button";
 
-export const dynamic = "force-dynamic";
-
 export default async function MainLayout({
 	children,
 }: {
