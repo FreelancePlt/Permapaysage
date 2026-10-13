@@ -10,10 +10,11 @@ import {
 
 export type { GoogleReviewSummary } from "@/lib/google-reviews";
 
+const REVALIDATE_SECONDS = 60 * 60 * 24;
+
 /**
- * Request-scoped deduplication only. Places content is never persisted.
- * https://developers.google.com/maps/documentation/places/web-service/policies
- * https://cloud.google.com/terms/maps-platform/eea/maps-service-terms
+ * Every Place Details call with `reviews` is billed (Enterprise + Atmosphere SKU),
+ * so the response is shared through the Next.js data cache and refreshed once a day.
  */
 export const getGoogleReviewSummary = cache(
 	async (): Promise<GoogleReviewSummary> => {
@@ -27,7 +28,7 @@ export const getGoogleReviewSummary = cache(
 						"X-Goog-Api-Key": key,
 						"X-Goog-FieldMask": "rating,userRatingCount,reviews,googleMapsUri",
 					},
-					cache: "no-store",
+					next: { revalidate: REVALIDATE_SECONDS },
 					signal: AbortSignal.timeout(5000),
 				},
 			);
@@ -37,7 +38,6 @@ export const getGoogleReviewSummary = cache(
 				parseGooglePlaceResponse(payload) ?? getFallbackGoogleReviewSummary()
 			);
 		} catch {
-			// No API payload or credential is logged, and no previous response is retained.
 			return getFallbackGoogleReviewSummary();
 		}
 	},
